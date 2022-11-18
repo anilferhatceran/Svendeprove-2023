@@ -1,11 +1,12 @@
 import './App.css'
 import './index.css'
+import Header from "./Components/Header"
 
 function App() {
 
   return (
     <div>
-        <h2 className='font-bold text-3xl'>Test</h2>
+        <Header/>
     </div>
   )
 }
