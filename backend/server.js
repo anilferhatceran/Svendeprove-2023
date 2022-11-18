@@ -1,9 +1,12 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
-require('dotenv').config()
+const connectDB = require('./config/db')
+const port = process.env.PORT || 5000
 
-app.get('/', function(req,res){
-    res.send('Hello Back again to master branch')
+connectDB()
+
+
+app.listen(port, () => {
+    console.log(`Server started on port ${port}`);
 })
-
-app.listen(process.env.SERVER_PORT)
