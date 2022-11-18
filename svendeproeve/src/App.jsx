@@ -7,7 +7,10 @@ function App() {
   return (
     <div>
         <Header/>
+<<<<<<< HEAD
         
+=======
+>>>>>>> backend
     </div>
   )
 }
