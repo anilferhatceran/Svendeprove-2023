@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const { protect } = require("../middleware/authMiddleware");
 const {
-  getUsers,
-  postUser,
-  updateUser,
-  deleteUser,
+  registerUser,
+  loginUser,
+  getMe,
 } = require("../controllers/userController");
 
 // This route is basically api/goals/about
@@ -24,8 +24,9 @@ const {
 
 // Because get/post and put/delete have the same route, we can combine
 // them onto one line of code by using router.route.
-router.route("/").get(getUsers).post(postUser);
-router.route("/:id").put(updateUser).delete(deleteUser);
+router.post("/", registerUser);
+router.post("/login", loginUser);
+router.get("/me", protect, getMe);
 
 // router.get("/", getUsers);
 // router.post("/", postUser);
