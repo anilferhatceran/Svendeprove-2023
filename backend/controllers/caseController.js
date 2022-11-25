@@ -1,7 +1,5 @@
 const asyncHandler = require("express-async-handler");
-
 const Case = require("../models/caseModel");
-const User = require("../models/userModel");
 
 // @desc    Get cases
 // @route   GET /api/cases
@@ -28,7 +26,9 @@ const postCase = asyncHandler(async (req, res) => {
     !req.body.rent ||
     !req.body.prepaidRent ||
     !req.body.heatPrice ||
-    !req.body.waterPrice
+    !req.body.waterPrice ||
+    !req.body.longitude ||
+    !req.body.latitude
   ) {
     res.status(400);
     throw new Error("Please don't leave fields empty");
@@ -52,6 +52,8 @@ const postCase = asyncHandler(async (req, res) => {
     elevatorAvailable: req.body.elevatorAvailable,
     balcony: req.body.balcony,
     isReserved: req.body.isReserved,
+    longitude: req.body.longitude,
+    latitude: req.body.latitude,
     user: req.user.id,
   });
 
