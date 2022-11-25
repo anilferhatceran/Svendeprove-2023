@@ -1,13 +1,13 @@
 const asyncHandler = require("express-async-handler");
-const { runInNewContext } = require("vm");
 
 const Case = require("../models/caseModel");
+const User = require("../models/userModel");
 
 // @desc    Get cases
 // @route   GET /api/cases
 // @access  Private
 const getCases = asyncHandler(async (req, res) => {
-  const cases = await Case.find();
+  const cases = await Case.find({ user: req.user.id });
 
   res.status(200).json(cases);
 });
@@ -52,6 +52,7 @@ const postCase = asyncHandler(async (req, res) => {
     elevatorAvailable: req.body.elevatorAvailable,
     balcony: req.body.balcony,
     isReserved: req.body.isReserved,
+    user: req.user.id,
   });
 
   res.status(200).json(_case);
@@ -60,37 +61,61 @@ const postCase = asyncHandler(async (req, res) => {
 // @desc    Update user
 // @route   PUT /api/users/:id
 // @access  Private
-const updateUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id);
-  if (!user) {
+const updateCase = asyncHandler(async (req, res) => {
+  const _case = await Case.findById(req.params.id);
+  if (!_case) {
     res.status(400);
+    throw new Error("Case not found");
+  }
+
+  // Check for user
+  if (!req.user) {
+    res.status(401);
     throw new Error("User not found");
   }
 
-  const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
+  // Make sure logged in user matches the user that made the goal
+  if (_case.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
+  const updatedCase = await Case.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
 
-  res.status(200).json(updateUser);
+  res.status(200).json(updatedCase);
 });
 
 // @desc    Delete user
 // @route   DELETE /api/users
 // @access  Private
-const deleteUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id);
-  if (!user) {
+const deleteCase = asyncHandler(async (req, res) => {
+  const _case = await Case.findById(req.params.id);
+  if (!_case) {
     res.status(400);
+    throw new Error("Case not found");
+  }
+
+  // Check for user
+  if (!req.user) {
+    res.status(401);
     throw new Error("User not found");
   }
 
-  await user.remove();
+  // Make sure logged in user matches the user that made the goal
+  if (_case.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
+  await _case.remove();
 
   res.status(200).json({ id: req.params.id });
 });
 module.exports = {
   getCases,
   postCase,
-  updateUser,
-  deleteUser,
+  updateCase,
+  deleteCase,
 };
