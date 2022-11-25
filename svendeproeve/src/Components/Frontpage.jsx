@@ -1,6 +1,7 @@
 import React from "react";
 import dummyData from "../dummyData";
 import Card from "./Card";
+import MapTest from "./MapTest";
 import SearchFilters from "./SearchFilters";
 
 export default function Frontpage(){
@@ -22,7 +23,7 @@ export default function Frontpage(){
                 </div>
                 <div className=" h-full w-1/2 p-5">
                   <div className=" bg-black h-full w-full rounded-3xl">
-
+                    <MapTest/>
                   </div>
                 </div>
             </div>

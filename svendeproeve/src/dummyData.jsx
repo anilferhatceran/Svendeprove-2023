@@ -7,6 +7,7 @@ export default[
         bedrooms:3,
         bathrooms:2,
         squareMeters:69,
+        coordinates:[55.65420,12.27386]
     },
     {
         id:2,
@@ -16,6 +17,7 @@ export default[
         bedrooms:2,
         bathrooms:1,
         squareMeters:54,
+        coordinates:[55.65461,12.27394]
     },
     {
         id:3,
@@ -25,6 +27,7 @@ export default[
         bedrooms:5,
         bathrooms:3,
         squareMeters:102,
+        coordinates:[55.64629,12.28753]
     },
     {
         id:4,
@@ -34,5 +37,6 @@ export default[
         bedrooms:1,
         bathrooms:1,
         squareMeters:24,
+        coordinates:[55.65032,12.26518]
     },
 ]
