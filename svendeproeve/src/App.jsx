@@ -7,16 +7,18 @@ import Card from './Components/Card'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from './Components/About'
 import MapTest from './Components/MapTest'
+import CasePage from './Components/CasePage'
 
 function App() {
   return (
     <Router>
-      <div>
+      <div className=''>
           <Header/>
           <Routes>
             <Route path="/" element={<Frontpage/>}/>
             <Route path="/about" element={<About/>}/>
             <Route path="/test" element={<MapTest/>}/>
+            <Route path="/case" element={<CasePage/>}/>
           </Routes>
       </div>
     </Router>

@@ -27,7 +27,7 @@ export default function SearchFilters(){
     console.log(formData)
 
     return(
-        <form className="flex flex-row  pl-6 pr-6 pt-3">
+        <form className="flex flex-row   pr-6 pt-3">
             <div className="flex bg-slate-200 rounded-lg items-center p-1 mr-5">
                 <FaSearch className="ml-1"/>
                 <input

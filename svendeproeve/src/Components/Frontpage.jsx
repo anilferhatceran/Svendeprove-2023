@@ -14,14 +14,14 @@ export default function Frontpage(){
         )
       })
     return(
-      <div className=" ">
+      <div className="bg-slate-100">
         <SearchFilters/>
         <div className="flex flex-col">
-            <div className="flex flex-row h-screen w-full">
-                <div className=" h-full w-1/2 flex flex-wrap m-5 ">
+            <div className="flex flex-row h-screen w-full mt-5">
+                <div className=" h-full w-1/2 flex flex-wrap ">
                     {cardElement}
                 </div>
-                <div className=" h-full w-1/2 p-5">
+                <div className=" h-full w-1/2 pl-5 ">
                   <div className=" bg-black h-full w-full rounded-3xl">
                     <MapTest/>
                   </div>
