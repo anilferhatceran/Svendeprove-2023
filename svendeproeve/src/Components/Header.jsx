@@ -1,9 +1,15 @@
 import React from "react";
-import { FaHouseUser } from "react-icons/fa";
+import { FaHouseUser, FaUserAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import Modal from "./Modal";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleOn } from "../features/modal/ModalSlice";
 
 export default function Header() {
+  const toggleModal = useSelector((state) => state.modal.toggleModal);
+  const dispatch = useDispatch();
+
   const [userMenu, setUserMenu] = useState(false);
 
   return (
@@ -34,16 +40,13 @@ export default function Header() {
           <option>Sign In</option>
         </select> */}
         <div>
-          {userMenu ? (
+          {!userMenu ? (
             <>
               <button
                 onClick={() => setUserMenu(!userMenu)}
                 className="block h-9 w-9 rounded-full overflow-hidden border-2 border-gray-100 focus:outline-none hover:border-gray-500"
               >
-                <img
-                  className="h-full w-full object-cover"
-                  src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/256/profile-icon.png"
-                />
+                <FaUserAlt className="h-full w-full" />
               </button>
               <div className="bg-gray-100 rounded-lg mt-1 ">
                 <Link
@@ -52,7 +55,10 @@ export default function Header() {
                 >
                   Dashboard
                 </Link>
-                <Link className="block py-1.5 p-3 hover:bg-gray-200 rounded-md mb-1">
+                <Link
+                  onClick={() => dispatch(toggleOn())}
+                  className="block py-1.5 p-3 hover:bg-gray-200 rounded-md mb-1"
+                >
                   Sign In
                 </Link>
                 {/* <Link className="block py-1 p-3 hover:bg-gray-200 rounded-md">
@@ -66,14 +72,18 @@ export default function Header() {
                 onClick={() => setUserMenu(!userMenu)}
                 className="block h-9 w-9 rounded-full overflow-hidden border-2 border-gray-100 focus:outline-none hover:border-gray-500"
               >
-                <img
-                  className="h-full w-full object-cover"
-                  src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/256/profile-icon.png"
-                />
+                <FaUserAlt className="h-full w-full" />
               </button>
+              {/* <Link
+                onClick={() => dispatch(toggleOn())}
+                className="block py-1.5 p-3 hover:bg-gray-200 rounded-md mb-1"
+              >
+                Sign In
+              </Link> */}
             </>
           )}
         </div>
+        {toggleModal ? <Modal /> : null}
       </div>
     </nav>
   );
