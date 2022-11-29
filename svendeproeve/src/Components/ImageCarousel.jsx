@@ -1,22 +1,36 @@
 import React,{useState} from 'react'
+import dummyData from '../dummyData'
+import {FaArrowCircleRight,FaArrowCircleLeft} from 'react-icons/fa'
 
-export default function ImageCarousel(props) {
-    const [carouselImage,setCarouselImage] = useState(1)
-    console.log(props.id.length)
+const ImageCarousel = ({slides}) => {
+    const[current,setCurrent] = useState(0)
+    const length = slides.length
 
-    function NextImage(){
-        setCarouselImage(carouselImage + 1)
+    if(!Array.isArray(slides)  || slides.length <= 0){
+        return null
     }
-    function PrevImage(){
-        setCarouselImage(carouselImage - 1)
+
+    
+    const nextSlide = () => {
+        setCurrent(current === length - 1 ? 0 : current + 1)
     }
-    return (
-        // <div>{props.image}</div>
-        // <img src={`${props.image}`}/>
-    <div>
-        <div>{props.id === carouselImage ? <img src={props.image}/> : ""}</div>
-        <button onClick={PrevImage} className="bg-red-600">prev image</button>
-        <button onClick={NextImage} className="bg-blue-600">next image</button>
-    </div>
-    )
+
+    const prevSlide = () => {
+        setCurrent(current === 0 ? length - 1 : current - 1)
+    }
+    return(
+    <section className='relative h-[100vh] flex justify-center  '>
+        <FaArrowCircleLeft className='absolute top-1/2 left-8 text-5xl text-white z-10 cursor-pointer select-none' onClick={prevSlide}/>
+        <FaArrowCircleRight className='absolute top-1/2 right-8 text-5xl text-white z-10 cursor-pointer select-none' onClick={nextSlide}/>
+        {dummyData.map((slide,index) =>{
+        return(
+            <div className={index === current ? 'opacity-100 transition duration-100 scale-100' : 'opacity-0 transition duration-100 ease-out'} key={index}>
+                {index === current && (<img src={slide.image} className="w-[1000px] h-[600px]"/>)}
+            </div>
+            )
+        })}
+    </section>
+  ) 
 }
+
+export default ImageCarousel

@@ -32,7 +32,7 @@ export default function MapTest(){
             setShowPopup(city);
           }}
         >
-          <FaMapMarkerAlt className="text-4xl text-sky-900"/>
+          <FaMapMarkerAlt className="text-4xl text-sky-900 cursor-pointer"/>
         </Marker>
       )),
     []

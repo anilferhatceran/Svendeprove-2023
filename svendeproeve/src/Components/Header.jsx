@@ -21,7 +21,9 @@ export default function Header() {
           <Link to="/case" className="py-2 pl-10 pr-10 text-lg">Real Estate Agents</Link>
           <a className="py-2 pl-10 pr-10 text-lg">Blog</a>
         </div>
-        <div className=" h-10 w-10 rounded-full bg-blue-500"></div>
+        <button>
+          <img src="https://thispersondoesnotexist.com/image" className=" h-10 w-10 rounded-full bg-blue-500 "></img>
+        </button>
       </div>
     </nav>
   );
