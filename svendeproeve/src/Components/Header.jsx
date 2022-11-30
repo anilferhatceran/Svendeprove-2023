@@ -40,7 +40,7 @@ export default function Header() {
           <option>Sign In</option>
         </select> */}
         <div>
-          {!userMenu ? (
+          {userMenu ? (
             <>
               <button
                 onClick={() => setUserMenu(!userMenu)}
@@ -48,23 +48,21 @@ export default function Header() {
               >
                 <FaUserAlt className="h-full w-full" />
               </button>
-              <div className="bg-gray-100 rounded-lg mt-1 ">
-                <Link
-                  className="block py-1.5 p-3 hover:bg-gray-200 w-full rounded-md mb-1"
-                  to="/dashboard"
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  onClick={() => dispatch(toggleOn())}
-                  className="block py-1.5 p-3 hover:bg-gray-200 rounded-md mb-1"
-                >
-                  Sign In
-                </Link>
-                {/* <Link className="block py-1 p-3 hover:bg-gray-200 rounded-md">
-                  Sign Out
-                </Link> */}
-              </div>
+              <ul className="bg-gray-100 rounded-lg mt-1 z-50 absolute text-right float-right right-3 ">
+                <li>
+                  <Link
+                    className="block py-1.5 p-3 hover:bg-gray-200 w-full rounded-md mb-1"
+                    to="/dashboard"
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link className="block py-1.5 p-3 hover:bg-gray-200 rounded-md mb-1">
+                    Sign Out
+                  </Link>
+                </li>
+              </ul>
             </>
           ) : (
             <>
