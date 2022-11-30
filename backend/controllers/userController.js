@@ -7,7 +7,7 @@ const User = require("../models/userModel");
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password } = req.body;
 
   // Check for errors / if user didn't leave empty input
 
@@ -32,7 +32,6 @@ const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create({
     name,
     email,
-    role,
     password: hashedPassword,
   });
 
@@ -41,7 +40,6 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
-      role: user.role,
       token: generateToken(user._id),
     });
   } else {
@@ -65,7 +63,6 @@ const loginUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
-      role: user.role,
       token: generateToken(user._id),
     });
   } else {
