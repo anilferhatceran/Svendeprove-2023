@@ -8,7 +8,7 @@ const {
 } = require("../controllers/caseController");
 const { protect } = require("../middleware/authMiddleware");
 
-router.route("/").get(protect, getCases).post(protect, postCase);
+router.route("/").get(getCases).post(protect, postCase);
 router.route("/:id").put(protect, updateCase).delete(protect, deleteCase);
 
 // router.get("/", getUsers);

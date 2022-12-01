@@ -18,7 +18,6 @@ export default function Header() {
   const dispatch = useDispatch();
 
   const [userMenu, setUserMenu] = useState(false);
-  console.log(userMenu);
 
   const onClickRegister = () => {
     dispatch(toggleOnRegister());
@@ -73,7 +72,7 @@ export default function Header() {
                   <li>
                     <Link
                       className="block py-1.5 p-3 hover:bg-gray-200 w-full rounded-md mb-1"
-                      to="/dashboard"
+                      to="/agentpanel"
                     >
                       Dashboard
                     </Link>

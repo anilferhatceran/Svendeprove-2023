@@ -71,10 +71,10 @@ function Register() {
 
   return (
     <>
-      <section>
+      <div>
         <p className="mb-5 text-lg">Please create an account</p>
-      </section>
-      <section className="w-full">
+      </div>
+      <div className="w-full">
         <form onSubmit={onSubmit}>
           <div className="mb-6">
             <label className={formLabelClass} htmlFor="name">
@@ -148,7 +148,7 @@ function Register() {
             </button>
           </div>
         </form>
-      </section>
+      </div>
     </>
   );
 }
