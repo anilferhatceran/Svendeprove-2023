@@ -1,11 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createCase } from "../Features/cases/caseSlice";
-import Moment from "moment";
+import { format } from "date-fns";
+import { storage } from "../firebase/firebase";
+import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
 
 function Agentpanel() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageList, setImageList] = useState([]);
+
+  const imageListRef = ref(storage, "caseImages");
+
+  const uploadImage = () => {
+    if (imageUpload == null) return;
+
+    const metadata = {
+      contentType: "image/*",
+    };
+
+    const imageRef = ref(storage, `caseImages/${imageUpload.name + v4()}`);
+    uploadBytes(imageRef, imageUpload, meta).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageList((prev) => [...prev, url]);
+      });
+    });
+  };
+
+  console.log(imageUpload);
+
+  useEffect(() => {
+    listAll(imageListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setImageList((prev) => [...prev, url]);
+        });
+      });
+    });
+  }, []);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -29,6 +64,7 @@ function Agentpanel() {
     elevatorAvailable: false,
     balcony: false,
     isReserved: false,
+    image: "",
   });
 
   const {
@@ -53,6 +89,7 @@ function Agentpanel() {
     elevatorAvailable,
     balcony,
     isReserved,
+    image,
   } = formData;
 
   const onChange = (e) => {
@@ -74,7 +111,7 @@ function Agentpanel() {
       thirdDescription,
       rooms,
       size,
-      availableFrom,
+      availableFrom: format(new Date(availableFrom), "dd/MM/yyyy"),
       deposit,
       rent,
       prepaidRent,
@@ -87,6 +124,7 @@ function Agentpanel() {
       elevatorAvailable,
       balcony,
       isReserved,
+      image,
     };
 
     dispatch(createCase(caseData));
@@ -102,9 +140,15 @@ function Agentpanel() {
           Her kan du tilføje eller opdatere boliger
         </p>
 
-        <div className="p-6 rounded-lg shadow-lg bg-white max-w-md flex justify-center">
+        <div className="p-6 rounded-lg shadow-lg bg-white max-w-md">
           <form onSubmit={onSubmit}>
             <div className="form-group mb-6">
+              <label
+                className="form-check-label text-gray-800"
+                htmlFor="caseTitle"
+              >
+                Title
+              </label>
               <input
                 type="text"
                 name="title"
@@ -118,6 +162,12 @@ function Agentpanel() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="form-group mb-6">
+                <label
+                  className="form-check-label text-gray-800"
+                  htmlFor="caseAddress"
+                >
+                  Address
+                </label>
                 <input
                   type="text"
                   name="address"
@@ -130,6 +180,12 @@ function Agentpanel() {
                 />
               </div>
               <div className="form-group mb-6">
+                <label
+                  className="form-check-label text-gray-800"
+                  htmlFor="caseCity"
+                >
+                  City
+                </label>
                 <input
                   type="text"
                   name="city"
@@ -142,8 +198,14 @@ function Agentpanel() {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-4">
-              <div className="form-group mb-6">
+            <div className="grid grid-cols-3">
+              <div className="form-group mb-6 w-[7rem]">
+                <label
+                  className="form-check-label text-gray-800"
+                  htmlFor="caseRooms"
+                >
+                  Rooms
+                </label>
                 <input
                   type="number"
                   name="rooms"
@@ -155,7 +217,13 @@ function Agentpanel() {
                   onChange={onChange}
                 />
               </div>
-              <div className="form-group mb-6">
+              <div className="form-group mb-6 w-[7rem]">
+                <label
+                  className="form-check-label text-gray-800"
+                  htmlFor="caseSize"
+                >
+                  Size
+                </label>
                 <input
                   type="number"
                   name="size"
@@ -168,6 +236,12 @@ function Agentpanel() {
                 />
               </div>
               <div className="form-group mb-6">
+                <label
+                  className="form-check-label text-gray-800"
+                  htmlFor="caseAvailableFrom"
+                >
+                  Available From
+                </label>
                 <input
                   type="date"
                   name="availableFrom"
@@ -181,6 +255,12 @@ function Agentpanel() {
             </div>
             <div className="grid grid-cols-3 gap-2">
               <div className="form-group mb-6">
+                <label
+                  className="form-check-label text-gray-800"
+                  htmlFor="caseDeposit"
+                >
+                  Deposit
+                </label>
                 <input
                   type="number"
                   name="deposit"
@@ -193,6 +273,12 @@ function Agentpanel() {
                 />
               </div>
               <div className="form-group mb-6">
+                <label
+                  className="form-check-label text-gray-800"
+                  htmlFor="caseRent"
+                >
+                  Rent
+                </label>
                 <input
                   type="number"
                   name="rent"
@@ -205,6 +291,12 @@ function Agentpanel() {
                 />
               </div>
               <div className="form-group mb-6">
+                <label
+                  className="form-check-label text-gray-800"
+                  htmlFor="casePrepaidRent"
+                >
+                  Prepaid Rent
+                </label>
                 <input
                   type="number"
                   name="prepaidRent"
@@ -219,32 +311,50 @@ function Agentpanel() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="form-group mb-6">
-                <input
-                  type="number"
-                  name="longitude"
-                  className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
-                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  id="caseLongitude"
-                  placeholder="Longitude"
-                  value={longitude}
-                  onChange={onChange}
-                />
-              </div>
-              <div className="form-group mb-6">
+                <label
+                  className="form-check-label text-gray-800"
+                  htmlFor="caseLatitude"
+                >
+                  Latitude
+                </label>
                 <input
                   type="number"
                   name="latitude"
                   className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                   rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   id="caseLatitude"
-                  placeholder="Latitude"
+                  placeholder="12.3424169"
                   value={latitude}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="form-group mb-6">
+                <label
+                  className="form-check-label text-gray-800"
+                  htmlFor="caseLongitude"
+                >
+                  Longitude
+                </label>
+                <input
+                  type="number"
+                  name="longitude"
+                  className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
+                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="caseLongitude"
+                  placeholder="55.732542"
+                  value={longitude}
                   onChange={onChange}
                 />
               </div>
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div className="form-group mb-6">
+                <label
+                  className="form-check-label text-gray-800"
+                  htmlFor="caseWaterPrice"
+                >
+                  Water Price
+                </label>
                 <input
                   type="number"
                   name="waterPrice"
@@ -257,6 +367,12 @@ function Agentpanel() {
                 />
               </div>
               <div className="form-group mb-6">
+                <label
+                  className="form-check-label text-gray-800"
+                  htmlFor="caseHeatPrice"
+                >
+                  Heating Price
+                </label>
                 <input
                   type="number"
                   name="heatPrice"
@@ -334,6 +450,12 @@ function Agentpanel() {
               </div>
             </div>
             <div className="form-group mb-6">
+              <label
+                className="form-check-label text-gray-800"
+                htmlFor="caseFirstDesc"
+              >
+                Lejemålsinformation
+              </label>
               <textarea
                 className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
@@ -345,6 +467,12 @@ function Agentpanel() {
               />
             </div>
             <div className="form-group mb-6">
+              <label
+                className="form-check-label text-gray-800"
+                htmlFor="caseSecondDesc"
+              >
+                Områdebeskrivelse
+              </label>
               <textarea
                 className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
@@ -356,6 +484,12 @@ function Agentpanel() {
               />
             </div>
             <div className="form-group mb-6">
+              <label
+                className="form-check-label text-gray-800"
+                htmlFor="caseThirdDesc"
+              >
+                Ejendomsbeskrivelse
+              </label>
               <textarea
                 className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
@@ -365,6 +499,37 @@ function Agentpanel() {
                 value={thirdDescription}
                 onChange={onChange}
               />
+            </div>
+            <div className="grid grid-cols-2">
+              <div className="form-group mb-6">
+                <label
+                  className="form-check-label text-gray-800"
+                  htmlFor="caseThirdDesc"
+                >
+                  Tilføj billede(r) til ejendommen
+                </label>
+                <input
+                  type="file"
+                  name="image"
+                  className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
+                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="caseImage"
+                  accept="image/*"
+                  onChange={(event) => {
+                    setImageUpload(event.target.files[0]);
+                  }}
+                />
+              </div>
+              <div className="form-group mb-6 flex items-end justify-center pl-2">
+                <button
+                  className="w-30 px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 
+              hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150
+              ease-in-out"
+                  onClick={uploadImage}
+                >
+                  Tilføj billede
+                </button>
+              </div>
             </div>
             <button
               type="submit"

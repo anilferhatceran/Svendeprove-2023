@@ -41,7 +41,7 @@ const caseSchema = mongoose.Schema(
       required: true,
     },
     availableFrom: {
-      type: Date,
+      type: String,
     },
     deposit: {
       type: Number,
@@ -85,6 +85,9 @@ const caseSchema = mongoose.Schema(
     },
     isReserved: {
       type: Boolean,
+    },
+    image: {
+      type: [String],
     },
   },
   {
