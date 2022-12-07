@@ -1,82 +1,82 @@
-import React,{useState} from 'react'
-import dummyData from '../dummyData'
-import {FaArrowCircleRight,FaArrowCircleLeft} from 'react-icons/fa'
-import { useSpring, animated, to } from "react-spring";
+import React, {useState} from "react";
+import {motion, AnimatePresence, wrap} from "framer-motion"
+import dummyData from "../dummyData";
+import {FaArrowAltCircleLeft, FaArrowAltCircleRight} from "react-icons/fa"
 
-const ImageCarousel = ({slides}) => {
-    const[current,setCurrent] = useState(0)
-    const[prev, setPrev] = useState(slides.length-1)
-    const length = slides.length
+const variants = {
+  enter: (direction) => {
+    return {
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0
+    };
+  },
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1
+  },
+  exit: (direction) => {
+    return {
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0
+    };
+  }
+};
 
-    if(!Array.isArray(slides)  || slides.length <= 0){
-        return null
-    }
-    console.log("current: " +current);
-    console.log("prev: " +prev);
-    const [springs, api] = useSpring(() => ({
-        from: { x: 0 },
-      }))
-    
-    const nextSlide = () => {
-        setCurrent(current === length - 1 ? 0 : current + 1)
-        setPrev(prev === length - 1 ? 0 : prev  + 1)
-        api.start({
-            from: {
-              x: 1500,
-            },
-            to: {
-              x: 0,
-            },
-          })
-    }
+const swipeConfidenceThreshold = 10000;
+const swipePower = (offset, velocity,) => {
+  return Math.abs(offset) * velocity;
+};
 
-    const prevSlide = () => {
-        setCurrent(current === 0 ? length - 1 : current - 1)
-        setPrev(prev === 0 ? length - 1 : prev - 1)
-        api.start({
-            from: {
-              x: -1500,
-            },
-            to: {
-              x: 0,
-            },
-          })
-    }
-    return(
-    <section className='relative   flex justify-center '>
-        <div className='w-[1000px] h-[600px] relative overflow-hidden'>
-        <FaArrowCircleLeft className=' absolute top-1/2 left-8 text-5xl text-white z-50 cursor-pointer select-none' onClick={prevSlide}/>
-        <FaArrowCircleRight className='absolute top-1/2 right-8 text-5xl text-white z-50 cursor-pointer select-none' onClick={nextSlide}/>
-            {dummyData.map((slide,index) =>{
-            return(
-                <div className='' key={index}>
-                    <animated.div
-                    style={{
-                        width: 1000,
-                        ...springs,
-                    }}
-                    >
-                        <div className={'z-20 absolute'} >
-                            {index === current && (<img src={slide.image} className="w-[1000px] h-[600px]"/>)}
-                        </div>
-                    </animated.div>
-                    
-                    <animated.div
-                    style={{
-                        width: 1000,
-                        ...springs,
-                    }}
-                    >
-                        <div className={'z-10 absolute'} >
-                            {index === prev && (<img src={slide.image} className="w-[1000px] h-[600px]"/>)}
-                        </div>
-                    </animated.div>
-                </div>
-                )
-            })}
-        </div>
+export default function ImageCarousel({slides}){
+  
+  const [[page, direction],SetPage] = useState([0,0]);
+
+  const imageIndex = wrap(0, dummyData.length, page)
+
+
+  const paginate = (newDirection) =>{
+    SetPage([page + newDirection, newDirection])
+  }
+
+  return(
+    <section className="flex justify-center relative ">
+      <div onClick={() => paginate(1)} className="absolute top-1/2 right-8 text-5xl text-white z-50 cursor-pointer select-none">
+        <FaArrowAltCircleRight/>
+      </div>
+      <div onClick={() => paginate(-1)} className="absolute top-1/2 left-8 text-5xl text-white z-50 cursor-pointer select-none">
+        <FaArrowAltCircleLeft/>
+      </div>
+      <AnimatePresence initial={false} custom={direction}>
+        <motion.img
+        className="absolute max-full flex overflow-hidden rounded-md"
+        key={page}
+        src={slides[imageIndex].image}
+        custom={direction}
+        variants={variants}
+        initial="enter"
+        animate="center"
+        exit="exit"
+        transition={{
+          x: {type:"spring", stiffness: 300, damping: 30},
+          opacity:{duration: 0.2}
+        }}
+        drag="x"
+        dragConstraints={{left:0,right:0}}
+        dragElastic={1}
+        onDragEnd={(e, {offset,velocity}) =>{
+          const swipe = swipePower(offset.x ,velocity.y);
+
+          if(swipe < -swipeConfidenceThreshold){
+            paginate(1);
+          }
+          else if(swipe > swipeConfidenceThreshold){
+            paginate(-1)
+          }
+        }}
+      />
+      </AnimatePresence>
     </section>
-  ) 
+  )
 }
-
-export default ImageCarousel

@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 export default function Header() {
   return (
-    <nav className="font-DMsans">
+    <nav className="font-DMsans m-5">
       <div className="flex flex-wrap items-center  justify-between">
         <Link to="/" className="flex items-center basis-1/6">
           <h1 className="hr-6  text-sky-500 text-4xl">

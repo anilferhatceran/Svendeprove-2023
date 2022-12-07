@@ -6,10 +6,9 @@ import ImageCarousel from "./ImageCarousel";
 export default function CasePage(){
 
     return(
-        <div className="bg-white h-screen mt-10">
-
-            <div className=" bg-slate-300">
-                <ImageCarousel slides={dummyData}/>
+        <div className="bg-white m-10 flex flex-col max-w-6xl h-screen">
+            <div className="">
+                <ImageCarousel slides={dummyData} className=""/>
             </div>
         </div>
     )
