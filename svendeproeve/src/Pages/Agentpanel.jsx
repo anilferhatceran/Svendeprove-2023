@@ -13,34 +13,30 @@ function Agentpanel() {
   const [imageUpload, setImageUpload] = useState(null);
   const [imageList, setImageList] = useState([]);
 
+  const [imageUrl, setImageUrl] = useState("");
+
   const imageListRef = ref(storage, "caseImages");
 
   const uploadImage = () => {
-    if (imageUpload == null) return;
+    if (user) {
+      if (imageUpload == null) return;
 
-    const metadata = {
-      contentType: "image/*",
-    };
-
-    const imageRef = ref(storage, `caseImages/${imageUpload.name + v4()}`);
-    uploadBytes(imageRef, imageUpload, meta).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        setImageList((prev) => [...prev, url]);
-      });
-    });
-  };
-
-  console.log(imageUpload);
-
-  useEffect(() => {
-    listAll(imageListRef).then((response) => {
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
+      const imageRef = ref(storage, `caseImages/${imageUpload.name + v4()}`);
+      uploadBytes(imageRef, imageUpload).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then((url) => {
           setImageList((prev) => [...prev, url]);
+          // If logged shows download URL. If put as src it'll show the actual image.
         });
       });
-    });
-  }, []);
+    } else {
+      return <h1>You are not authorized</h1>;
+    }
+  };
+
+  // TODO:
+  // getDownloadURL and the {url} variable gets my downloadlink / display link of the image
+  // I need to push this link to the image array of my mongoose model
+  // map the image array and display case images
 
   const [formData, setFormData] = useState({
     title: "",
@@ -64,7 +60,7 @@ function Agentpanel() {
     elevatorAvailable: false,
     balcony: false,
     isReserved: false,
-    image: "",
+    image: [],
   });
 
   const {
@@ -99,6 +95,16 @@ function Agentpanel() {
     }));
   };
 
+  useEffect(() => {
+    listAll(imageListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setImageList((prev) => [...prev, url]);
+        });
+      });
+    });
+  }, []);
+
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -124,7 +130,11 @@ function Agentpanel() {
       elevatorAvailable,
       balcony,
       isReserved,
-      image,
+      image: image.push(() => {
+        storage.ref("caseImages").getDownloadURL((url) => {
+          image.push(url);
+        });
+      }),
     };
 
     dispatch(createCase(caseData));
@@ -139,6 +149,8 @@ function Agentpanel() {
         <p className="text-lg font-light mt-3 underline underline-offset-2">
           Her kan du tilføje eller opdatere boliger
         </p>
+
+        <img src={imageUrl} />
 
         <div className="p-6 rounded-lg shadow-lg bg-white max-w-md">
           <form onSubmit={onSubmit}>
