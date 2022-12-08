@@ -1,10 +1,13 @@
 import React from "react";
 import { FaHouseUser } from "react-icons/fa";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 export default function Header() {
+  let activeClassName=(
+    "py-2 pl-10 pr-10 text-lg text-blue-600 underline underline-offset-8 decoration-blue-500"
+  )
   return (
-    <nav className="font-DMsans m-5">
+    <nav className="font-DMsans p-5 bg-slate-50">
       <div className="flex flex-wrap items-center  justify-between">
         <Link to="/" className="flex items-center basis-1/6">
           <h1 className="hr-6  text-sky-500 text-4xl">
@@ -13,13 +16,41 @@ export default function Header() {
           <span className="text-black font-semibold text-4xl ">SvendePrøve</span>
         </Link>
         <div className="">
-          <a className="py-2 pl-10 pr-10 text-lg text-blue-600 underline underline-offset-8 decoration-blue-500">
-            Search
-          </a>
-          <Link to="/About" className="py-2 pl-10 pr-10 text-lg">About</Link>
-          <Link to="test" className="py-2 pl-10 pr-10 text-lg">Help</Link>
-          <Link to="/case" className="py-2 pl-10 pr-10 text-lg">Real Estate Agents</Link>
-          <a className="py-2 pl-10 pr-10 text-lg">Blog</a>
+        <NavLink
+          to="/" 
+          className={({isActive}) =>
+             isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
+        }>
+        Search
+        </NavLink>
+          <NavLink
+            to="/About"
+            className={({isActive}) =>
+            isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"  
+          }
+            >About</NavLink>
+        <NavLink
+          to="test" 
+          className={({isActive}) =>
+             isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
+        }>
+        Help
+        </NavLink>
+        <NavLink
+          to="/case"
+          className={({ isActive }) =>
+            isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
+          }
+        >
+     Real Estate Agents
+  </NavLink>
+  <NavLink
+          to="/blog" 
+          className={({isActive}) =>
+             isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
+        }>
+        Blog
+        </NavLink>
         </div>
         <button>
           <img src="https://thispersondoesnotexist.com/image" className=" h-10 w-10 rounded-full bg-blue-500 "></img>
