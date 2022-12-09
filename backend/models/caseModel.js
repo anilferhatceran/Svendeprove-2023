@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require("moment");
 
 const caseSchema = mongoose.Schema(
   {
@@ -19,7 +20,15 @@ const caseSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a city"],
     },
-    description: {
+    firstDescription: {
+      type: String,
+      required: [true, "Please add a description"],
+    },
+    secondDescription: {
+      type: String,
+      required: [true, "Please add a description"],
+    },
+    thirdDescription: {
       type: String,
       required: [true, "Please add a description"],
     },
@@ -32,8 +41,7 @@ const caseSchema = mongoose.Schema(
       required: true,
     },
     availableFrom: {
-      type: Date,
-      required: true,
+      type: String,
     },
     deposit: {
       type: Number,
@@ -77,6 +85,9 @@ const caseSchema = mongoose.Schema(
     },
     isReserved: {
       type: Boolean,
+    },
+    image: {
+      type: [String],
     },
   },
   {

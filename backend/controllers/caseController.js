@@ -18,7 +18,9 @@ const postCase = asyncHandler(async (req, res) => {
     !req.body.title ||
     !req.body.address ||
     !req.body.city ||
-    !req.body.description ||
+    !req.body.firstDescription ||
+    !req.body.secondDescription ||
+    !req.body.thirdDescription ||
     !req.body.rooms ||
     !req.body.size ||
     !req.body.availableFrom ||
@@ -38,7 +40,9 @@ const postCase = asyncHandler(async (req, res) => {
     title: req.body.title,
     address: req.body.address,
     city: req.body.city,
-    description: req.body.description,
+    firstDescription: req.body.firstDescription,
+    secondDescription: req.body.secondDescription,
+    thirdDescription: req.body.thirdDescription,
     rooms: req.body.rooms,
     size: req.body.size,
     availableFrom: req.body.availableFrom,
@@ -55,6 +59,7 @@ const postCase = asyncHandler(async (req, res) => {
     longitude: req.body.longitude,
     latitude: req.body.latitude,
     user: req.user.id,
+    image: req.user.image,
   });
 
   res.status(200).json(_case);
