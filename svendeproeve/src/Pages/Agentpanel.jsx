@@ -108,6 +108,14 @@ function Agentpanel() {
   const onSubmit = (e) => {
     e.preventDefault();
 
+    // listAll(imageListRef).then((response) => {
+    //   response.items.forEach((item) => {
+    //     getDownloadURL(item).then((url) => {
+    //       setFormData(image.push(url));
+    //     });
+    //   });
+    // });
+
     const caseData = {
       title,
       address,
@@ -130,11 +138,7 @@ function Agentpanel() {
       elevatorAvailable,
       balcony,
       isReserved,
-      image: image.push(() => {
-        storage.ref("caseImages").getDownloadURL((url) => {
-          image.push(url);
-        });
-      }),
+      image: imageList,
     };
 
     dispatch(createCase(caseData));
@@ -149,8 +153,6 @@ function Agentpanel() {
         <p className="text-lg font-light mt-3 underline underline-offset-2">
           Her kan du tilføje eller opdatere boliger
         </p>
-
-        <img src={imageUrl} />
 
         <div className="p-6 rounded-lg shadow-lg bg-white max-w-md">
           <form onSubmit={onSubmit}>

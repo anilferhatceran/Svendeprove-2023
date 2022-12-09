@@ -59,7 +59,7 @@ const postCase = asyncHandler(async (req, res) => {
     longitude: req.body.longitude,
     latitude: req.body.latitude,
     user: req.user.id,
-    image: req.user.image,
+    image: req.body.image,
   });
 
   res.status(200).json(_case);
