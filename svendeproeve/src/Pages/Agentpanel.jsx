@@ -11,27 +11,13 @@ function Agentpanel() {
   const { user } = useSelector((state) => state.auth);
 
   const [imageUpload, setImageUpload] = useState(null);
+  // This is an array that retrieves all images in the cloud storage
   const [imageList, setImageList] = useState([]);
+  const [imageTestArray, setImageTestArray] = useState([]);
 
   const [imageUrl, setImageUrl] = useState("");
 
   const imageListRef = ref(storage, "caseImages");
-
-  const uploadImage = () => {
-    if (user) {
-      if (imageUpload == null) return;
-
-      const imageRef = ref(storage, `caseImages/${imageUpload.name + v4()}`);
-      uploadBytes(imageRef, imageUpload).then((snapshot) => {
-        getDownloadURL(snapshot.ref).then((url) => {
-          setImageList((prev) => [...prev, url]);
-          // If logged shows download URL. If put as src it'll show the actual image.
-        });
-      });
-    } else {
-      return <h1>You are not authorized</h1>;
-    }
-  };
 
   // TODO:
   // getDownloadURL and the {url} variable gets my downloadlink / display link of the image
@@ -105,16 +91,26 @@ function Agentpanel() {
     });
   }, []);
 
+  const testFunction = () => {
+    console.log("I'm in here");
+    if (imageUpload == null) return;
+
+    const imageRef = ref(storage, `caseImages/${imageUpload.name + title}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageList((prev) => [...prev, url]);
+        // If logged shows download URL. If put as src it'll show the actual image.
+      });
+    });
+  };
+
+  // TODO: #help-react help from Abstractless and ortunado. <---- Look
+
   const onSubmit = (e) => {
     e.preventDefault();
 
-    // listAll(imageListRef).then((response) => {
-    //   response.items.forEach((item) => {
-    //     getDownloadURL(item).then((url) => {
-    //       setFormData(image.push(url));
-    //     });
-    //   });
-    // });
+    testFunction();
+    console.log("2");
 
     const caseData = {
       title,
@@ -142,7 +138,14 @@ function Agentpanel() {
     };
 
     dispatch(createCase(caseData));
+    console.log("3");
   };
+
+  // {
+  //   imageList.map((item) => {
+  //     console.log(item);
+  //   });
+  // }
 
   if (user) {
     return (
@@ -153,6 +156,10 @@ function Agentpanel() {
         <p className="text-lg font-light mt-3 underline underline-offset-2">
           Her kan du tilføje eller opdatere boliger
         </p>
+
+        {/* {imageList.map((url) => {
+          return <img src={url} />;
+        })} */}
 
         <div className="p-6 rounded-lg shadow-lg bg-white max-w-md">
           <form onSubmit={onSubmit}>
@@ -514,36 +521,24 @@ function Agentpanel() {
                 onChange={onChange}
               />
             </div>
-            <div className="grid grid-cols-2">
-              <div className="form-group mb-6">
-                <label
-                  className="form-check-label text-gray-800"
-                  htmlFor="caseThirdDesc"
-                >
-                  Tilføj billede(r) til ejendommen
-                </label>
-                <input
-                  type="file"
-                  name="image"
-                  className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
+            <div className="form-group mb-6">
+              <label
+                className="form-check-label text-gray-800"
+                htmlFor="caseThirdDesc"
+              >
+                Tilføj billede(r) til ejendommen
+              </label>
+              <input
+                type="file"
+                name="image"
+                className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  id="caseImage"
-                  accept="image/*"
-                  onChange={(event) => {
-                    setImageUpload(event.target.files[0]);
-                  }}
-                />
-              </div>
-              <div className="form-group mb-6 flex items-end justify-center pl-2">
-                <button
-                  className="w-30 px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 
-              hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150
-              ease-in-out"
-                  onClick={uploadImage}
-                >
-                  Tilføj billede
-                </button>
-              </div>
+                id="caseImage"
+                accept="image/*"
+                onChange={(event) => {
+                  setImageUpload(event.target.files[0]);
+                }}
+              />
             </div>
             <button
               type="submit"

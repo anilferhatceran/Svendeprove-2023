@@ -35,6 +35,10 @@ const postCase = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Please don't leave fields empty");
   }
+  // if (title == req.body.title) {
+  //   res.status(400);
+  //   throw new Error("Case title alread exists. Please use a unique title");
+  // }
   // _ is added onto case variable name because case isn't allowed alone.
   const _case = await Case.create({
     title: req.body.title,
