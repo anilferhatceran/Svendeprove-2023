@@ -31,11 +31,11 @@ export default function CasePage(){
                             <h1 className="pb-1 font-semibold">Jens Jensen</h1>
                             <h1 className="pb-10 text-sky-500 font-semibold">Udlejningsmægler</h1>
                             <div className="flex flex-row pb-2 items-center">
-                                <FaPhoneAlt className="text-sky-500 text-2xl"/>
+                                <FaPhoneAlt className="text-sky-500 text-2xl mr-1"/>
                                 <p>+45 69696969</p>
                             </div>
                             <div className="flex flex-row items-center">
-                                <FaRegEnvelope className="text-sky-500 text-2xl"/>
+                                <FaRegEnvelope className="text-sky-500 text-2xl mr-1"/>
                                 <p>Email@email.email</p>
                             </div>
                         </div>
