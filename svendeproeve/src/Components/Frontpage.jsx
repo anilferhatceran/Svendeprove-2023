@@ -14,7 +14,7 @@ export default function Frontpage(){
         )
       })
     return(
-      <div className="bg-slate-100 p-5 shadow-inner">
+      <div className="bg-slate-100 p-5 shadow-inner font-DMsans">
         <SearchFilters/>
         <div className="flex flex-col">
             <div className="flex flex-row h-screen w-full mt-5">

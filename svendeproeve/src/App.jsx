@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from './Components/About'
 import MapTest from './Components/MapTest'
 import CasePage from './Components/CasePage'
+import Footer from './Components/Footer'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/test" element={<MapTest/>}/>
             <Route path="/case" element={<CasePage/>}/>
           </Routes>
+          <Footer/>
       </div>
     </Router>
   )
