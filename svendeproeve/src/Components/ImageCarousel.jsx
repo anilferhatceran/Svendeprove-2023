@@ -42,10 +42,10 @@ export default function ImageCarousel({slides}){
 
   return(
     <section className="flex  relative justify-center w-[100vw] h-[48rem]">
-      <div onClick={() => paginate(1)} className="absolute top-1/2 right-8 text-5xl text-white z-50 cursor-pointer select-none">
+      <div onClick={() => paginate(1)} className="absolute top-1/2 right-16 text-5xl text-white z-50 cursor-pointer select-none">
         <FaArrowAltCircleRight/>
       </div>
-      <div onClick={() => paginate(-1)} className="absolute top-1/2 left-8 text-5xl text-white z-50 cursor-pointer select-none">
+      <div onClick={() => paginate(-1)} className="absolute top-1/2 left-16 text-5xl text-white z-50 cursor-pointer select-none">
         <FaArrowAltCircleLeft/>
       </div>
       <AnimatePresence initial={false} custom={direction}>
