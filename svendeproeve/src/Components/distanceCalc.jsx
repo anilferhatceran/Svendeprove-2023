@@ -1,4 +1,5 @@
 import React from "react";
+import DawaAutocomplete from "./DawaAutocomplete";
 
 /*
 **Todo**
@@ -76,19 +77,42 @@ export default function DistanceCalc(){
     }
 
     return(
-        <div className="flex flex-col justify-center items-center">
-            <form onSubmit={handleSubmit}>
-                <input 
-                className="flex w-96 h-10 bg-slate-300 border-2"
-                type="text" 
-                placeholder={"Enter ZIP code"}
-                onChange={handleChange}
-                name="postNr"
-                value={postNr.postNr}
-                />
-            </form>
-            <h1>{distance(55.65420,55.65461,12.27386,12.27394) + " K.M"}</h1>
-            {/* {console.log(distance(55.65420,55.65461,12.27386,12.27394) + " K.M")} */}
-        </div>
+        // <div className="flex flex-col justify-center items-center">
+        //     <form onSubmit={handleSubmit}>
+        //         <input 
+        //         className="flex w-96 h-10 bg-slate-300 border-2"
+        //         type="text" 
+        //         placeholder={"Enter ZIP code"}
+        //         onChange={handleChange}
+        //         name="postNr"
+        //         value={postNr.postNr}
+        //         />
+        //     </form>
+        //     <h1>{distance(55.65420,55.65461,12.27386,12.27394) + " K.M"}</h1>
+        //     {/* {console.log(distance(55.65420,55.65461,12.27386,12.27394) + " K.M")} */}
+        // </div>
+        <div>
+            <DawaAutocomplete>
+                {({ value, suggestions, handleChange }) => {
+                    console.log(suggestions)
+                    return (
+                    <div className="flex flex-col justify-center items-center">
+                        <input 
+                        className="flex w-96 h-10 bg-slate-300 border-2"
+                        type='text'
+                        value={ value }
+                        onChange={ handleChange } 
+                        name="postNr"
+                        placeholder="Enter postnummer or commune"
+                        />
+                        { suggestions.map(suggestion => (
+                        <li key={ suggestion.postnummer.id }>{ suggestion.tekst }</li>
+                        )) }
+                        <h1>{distance(55.65420,55.65461,12.27386,12.27394) + " K.M"}</h1>
+                    </div>
+                    )
+                }}
+            </DawaAutocomplete>
+      </div>
     )
 }
