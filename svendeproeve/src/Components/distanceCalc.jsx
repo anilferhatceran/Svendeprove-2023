@@ -1,6 +1,7 @@
-import React from "react";
-import DawaAutocomplete from "./DawaAutocomplete";
-
+import React,{useState,useEffect} from "react";
+ import DawaAutocomplete from "./DawaAutocomplete";
+ import axios from 'axios';
+ 
 /*
 **Todo**
 Distance calculation
@@ -10,9 +11,33 @@ vis distance til alle cases udfra postnr user indtaster
 export default function DistanceCalc(){
     const [byData, setByData] = React.useState({})
     const [postNr, setPostNr] = React.useState({postNr:"1550"})
+    const [users, setUsers] = useState([])
+    const [text, setText] = useState("")
+    const [suggestions, setSuggestions] = useState([])
+
+    useEffect(() => {
+      const loadData = async()=>{
+        // const response = await axios.get('https://api.dataforsyningen.dk/postnumre/autocomplete?q');
+        const response = await axios.get(`https://api.dataforsyningen.dk/postnumre/autocomplete?q=${text}`);
+        console.log(`https://api.dataforsyningen.dk/postnumre/autocomplete?q=${text}`);
+        setUsers(response.data)
+    }
+    loadData()
     
+    console.log(text)
+}, [text])
     
+   
     
+    // window.onload = function(){
+
+    //     dawaAutocomplete.dawaAutocomplete( document.getElementById("adresse"), {
+    //         select: function(selected) {
+    //             document.getElementById("valgtadresse").innerHTML= selected.tekst;
+    //         }
+    //       });
+    // }
+
     // React.useEffect(function(){
     //     console.log("Effect ran")
     //     fetch(`https://api.dataforsyningen.dk/postnumre/${postNr.postNr}`)
@@ -61,6 +86,24 @@ export default function DistanceCalc(){
         }
     }
 
+    const onSuggestHandler = (text)=>{
+        setText(text)
+        setSuggestions([])
+    }
+
+    const onChangeHandler = (text)=>{
+        let matches = []
+        if(text.length>0){
+            matches = users.filter(user=>{
+                const regex = new RegExp(`${text}`,"gi");
+                return user.postnummer.nr.match(regex) || user.postnummer.navn.match(regex)
+            })
+        }
+        console.log("matches", matches)
+        setSuggestions(matches)
+        setText(text)
+    }
+
     function handleChange(event) {
         const {name, value, type, checked} = event.target
         setPostNr(prevFormData => {
@@ -76,43 +119,59 @@ export default function DistanceCalc(){
         console.log(byData)
     }
 
+
+
+
     return(
-        // <div className="flex flex-col justify-center items-center">
-        //     <form onSubmit={handleSubmit}>
-        //         <input 
-        //         className="flex w-96 h-10 bg-slate-300 border-2"
-        //         type="text" 
-        //         placeholder={"Enter ZIP code"}
-        //         onChange={handleChange}
-        //         name="postNr"
-        //         value={postNr.postNr}
-        //         />
-        //     </form>
-        //     <h1>{distance(55.65420,55.65461,12.27386,12.27394) + " K.M"}</h1>
-        //     {/* {console.log(distance(55.65420,55.65461,12.27386,12.27394) + " K.M")} */}
-        // </div>
-        <div>
-            <DawaAutocomplete>
-                {({ value, suggestions, handleChange }) => {
-                    console.log(suggestions)
-                    return (
-                    <div className="flex flex-col justify-center items-center">
-                        <input 
-                        className="flex w-96 h-10 bg-slate-300 border-2"
-                        type='text'
-                        value={ value }
-                        onChange={ handleChange } 
-                        name="postNr"
-                        placeholder="Enter postnummer or commune"
-                        />
-                        { suggestions.map(suggestion => (
-                        <li key={ suggestion.postnummer.id }>{ suggestion.tekst }</li>
-                        )) }
-                        <h1>{distance(55.65420,55.65461,12.27386,12.27394) + " K.M"}</h1>
-                    </div>
-                    )
-                }}
-            </DawaAutocomplete>
-      </div>
+        // // <div className="flex flex-col justify-center items-center">
+        // //     <form onSubmit={handleSubmit}>
+        // //         <input 
+        // //         className="flex w-96 h-10 bg-slate-300 border-2"
+        // //         type="text" 
+        // //         placeholder={"Enter ZIP code"}
+        // //         onChange={handleChange}
+        // //         name="postNr"
+        // //         value={postNr.postNr}
+        // //         />
+        // //     </form>
+        // //     <h1>{distance(55.65420,55.65461,12.27386,12.27394) + " K.M"}</h1>
+        // //     {/* {console.log(distance(55.65420,55.65461,12.27386,12.27394) + " K.M")} */}
+        // // </div>
+    //     <div>
+    //         <DawaAutocomplete>
+    //             {({ value, suggestions, handleChange }) => {
+    //                 console.log(suggestions)
+    //                 return (
+    //                 <div className="flex flex-col justify-center items-center">
+    //                     <input 
+    //                     className="flex w-96 h-10 bg-slate-300 border-2"
+    //                     type='text'
+    //                     value={ value }
+    //                     onChange={ handleChange } 
+    //                     name="postNr"
+    //                     placeholder="Enter postnummer or commune"
+    //                     />
+    //                     { suggestions.map(suggestion => (
+    //                     <li key={ suggestion.postnummer.id }>{ suggestion.tekst }</li>
+    //                     )) }
+    //                     <h1>{distance(55.65420,55.65461,12.27386,12.27394) + " K.M"}</h1>
+    //                 </div>
+    //                 )
+    //             }}
+    //         </DawaAutocomplete>
+    //   </div>
+    <div className="flex flex-col justify-center items-center">
+        <input
+        className="flex w-96 h-10 bg-slate-300 border-2"
+        type="text" 
+        onChange={e=>onChangeHandler(e.target.value)}
+        value={text}
+        />
+        {suggestions && suggestions.map((suggestion,i)=>
+            <div className="cursor-pointer hover:bg-sky-500" key={i}
+            onClick={() => onSuggestHandler(suggestion.postnummer.nr + " " + suggestion.postnummer.navn)}>{suggestion.postnummer.nr + " " + suggestion.postnummer.navn}</div>
+        )}
+    
+    </div>
     )
 }
