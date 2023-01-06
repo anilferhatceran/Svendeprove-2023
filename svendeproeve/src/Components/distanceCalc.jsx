@@ -168,7 +168,7 @@ export default function DistanceCalc(){
         value={text}
         />
         {suggestions && suggestions.map((suggestion,i)=>
-            <div className="cursor-pointer hover:bg-sky-500" key={i}
+            <div className="cursor-pointer hover:bg-sky-500 w-96" key={i}
             onClick={() => onSuggestHandler(suggestion.postnummer.nr + " " + suggestion.postnummer.navn)}>{suggestion.postnummer.nr + " " + suggestion.postnummer.navn}</div>
         )}
     

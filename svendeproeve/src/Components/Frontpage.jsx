@@ -1,10 +1,28 @@
-import React from "react";
+import axios from "axios";
+import React, {useState, useEffect} from "react";
 import dummyData from "../dummyData";
 import Card from "./Card";
 import MapTest from "./MapTest";
 import SearchFilters from "./SearchFilters";
 
 export default function Frontpage(){
+
+  const [posts, setPosts] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [postsPerPage, setPostsPerPage] = useState(10)
+
+  // useEffect(() => {
+  //   const fetchPosts = async () => {
+  //     setLoading(true)
+  //     const res = await axios.get('') // Insert url go get data when api is ready 👍
+  //     setPosts(res.data)
+  //     setLoading(false)
+  //   }
+  //   fetchPosts();  
+  // }, [])
+  
+
     const cardElement = dummyData.map(item =>{
         return(
           <Card

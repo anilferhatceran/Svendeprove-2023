@@ -27,8 +27,8 @@ export default function SearchFilters(){
     console.log(formData)
 
     return(
-        <form className="flex flex-row   pr-6 pt-3">
-            <div className="flex bg-slate-200 rounded-lg items-center p-1 mr-5">
+        <form className="flex flex-row    pt-3 justify-between w-full">
+            <div className="flex bg-slate-200 rounded-lg items-center p-1 mr-5 w-1/6">
                 <FaSearch className="ml-1"/>
                 <input
                 className="bg-slate-200 rounded-md w-64"
@@ -39,7 +39,7 @@ export default function SearchFilters(){
                 value={formData.searchParameter}
                 />
             </div>
-            <div className=" flex items-center rounded-lg bg-slate-200 mr-5">
+            <div className=" flex items-center rounded-lg bg-slate-200 mr-5 w-1/6">
                 <p className="font-semibold ml-1">For Sale</p>
                 <select 
                     className="bg-slate-200 rounded-lg p-1"
@@ -53,7 +53,7 @@ export default function SearchFilters(){
                 </select>
             </div>
              
-             <div className=" flex items-center rounded-lg bg-slate-200 mr-5">
+             <div className=" flex items-center rounded-lg bg-slate-200 mr-5 w-1/6">
                 <p className="font-semibold ml-1">Type:</p>
                 <select
                     className="bg-slate-200 rounded-lg p-1"
@@ -67,7 +67,7 @@ export default function SearchFilters(){
                 </select>
              </div>
 
-            <div className=" flex items-center rounded-lg bg-slate-200 mr-5">
+            <div className=" flex items-center rounded-lg bg-slate-200 mr-5 w-1/6">
             <p className="font-semibold ml-1">Min Price:</p>
                 <select
                     className="bg-slate-200 rounded-lg p-1"
@@ -81,7 +81,7 @@ export default function SearchFilters(){
                     <option value={20}>20</option>
                 </select>
             </div>
-            <div className=" flex items-center rounded-lg bg-slate-200 mr-5">
+            <div className=" flex items-center rounded-lg bg-slate-200 mr-5 w-1/6">
                 <p className="font-semibold ml-1">Max Price:</p>
                 <select
                     className="bg-slate-200 rounded-lg p-1"
@@ -94,7 +94,7 @@ export default function SearchFilters(){
                     <option value={20}>20</option>
                 </select>
             </div>
-            <div className=" flex items-center rounded-lg bg-slate-200 mr-5">
+            <div className=" flex items-center rounded-lg bg-slate-200 w-1/6">
                 <p className="font-semibold ml-1">Floor Area</p>
                 <select
                     className="bg-slate-200 rounded-lg p-1"

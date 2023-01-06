@@ -42,15 +42,16 @@ export default function MapTest(){
     return(
     <Map
       initialViewState={{
-        longitude: 12.34409,
+        longitude: 11.34409,
         latitude: 55.73320,
-        zoom: 12,
+        zoom: 7,
         bearing: 0,
         pitch: 10
       }}
       // style={{width: 600, height: 400}}
       // className="w-[600px] h-[400px]"
       mapStyle="mapbox://styles/mapbox/light-v11"
+      
     >
 
     {/* <Marker 
