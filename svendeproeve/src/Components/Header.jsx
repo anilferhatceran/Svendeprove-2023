@@ -1,19 +1,33 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { FaHouseUser } from "react-icons/fa";
 import {Link, NavLink} from "react-router-dom";
 
 export default function Header() {
+
+  const [small, setSmall] = useState(false)
+  useEffect(() => {
+    if(typeof window !== "undefined"){
+      window.addEventListener("scroll", () =>
+      setSmall(window.scrollY > 200)
+       )
+      }
+  },[])
+
   let activeClassName=(
     "py-2 pl-10 pr-10 text-lg text-blue-600 underline underline-offset-8 decoration-blue-500"
   )
+  let stickyHeader=(
+    "font-DMsans p-5 bg-slate-50 top-0 sticky"
+  )
   return (
-    <nav className="font-DMsans p-5 bg-slate-50">
+    <nav className={small ? stickyHeader : "font-DMsans p-5 absolute w-full text-white"
+    }>
       <div className="flex flex-wrap items-center  justify-between">
         <Link to="/" className="flex items-center basis-1/6">
           <h1 className="hr-6  text-sky-500 text-4xl">
             <FaHouseUser />
           </h1>
-          <span className="text-black font-semibold text-4xl ">SvendePrøve</span>
+          <span className="text-white font-semibold text-4xl ">SvendePrøve</span>
         </Link>
         <div className="">
         <NavLink

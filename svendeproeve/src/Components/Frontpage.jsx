@@ -4,6 +4,8 @@ import dummyData from "../dummyData";
 import Card from "./Card";
 import MapTest from "./MapTest";
 import SearchFilters from "./SearchFilters";
+import DistanceCalc from "./distanceCalc"
+
 
 export default function Frontpage(){
 
@@ -32,9 +34,16 @@ export default function Frontpage(){
         )
       })
     return(
-      <div className="bg-slate-100 p-5 shadow-inner font-DMsans">
+      <div className="  shadow-inner font-DMsans">
+        <div className="h-screen ">
+
+
+          <img className="h-full w-full bg-cover " src="src\assets\frontpageImage.jpg"/>
+
+          <DistanceCalc/>
+        </div>
+        <div className="flex flex-col p-5">
         <SearchFilters/>
-        <div className="flex flex-col">
             <div className="flex flex-row h-screen w-full mt-5">
                 <div className=" h-full w-1/2 flex flex-wrap ">
                     {cardElement}
