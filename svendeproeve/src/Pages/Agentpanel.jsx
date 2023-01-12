@@ -4,7 +4,6 @@ import { createCase } from "../Features/cases/caseSlice";
 import { format } from "date-fns";
 import { storage } from "../firebase/firebase";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
-import { v4 } from "uuid";
 
 function Agentpanel() {
   const dispatch = useDispatch();
@@ -13,8 +12,6 @@ function Agentpanel() {
   const [imageUpload, setImageUpload] = useState(null);
   // This is an array that retrieves all images in the cloud storage
   const [imageList, setImageList] = useState([]);
-
-  const [imageUrl, setImageUrl] = useState();
 
   const imageListRef = ref(storage, "caseImages");
 
@@ -32,7 +29,7 @@ function Agentpanel() {
     thirdDescription: "asd",
     rooms: "2",
     size: "1",
-    availableFrom: "2222/11/1",
+    availableFrom: "",
     deposit: "123",
     rent: "1212",
     prepaidRent: "123",
@@ -74,10 +71,13 @@ function Agentpanel() {
   } = formData;
 
   const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
+    const { name, value, type, checked } = event.target;
+    setFormData((prevState) => {
+      return {
+        ...prevState,
+        [name]: e.target.type === "checkbox" ? checked : value,
+      };
+    });
   };
 
   // useEffect(() => {
@@ -96,7 +96,6 @@ function Agentpanel() {
     const imageRef = ref(storage, `caseImages/${imageUpload.name + title}`);
     const snapshot = await uploadBytes(imageRef, imageUpload);
     const url = await getDownloadURL(snapshot.ref);
-    console.log(url);
 
     imageList.push(url);
 
@@ -143,7 +142,6 @@ function Agentpanel() {
       isReserved,
       image: imageList,
     };
-
     dispatch(createCase(caseData));
   };
 
@@ -419,6 +417,7 @@ function Agentpanel() {
                   className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer"
                   id="caseIsAconto"
                   value={isAconto}
+                  checked={isAconto}
                   onChange={onChange}
                 />
               </div>
@@ -436,7 +435,8 @@ function Agentpanel() {
                   name="petsAllowed"
                   className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer"
                   id="casePestAllowed"
-                  value={petsAllowed}
+                  checked={petsAllowed}
+                  onChange={onChange}
                 />
               </div>
               <div className="form-group mb-6">
@@ -451,7 +451,8 @@ function Agentpanel() {
                   name="elevatorAvailable"
                   className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer"
                   id="caseElevatorAvailable"
-                  value={elevatorAvailable}
+                  checked={elevatorAvailable}
+                  onChange={onChange}
                 />
               </div>
               <div className="form-group mb-6">
@@ -466,9 +467,26 @@ function Agentpanel() {
                   name="balcony"
                   className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer"
                   id="caseBalcony"
-                  value={balcony}
+                  checked={balcony}
+                  onChange={onChange}
                 />
               </div>
+            </div>
+            <div className="form-group mb-6">
+              <label
+                className="form-check-label inline-block text-gray-800 mr-2"
+                htmlFor="caseIsReserved"
+              >
+                Reserved
+              </label>
+              <input
+                type="checkbox"
+                name="isReserved"
+                className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer"
+                id="caseIsReserved"
+                checked={isReserved}
+                onChange={onChange}
+              />
             </div>
             <div className="form-group mb-6">
               <label
