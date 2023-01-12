@@ -13,9 +13,8 @@ function Agentpanel() {
   const [imageUpload, setImageUpload] = useState(null);
   // This is an array that retrieves all images in the cloud storage
   const [imageList, setImageList] = useState([]);
-  const [imageTestArray, setImageTestArray] = useState([]);
 
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState();
 
   const imageListRef = ref(storage, "caseImages");
 
@@ -25,23 +24,23 @@ function Agentpanel() {
   // map the image array and display case images
 
   const [formData, setFormData] = useState({
-    title: "",
-    address: "",
-    city: "",
-    firstDescription: "",
-    secondDescription: "",
-    thirdDescription: "",
-    rooms: "",
-    size: "",
-    availableFrom: "",
-    deposit: "",
-    rent: "",
-    prepaidRent: "",
+    title: "ass",
+    address: "asd",
+    city: "asdd",
+    firstDescription: "asd",
+    secondDescription: "asd",
+    thirdDescription: "asd",
+    rooms: "2",
+    size: "1",
+    availableFrom: "2222/11/1",
+    deposit: "123",
+    rent: "1212",
+    prepaidRent: "123",
     isAconto: false,
-    heatPrice: "",
-    waterPrice: "",
-    longitude: "",
-    latitude: "",
+    heatPrice: "123",
+    waterPrice: "123123",
+    longitude: "1231",
+    latitude: "12312",
     petsAllowed: false,
     elevatorAvailable: false,
     balcony: false,
@@ -81,36 +80,44 @@ function Agentpanel() {
     }));
   };
 
-  useEffect(() => {
-    listAll(imageListRef).then((response) => {
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageList((prev) => [...prev, url]);
-        });
-      });
-    });
-  }, []);
+  // useEffect(() => {
+  //   listAll(imageListRef).then((response) => {
+  //     response.items.forEach((item) => {
+  //       getDownloadURL(item).then((url) => {
+  //         setImageList((prev) => [...prev, url]);
+  //       });
+  //     });
+  //   });
+  // }, []);
 
-  const testFunction = () => {
-    console.log("I'm in here");
+  const uploadImageFunc = async () => {
     if (imageUpload == null) return;
 
     const imageRef = ref(storage, `caseImages/${imageUpload.name + title}`);
-    uploadBytes(imageRef, imageUpload).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        setImageList((prev) => [...prev, url]);
-        // If logged shows download URL. If put as src it'll show the actual image.
-      });
-    });
+    const snapshot = await uploadBytes(imageRef, imageUpload);
+    const url = await getDownloadURL(snapshot.ref);
+    console.log(url);
+
+    imageList.push(url);
+
+    return url;
   };
 
+  // uploadBytes(imageRef, imageUpload).then((snapshot) => {
+  //   getDownloadURL(snapshot.ref).then((url) => {
+  //     setImageList((prev) => [...prev, url]);
+  //     // If logged shows download URL. If put as src it'll show the actual image.
+  //   });
+  // });
+
+  // TODO: Security check, file allowance etc
   // TODO: #help-react help from Abstractless and ortunado. <---- Look
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
-    testFunction();
-    console.log("2");
+    setImageList([]);
+    await uploadImageFunc();
 
     const caseData = {
       title,
@@ -138,14 +145,7 @@ function Agentpanel() {
     };
 
     dispatch(createCase(caseData));
-    console.log("3");
   };
-
-  // {
-  //   imageList.map((item) => {
-  //     console.log(item);
-  //   });
-  // }
 
   if (user) {
     return (
@@ -535,6 +535,7 @@ function Agentpanel() {
                 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 id="caseImage"
                 accept="image/*"
+                multiple
                 onChange={(event) => {
                   setImageUpload(event.target.files[0]);
                 }}
