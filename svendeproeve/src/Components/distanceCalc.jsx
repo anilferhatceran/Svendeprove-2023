@@ -123,43 +123,6 @@ export default function DistanceCalc(){
 
 
     return(
-        // // <div className="flex flex-col justify-center items-center">
-        // //     <form onSubmit={handleSubmit}>
-        // //         <input 
-        // //         className="flex w-96 h-10 bg-slate-300 border-2"
-        // //         type="text" 
-        // //         placeholder={"Enter ZIP code"}
-        // //         onChange={handleChange}
-        // //         name="postNr"
-        // //         value={postNr.postNr}
-        // //         />
-        // //     </form>
-        // //     <h1>{distance(55.65420,55.65461,12.27386,12.27394) + " K.M"}</h1>
-        // //     {/* {console.log(distance(55.65420,55.65461,12.27386,12.27394) + " K.M")} */}
-        // // </div>
-    //     <div>
-    //         <DawaAutocomplete>
-    //             {({ value, suggestions, handleChange }) => {
-    //                 console.log(suggestions)
-    //                 return (
-    //                 <div className="flex flex-col justify-center items-center">
-    //                     <input 
-    //                     className="flex w-96 h-10 bg-slate-300 border-2"
-    //                     type='text'
-    //                     value={ value }
-    //                     onChange={ handleChange } 
-    //                     name="postNr"
-    //                     placeholder="Enter postnummer or commune"
-    //                     />
-    //                     { suggestions.map(suggestion => (
-    //                     <li key={ suggestion.postnummer.id }>{ suggestion.tekst }</li>
-    //                     )) }
-    //                     <h1>{distance(55.65420,55.65461,12.27386,12.27394) + " K.M"}</h1>
-    //                 </div>
-    //                 )
-    //             }}
-    //         </DawaAutocomplete>
-    //   </div>
     <div className="flex flex-col justify-center items-center">
         <input
         className="flex w-96 h-10 bg-slate-300 border-2"
@@ -168,7 +131,7 @@ export default function DistanceCalc(){
         value={text}
         />
         {suggestions && suggestions.map((suggestion,i)=>
-            <div className="cursor-pointer hover:bg-sky-500 w-96" key={i}
+            <div className="cursor-pointer bg-white border-b-2 border-r-2 border-l-2 border-black hover:bg-sky-500 w-96" key={i}
             onClick={() => onSuggestHandler(suggestion.postnummer.nr + " " + suggestion.postnummer.navn)}>{suggestion.postnummer.nr + " " + suggestion.postnummer.navn}</div>
         )}
     

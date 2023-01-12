@@ -35,12 +35,13 @@ export default function Frontpage(){
       })
     return(
       <div className="  shadow-inner font-DMsans">
-        <div className="h-screen ">
+        <div className="h-screen bg-hero bg-cover select-none ">
 
 
-          <img className="h-full w-full bg-cover " src="src\assets\frontpageImage.jpg"/>
-
-          <DistanceCalc/>
+          {/* <img className="h-full w-full bg-cover select-none" src="src\assets\frontpageImage.jpg"/> */}
+          <div className="">
+            <DistanceCalc/>
+          </div>
         </div>
         <div className="flex flex-col p-5">
         <SearchFilters/>

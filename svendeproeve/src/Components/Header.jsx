@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { FaHouseUser } from "react-icons/fa";
 import {Link, NavLink} from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function Header() {
 
@@ -13,15 +14,31 @@ export default function Header() {
       }
   },[])
 
+ const variants = {
+  show:{
+    opacity: 1,
+    y:0,
+    transition:{
+      east:"easeOut",
+      duration: 0.3,
+    }
+  },
+  hide:{
+    y: -20,
+    opacity: 0
+  }
+ }
+
   let activeClassName=(
     "py-2 pl-10 pr-10 text-lg text-blue-600 underline underline-offset-8 decoration-blue-500"
   )
   let stickyHeader=(
-    "font-DMsans p-5 bg-slate-50 top-0 sticky"
+    "font-DMsans p-5 bg-slate-50 top-0 sticky absolute z-50"
   )
   return (
-    <nav className={small ? stickyHeader : "font-DMsans p-5 absolute w-full text-white"
-    }>
+    <motion.nav 
+    className={small ? stickyHeader : "font-DMsans p-5  absolute w-full text-white"}
+      key={small} variants={variants} animate={"show"} initial={"hide"}>
       <div className="flex flex-wrap items-center  justify-between">
         <Link to="/" className="flex items-center basis-1/6">
           <h1 className="hr-6  text-sky-500 text-4xl">
@@ -70,6 +87,6 @@ export default function Header() {
           <img src="https://thispersondoesnotexist.com/image" className=" h-10 w-10 rounded-full bg-blue-500 "></img>
         </button>
       </div>
-    </nav>
+    </motion.nav>
   );
 }

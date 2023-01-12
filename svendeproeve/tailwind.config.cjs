@@ -5,6 +5,9 @@ module.exports = {
     extend: {
       fontFamily:{
         'DMsans' : ['"DM Sans"']
+      },
+      backgroundImage:{
+        'hero' : "url('src/assets/frontpageImage.jpg')"
       }
     },
   },
