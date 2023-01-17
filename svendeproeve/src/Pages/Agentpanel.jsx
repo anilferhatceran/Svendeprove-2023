@@ -83,6 +83,7 @@ function Agentpanel() {
   // useEffect(() => {
   //   listAll(imageListRef).then((response) => {
   //     response.items.forEach((item) => {
+  //       console.log(items);
   //       getDownloadURL(item).then((url) => {
   //         setImageList((prev) => [...prev, url]);
   //       });
@@ -96,10 +97,10 @@ function Agentpanel() {
     const imageRef = ref(storage, `caseImages/${imageUpload.name + title}`);
     const snapshot = await uploadBytes(imageRef, imageUpload);
     const url = await getDownloadURL(snapshot.ref);
+    console.log(url);
+    setImageList(() => [...imageList, "url"]);
 
-    imageList.push(url);
-
-    return url;
+    // imageList.push(url);
   };
 
   // uploadBytes(imageRef, imageUpload).then((snapshot) => {
