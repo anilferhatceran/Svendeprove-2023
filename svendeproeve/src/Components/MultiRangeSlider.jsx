@@ -1,96 +1,51 @@
-import React, { useCallback, useEffect, useState, useRef } from "react";
-import classnames from "classnames";
-import PropTypes from "prop-types";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+
+function valuetext(value) {
+  return `${value}°C`;
+}
 
 
-const MultiRangeSlider = ({ min, max, onChange }) => {
-  const [minVal, setMinVal] = useState(min);
-  const [maxVal, setMaxVal] = useState(max);
-  const minValRef = useRef(null);
-  const maxValRef = useRef(null);
-  const range = useRef(null);
+const minDistance = 10;
 
-  // Convert to percentage
-  const getPercent = useCallback(
-    (value) => Math.round(((value - min) / (max - min)) * 100),
-    [min, max]
-  );
+export default function MinimumDistanceSlider() {
+  const [value1, setValue1] = React.useState([0, 1000]);
 
-  // Set width of the range to decrease from the left side
-  useEffect(() => {
-    if (maxValRef.current) {
-      const minPercent = getPercent(minVal);
-      const maxPercent = getPercent(+maxValRef.current.value); // Preceding with '+' converts the value from type string to type number
-
-      if (range.current) {
-        range.current.style.left = `${minPercent}%`;
-        range.current.style.width = `${maxPercent - minPercent}%`;
-      }
+  const handleChange1 = (event, newValue, activeThumb) => {
+    if (!Array.isArray(newValue)) {
+      return;
     }
-  }, [minVal, getPercent]);
 
-  // Set width of the range to decrease from the right side
-  useEffect(() => {
-    if (minValRef.current) {
-      const minPercent = getPercent(+minValRef.current.value);
-      const maxPercent = getPercent(maxVal);
-
-      if (range.current) {
-        range.current.style.width = `${maxPercent - minPercent}%`;
-      }
+    if (activeThumb === 0) {
+      setValue1([Math.min(newValue[0], value1[1] - minDistance), value1[1]]);
+    } else {
+      setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
     }
-  }, [maxVal, getPercent]);
-
-  // Get min and max values when their state changes
-  useEffect(() => {
-    onChange({ min: minVal, max: maxVal });
-  }, [minVal, maxVal, onChange]);
+  };
 
   return (
-    <div className="container">
-      <input
-        type="range"
-        min={min}
-        max={max}
-        value={minVal}
-        ref={minValRef}
-        onChange={(event) => {
-          const value = Math.min(+event.target.value, maxVal - 1);
-          setMinVal(value);
-          event.target.value = value.toString();
-        }}
-        className={classnames("thumb thumb--zindex-3", {
-          "thumb--zindex-5": minVal > max - 100
-        })}
-      />
-      <input
-        type="range"
-        min={min}
-        max={max}
-        value={maxVal}
-        ref={maxValRef}
-        onChange={(event) => {
-          const value = Math.max(+event.target.value, minVal + 1);
-          setMaxVal(value);
-          event.target.value = value.toString();
-        }}
-        className="thumb thumb--zindex-4"
-      />
-
-      <div className="slider">
-        <div className="slider__track" />
-        <div ref={range} className="slider__range" />
-        <div className="slider__left-value">{minVal}</div>
-        <div className="slider__right-value">{maxVal}</div>
-      </div>
+    <div className='flex  items-center rounded-lg bg-slate-200 h-36 p-5 font-DMsans'>
+        <div className=''>
+            <div className='flex flex-row justify-between'>
+                <p className='font-semibold'>{value1[0] + " kr."}</p>
+                <p className='font-semibold'>{value1[1] + " kr."}</p>
+            </div>
+            
+            <Box sx={{ width: 200 }}>
+                <Slider
+                    getAriaLabel={() => 'Minimum distance'}
+                    value={value1}
+                    onChange={handleChange1}
+                    valueLabelDisplay="auto"
+                    getAriaValueText={valuetext}
+                    disableSwap
+                    min={0}
+                    max={1000}
+                    
+                />
+            </Box>
+        </div>
     </div>
   );
-};
-
-MultiRangeSlider.propTypes = {
-  min: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
-  onChange: PropTypes.func.isRequired
-};
-
-export default MultiRangeSlider;
+}

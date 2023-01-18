@@ -1,6 +1,6 @@
 import { React,useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import MultiRangeSlider from "./MultiRangeSlider";
+import MinimumDistanceSlider from "./MultiRangeSlider";
 
 export default function SearchFilters(){
 
@@ -26,6 +26,10 @@ export default function SearchFilters(){
         })
     }
     console.log(formData)
+
+    function togglePrice(){
+        
+    }
 
     return(
         <form className="flex flex-row    pt-3 justify-between w-full">
@@ -69,7 +73,8 @@ export default function SearchFilters(){
              </div>
 
             <div className=" flex items-center rounded-lg bg-slate-200 mr-5 w-1/5">
-                <MultiRangeSlider/>
+                <p className="font-semibold ml-1">Price:</p>
+                {/* <MinimumDistanceSlider/> */}
             </div>
             <div className=" flex items-center rounded-lg bg-slate-200 w-1/5">
                 <p className="font-semibold ml-1">Floor Area</p>
