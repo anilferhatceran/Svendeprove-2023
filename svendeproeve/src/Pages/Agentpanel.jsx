@@ -9,9 +9,10 @@ function Agentpanel() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
-  const [imageUpload, setImageUpload] = useState(null);
+  const [imageUpload, setImageUpload] = useState("");
   // This is an array that retrieves all images in the cloud storage
   const [imageList, setImageList] = useState([]);
+  const [imageUrl, setImageUrl] = useState(null);
 
   const imageListRef = ref(storage, "caseImages");
 
@@ -70,8 +71,22 @@ function Agentpanel() {
     image,
   } = formData;
 
+  useEffect(() => {
+    if (imageUpload) {
+      const functionSomething = async () => {
+        const imageRef = ref(storage, `caseImages/${imageUpload.name + title}`);
+        const snapshot = await uploadBytes(imageRef, imageUpload);
+        const url = await getDownloadURL(snapshot.ref);
+        setImageList((current) => [...current, url]);
+        document.querySelector(".aeonna-input").value = "";
+      };
+      functionSomething();
+    }
+    setImageUpload("");
+  }, [imageUpload]);
+
   const onChange = (e) => {
-    const { name, value, type, checked } = event.target;
+    const { name, value, type, checked } = e.target;
     setFormData((prevState) => {
       return {
         ...prevState,
@@ -91,16 +106,12 @@ function Agentpanel() {
   //   });
   // }, []);
 
+  const imageHandling = async (e) => {
+    setImageUpload(e.target.files[0]);
+  };
+
   const uploadImageFunc = async () => {
-    if (imageUpload == null) return;
-
-    const imageRef = ref(storage, `caseImages/${imageUpload.name + title}`);
-    const snapshot = await uploadBytes(imageRef, imageUpload);
-    const url = await getDownloadURL(snapshot.ref);
-    console.log(url);
-    setImageList(() => [...imageList, "url"]);
-
-    // imageList.push(url);
+    console.log(imageList);
   };
 
   // uploadBytes(imageRef, imageUpload).then((snapshot) => {
@@ -113,11 +124,8 @@ function Agentpanel() {
   // TODO: Security check, file allowance etc
   // TODO: #help-react help from Abstractless and ortunado. <---- Look
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-
-    setImageList([]);
-    await uploadImageFunc();
 
     const caseData = {
       title,
@@ -550,14 +558,12 @@ function Agentpanel() {
               <input
                 type="file"
                 name="image"
-                className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
+                className="aeonna-input form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 id="caseImage"
                 accept="image/*"
                 multiple
-                onChange={(event) => {
-                  setImageUpload(event.target.files[0]);
-                }}
+                onChange={imageHandling}
               />
             </div>
             <button
