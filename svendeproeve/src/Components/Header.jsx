@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 
 export default function Header() {
 
+  
   const [small, setSmall] = useState(false)
   useEffect(() => {
     if(typeof window !== "undefined"){

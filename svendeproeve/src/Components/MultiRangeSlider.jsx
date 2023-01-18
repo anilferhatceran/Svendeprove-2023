@@ -7,7 +7,7 @@ function valuetext(value) {
 }
 
 
-const minDistance = 10;
+const minDistance = 150;
 
 export default function MinimumDistanceSlider() {
   const [value1, setValue1] = React.useState([0, 1000]);
