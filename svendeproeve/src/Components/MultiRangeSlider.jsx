@@ -32,19 +32,21 @@ export default function MinimumDistanceSlider() {
                 <p className='font-semibold'>{value1[1] + " kr."}</p>
             </div>
             
-            <Box sx={{ width: 200 }}>
-                <Slider
-                    getAriaLabel={() => 'Minimum distance'}
-                    value={value1}
-                    onChange={handleChange1}
-                    valueLabelDisplay="auto"
-                    getAriaValueText={valuetext}
-                    disableSwap
-                    min={0}
-                    max={1000}
-                    
-                />
-            </Box>
+            <div>
+              <Box sx={{ width: 200 }}>
+                  <Slider
+                      getAriaLabel={() => 'Minimum distance'}
+                      value={value1}
+                      onChange={handleChange1}
+                      valueLabelDisplay="auto"
+                      getAriaValueText={valuetext}
+                      disableSwap
+                      min={0}
+                      max={1000}
+                      
+                  />
+              </Box>
+            </div>
         </div>
     </div>
   );

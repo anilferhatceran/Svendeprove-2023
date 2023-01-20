@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { FaHouseUser } from "react-icons/fa";
 import {Link, NavLink} from "react-router-dom";
 import { motion } from "framer-motion";
+import classNames from "classnames";
 
 export default function Header() {
 
@@ -31,7 +32,7 @@ export default function Header() {
  }
 
   let activeClassName=(
-    "py-2 pl-10 pr-10 text-lg text-blue-600 underline underline-offset-8 decoration-blue-500"
+    "py-2 pl-10 pr-10 text-lg text-sky-500 underline underline-offset-8 decoration-blue-500"
   )
   let stickyHeader=(
     "font-DMsans p-5 bg-slate-50 top-0 sticky absolute z-50"
@@ -42,10 +43,15 @@ export default function Header() {
       key={small} variants={variants} animate={"show"} initial={"hide"}>
       <div className="flex flex-wrap items-center  justify-between">
         <Link to="/" className="flex items-center basis-1/6">
-          <h1 className="hr-6  text-sky-500 text-4xl">
+          <h1 className={classNames("pr-2 text-4xl", {
+            "pr-2  text-sky-500 text-4xl": small
+          })}>
             <FaHouseUser />
           </h1>
-          <span className="text-white font-semibold text-4xl ">SvendePrøve</span>
+          <span className={classNames(" font-semibold text-4xl", {
+            "text-black font-semibold text-4xl": small
+          })}>SvendePrøve</span>
+          {/* text-black font-semibold text-4xl */}
         </Link>
         <div className="">
         <NavLink

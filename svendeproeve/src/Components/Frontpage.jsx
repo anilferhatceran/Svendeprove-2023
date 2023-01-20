@@ -5,6 +5,7 @@ import Card from "./Card";
 import MapTest from "./MapTest";
 import SearchFilters from "./SearchFilters";
 import DistanceCalc from "./distanceCalc"
+import { FaChevronDown, FaEllipsisV} from "react-icons/fa";
 
 
 export default function Frontpage(){
@@ -35,12 +36,34 @@ export default function Frontpage(){
       })
     return(
       <div className="  shadow-inner font-DMsans">
-        <div className="h-screen bg-hero bg-cover select-none ">
+        <div className="h-screen bg-hero bg-cover select-none flex  w-full">
 
 
           {/* <img className="h-full w-full bg-cover select-none" src="src\assets\frontpageImage.jpg"/> */}
-          <div className="">
-            <DistanceCalc/>
+          <div className=" flex justify-center items-center w-screen">
+            <div className="flex bg-white-rgba h-36 w-3/5 rounded-xl">
+              <div className="flex bg-white h-32 w-[98%] m-2 rounded-xl  items-center justify-between">
+                <input placeholder="Enter keyword..." type="text" className="flex ml-6 pl-2 mr-3 h-12 w-1/4 border border-gray-300 rounded-md items-center focus:outline-none"/>
+                <div className="flex mr-3 pl-2 h-12 w-1/5 border border-gray-300 rounded-md items-center relative">
+                  {/* <label>Property Type</label> */}
+                  <select className="w-full relative focus:outline-none">
+                    <option>Property Type</option>
+                    <option>1</option>
+                    <option>2</option>
+                  </select>
+                </div>
+                <div className="w-1/6">
+                  <DistanceCalc/>
+                </div>
+                <button className="flex mr-3 pl-2 h-12 w-1/6 border border-gray-300 rounded-md items-center focus:outline-none">Price  </button>
+                <button className="flex justify-between mr-3 pl-2 h-12 w-[10%]  rounded-md items-center focus:outline-none">
+                  <p>Filtre</p>
+                  <FaEllipsisV/>
+                 </button>
+                <button className="flex justify-center mr-3 h-12 w-1/6 border-2 text-white  bg-sky-500 border-sky-500 rounded-md items-center transition-all focus:outline-none hover:bg-white hover:text-sky-500 hover:transition-all">Søg</button>
+              </div>
+            </div>
+            {/* <DistanceCalc/> */}
           </div>
         </div>
         <div className="flex flex-col p-5">
