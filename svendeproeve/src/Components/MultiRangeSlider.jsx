@@ -1,6 +1,19 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import { createTheme } from '@mui/material';
+import { ThemeProvider } from '@emotion/react';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#0EA5E9',
+    },
+    secondary: {
+      main: '#f44336',
+    },
+  },
+});
 
 function valuetext(value) {
   return `${value}°C`;
@@ -33,19 +46,20 @@ export default function MinimumDistanceSlider() {
             </div>
             
             <div>
-              <Box sx={{ width: 200 }}>
-                  <Slider
-                      getAriaLabel={() => 'Minimum distance'}
-                      value={value1}
-                      onChange={handleChange1}
-                      valueLabelDisplay="auto"
-                      getAriaValueText={valuetext}
-                      disableSwap
-                      min={0}
-                      max={1000}
-                      
-                  />
-              </Box>
+              <ThemeProvider theme={theme}>
+                <Box sx={{ width: 200 }}>
+                    <Slider
+                        getAriaLabel={() => 'Minimum distance'}
+                        value={value1}
+                        onChange={handleChange1}
+                        valueLabelDisplay="auto"
+                        getAriaValueText={valuetext}
+                        disableSwap
+                        min={0}
+                        max={1000}            
+                    />
+                </Box>
+              </ThemeProvider>
             </div>
         </div>
     </div>

@@ -6,6 +6,7 @@ import MapTest from "./MapTest";
 import SearchFilters from "./SearchFilters";
 import DistanceCalc from "./distanceCalc"
 import { FaChevronDown, FaEllipsisV} from "react-icons/fa";
+import MinimumDistanceSlider from "./MultiRangeSlider";
 
 
 export default function Frontpage(){
@@ -14,6 +15,7 @@ export default function Frontpage(){
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage, setPostsPerPage] = useState(10)
+  const [showPriceslider, setShowPriceslider] = useState(false)
 
   // useEffect(() => {
   //   const fetchPosts = async () => {
@@ -25,6 +27,9 @@ export default function Frontpage(){
   //   fetchPosts();  
   // }, [])
   
+  function toggleShown(){
+    setShowPriceslider(prevShown => !prevShown)
+  }
 
     const cardElement = dummyData.map(item =>{
         return(
@@ -41,7 +46,7 @@ export default function Frontpage(){
 
           {/* <img className="h-full w-full bg-cover select-none" src="src\assets\frontpageImage.jpg"/> */}
           <div className=" flex justify-center items-center w-screen">
-            <div className="flex bg-white-rgba h-36 w-3/5 rounded-xl">
+            <div className="flex bg-white-rgba h-36 w-3/5 rounded-xl justify-center items-center">
               <div className="flex bg-white h-32 w-[98%] m-2 rounded-xl  items-center justify-between">
                 <input placeholder="Enter keyword..." type="text" className="flex ml-6 pl-2 mr-3 h-12 w-1/4 border border-gray-300 rounded-md items-center focus:outline-none"/>
                 <div className="flex mr-3 pl-2 h-12 w-1/5 border border-gray-300 rounded-md items-center relative">
@@ -55,7 +60,8 @@ export default function Frontpage(){
                 <div className="w-1/6">
                   <DistanceCalc/>
                 </div>
-                <button className="flex mr-3 pl-2 h-12 w-1/6 border border-gray-300 rounded-md items-center focus:outline-none">Price  </button>
+                <button onClick={toggleShown} className="flex mr-3 pl-2 h-12 w-1/6 border border-gray-300 rounded-md items-center focus:outline-none">Price</button>
+                {showPriceslider && <MinimumDistanceSlider/>} 
                 <button className="flex justify-between mr-3 pl-2 h-12 w-[10%]  rounded-md items-center focus:outline-none">
                   <p>Filtre</p>
                   <FaEllipsisV/>
