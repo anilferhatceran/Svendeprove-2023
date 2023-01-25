@@ -15,6 +15,9 @@ function Agentpanel() {
   const [imageList, setImageList] = useState([]);
   const [imageUrl, setImageUrl] = useState(null);
 
+  const imageTypes = ["image/png", "image/jpeg"];
+  const [error, setError] = useState("");
+
   const imageListRef = ref(storage, "caseImages");
 
   // TODO:
@@ -73,28 +76,24 @@ function Agentpanel() {
   } = formData;
 
   useEffect(() => {
-    // TO-DO: Add a state for data loading, so the async part of this can catch up
-    // Basically so the user doesn't submit before the async stuff does its thing.
-    if (imageUpload) {
+    if (imageUpload && imageTypes.includes(imageUpload.type)) {
       const functionSomething = async () => {
         const imageRef = ref(storage, `caseImages/${imageUpload.name + title}`);
         const snapshot = await uploadBytes(imageRef, imageUpload);
         const url = await getDownloadURL(snapshot.ref);
         setImageList((current) => [...current, url]);
-<<<<<<< HEAD
-        // document.querySelector(".aeonna-input").value = "";
-=======
->>>>>>> d00da0a0a807114a4d007603818a34f643a503f9
       };
       functionSomething();
-      console.log(imageList);
+    } else {
+      setImageUpload(null);
+      setError("Please select an image file (png or jpeg)");
+      alert(error);
     }
     setImageUpload("");
   }, [imageUpload]);
 
   const imageHandling = async (e) => {
-    setImageUpload(e.target.files);
-    console.log(e.target.files);
+    setImageUpload(e.target.files[0]);
   };
 
   const onChange = (e) => {
@@ -118,13 +117,6 @@ function Agentpanel() {
   //   });
   // }, []);
 
-<<<<<<< HEAD
-=======
-  const imageHandling = async (e) => {
-    setImageUpload(e.target.files[0]);
-  };
-
->>>>>>> d00da0a0a807114a4d007603818a34f643a503f9
   // uploadBytes(imageRef, imageUpload).then((snapshot) => {
   //   getDownloadURL(snapshot.ref).then((url) => {
   //     setImageList((prev) => [...prev, url]);
@@ -162,9 +154,8 @@ function Agentpanel() {
       isReserved,
       image: imageList,
     };
-
-    dispatch(createCase(caseData));
     document.querySelector(".file-upload").value = "";
+    dispatch(createCase(caseData));
   };
 
   if (user) {
