@@ -4,6 +4,7 @@ import { createCase } from "../Features/cases/caseSlice";
 import { format } from "date-fns";
 import { storage } from "../firebase/firebase";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+import { v4 as uuid } from "uuid";
 
 function Agentpanel() {
   const dispatch = useDispatch();
@@ -78,12 +79,18 @@ function Agentpanel() {
         const snapshot = await uploadBytes(imageRef, imageUpload);
         const url = await getDownloadURL(snapshot.ref);
         setImageList((current) => [...current, url]);
-        document.querySelector(".aeonna-input").value = "";
+        // document.querySelector(".aeonna-input").value = "";
       };
       functionSomething();
+      console.log(imageList);
     }
     setImageUpload("");
   }, [imageUpload]);
+
+  const imageHandling = async (e) => {
+    setImageUpload(e.target.files);
+    console.log(e.target.files);
+  };
 
   const onChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -105,14 +112,6 @@ function Agentpanel() {
   //     });
   //   });
   // }, []);
-
-  const imageHandling = async (e) => {
-    setImageUpload(e.target.files[0]);
-  };
-
-  const uploadImageFunc = async () => {
-    console.log(imageList);
-  };
 
   // uploadBytes(imageRef, imageUpload).then((snapshot) => {
   //   getDownloadURL(snapshot.ref).then((url) => {
