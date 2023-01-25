@@ -73,13 +73,18 @@ function Agentpanel() {
   } = formData;
 
   useEffect(() => {
+    // TO-DO: Add a state for data loading, so the async part of this can catch up
+    // Basically so the user doesn't submit before the async stuff does its thing.
     if (imageUpload) {
       const functionSomething = async () => {
         const imageRef = ref(storage, `caseImages/${imageUpload.name + title}`);
         const snapshot = await uploadBytes(imageRef, imageUpload);
         const url = await getDownloadURL(snapshot.ref);
         setImageList((current) => [...current, url]);
+<<<<<<< HEAD
         // document.querySelector(".aeonna-input").value = "";
+=======
+>>>>>>> d00da0a0a807114a4d007603818a34f643a503f9
       };
       functionSomething();
       console.log(imageList);
@@ -113,6 +118,13 @@ function Agentpanel() {
   //   });
   // }, []);
 
+<<<<<<< HEAD
+=======
+  const imageHandling = async (e) => {
+    setImageUpload(e.target.files[0]);
+  };
+
+>>>>>>> d00da0a0a807114a4d007603818a34f643a503f9
   // uploadBytes(imageRef, imageUpload).then((snapshot) => {
   //   getDownloadURL(snapshot.ref).then((url) => {
   //     setImageList((prev) => [...prev, url]);
@@ -150,7 +162,9 @@ function Agentpanel() {
       isReserved,
       image: imageList,
     };
+
     dispatch(createCase(caseData));
+    document.querySelector(".file-upload").value = "";
   };
 
   if (user) {
@@ -557,7 +571,7 @@ function Agentpanel() {
               <input
                 type="file"
                 name="image"
-                className="aeonna-input form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
+                className="file-upload form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
                 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 id="caseImage"
                 accept="image/*"
