@@ -16,6 +16,7 @@ export default function Frontpage(){
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage, setPostsPerPage] = useState(10)
   const [showPriceslider, setShowPriceslider] = useState(false)
+  const [mutiRangeCounterVal, setMutiRangeCounterVal] = useState([0,10000])
 
   // useEffect(() => {
   //   const fetchPosts = async () => {
@@ -60,8 +61,12 @@ export default function Frontpage(){
                 <div className="w-1/6">
                   <DistanceCalc/>
                 </div>
-                <button onClick={toggleShown} className="flex mr-3 pl-2 h-12 w-1/6 border border-gray-300 rounded-md items-center focus:outline-none">Price</button>
-                {showPriceslider && <MinimumDistanceSlider/>} 
+                <div className="flex flex-col w-1/6">              
+                  <button onClick={toggleShown} className="flex mr-3 pl-2 h-12 w-full border border-gray-300 rounded-md items-center focus:outline-none">Price</button>
+                  <div className="absolute mt-14">
+                    {showPriceslider && <MinimumDistanceSlider val={mutiRangeCounterVal}/>} 
+                  </div>
+                </div>
                 <button className="flex justify-between mr-3 pl-2 h-12 w-[10%]  rounded-md items-center focus:outline-none">
                   <p>Filtre</p>
                   <FaEllipsisV/>
