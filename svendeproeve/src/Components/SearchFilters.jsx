@@ -1,6 +1,7 @@
 import { React,useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
+
 export default function SearchFilters(){
 
     const[formData, setFormData] = useState(
@@ -20,15 +21,19 @@ export default function SearchFilters(){
         setFormData(prevFormData => {
             return{
                 ...prevFormData,
-                [name]: type === "checked" ? checked : value
+                [name]: type === "checkbox" ? checked : value
             }
         })
     }
     console.log(formData)
 
+    function togglePrice(){
+        
+    }
+
     return(
-        <form className="flex flex-row  pl-6 pr-6 pt-3">
-            <div className="flex bg-slate-200 rounded-lg items-center p-1 mr-5">
+        <form className="flex flex-row    pt-3 justify-between w-full">
+            <div className="flex bg-slate-200 rounded-lg items-center p-1 mr-5 w-1/5">
                 <FaSearch className="ml-1"/>
                 <input
                 className="bg-slate-200 rounded-md w-64"
@@ -39,7 +44,7 @@ export default function SearchFilters(){
                 value={formData.searchParameter}
                 />
             </div>
-            <div className=" flex items-center rounded-lg bg-slate-200 mr-5">
+            <div className=" flex items-center rounded-lg bg-slate-200 mr-5 w-1/5">
                 <p className="font-semibold ml-1">For Sale</p>
                 <select 
                     className="bg-slate-200 rounded-lg p-1"
@@ -53,7 +58,7 @@ export default function SearchFilters(){
                 </select>
             </div>
              
-             <div className=" flex items-center rounded-lg bg-slate-200 mr-5">
+             <div className=" flex items-center rounded-lg bg-slate-200 mr-5 w-1/5">
                 <p className="font-semibold ml-1">Type:</p>
                 <select
                     className="bg-slate-200 rounded-lg p-1"
@@ -67,34 +72,11 @@ export default function SearchFilters(){
                 </select>
              </div>
 
-            <div className=" flex items-center rounded-lg bg-slate-200 mr-5">
-            <p className="font-semibold ml-1">Min Price:</p>
-                <select
-                    className="bg-slate-200 rounded-lg p-1"
-                    id="minPrice"
-                    value={formData.minPrice}
-                    onChange={handleChange}
-                    name="minPrice"
-                >
-                    <option value={0}>10</option>
-                    <option value={10}>10</option>
-                    <option value={20}>20</option>
-                </select>
+            <div className=" flex items-center rounded-lg bg-slate-200 mr-5 w-1/5">
+                <p className="font-semibold ml-1">Price:</p>
+
             </div>
-            <div className=" flex items-center rounded-lg bg-slate-200 mr-5">
-                <p className="font-semibold ml-1">Max Price:</p>
-                <select
-                    className="bg-slate-200 rounded-lg p-1"
-                    id="maxPrice"
-                    value={formData.maxPrice}
-                    onChange={handleChange}
-                    name="maxPrice"
-                >
-                    <option value={10}>10</option>
-                    <option value={20}>20</option>
-                </select>
-            </div>
-            <div className=" flex items-center rounded-lg bg-slate-200 mr-5">
+            <div className=" flex items-center rounded-lg bg-slate-200 w-1/5">
                 <p className="font-semibold ml-1">Floor Area</p>
                 <select
                     className="bg-slate-200 rounded-lg p-1"

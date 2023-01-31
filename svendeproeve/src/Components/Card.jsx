@@ -3,8 +3,8 @@ import { FaBed, FaBath, FaRuler } from "react-icons/fa";
 
 export default function Card(props){
     return(
-        <div className="flex flex-col max-w-[20em]  ml-5 grow-0 shrink-0 relative h-max bg-slate-50 rounded-t-3xl rounded-b-2xl shadow-sm">
-            <img src={(`${props.item.image}`)} className="object-cover rounded-2xl grow-0 w-full h-52"></img>
+        <div className="flex flex-col max-w-[30em] w-[27rem]  mr-5 grow-0 shrink-0 relative h-max bg-white rounded-t-3xl rounded-b-2xl shadow-sm mb-5">
+            <img src={(`${props.item.image}`)} className="object-cover rounded-t-2xl grow-0 w-full h-52"></img>
             <p className="ml-5 font-bold text-xl max-w-sm">$ {props.item.price}</p>
             <p className="ml-5 max-w-sm"> {props.item.adress}</p>
             <div className="flex flex-row mb-3 justify-evenly mt-2 font-semibold">

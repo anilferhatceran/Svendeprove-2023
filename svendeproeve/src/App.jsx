@@ -1,12 +1,11 @@
 import "./index.css";
 import Header from "./Components/Header";
 import Frontpage from "./Components/Frontpage";
-import dummyData from "./dummyData";
-import Card from "./Components/Card";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from "./Components/About";
 import MapTest from "./Components/MapTest";
 import Agentpanel from "./Pages/Agentpanel";
+
 
 function App() {
   return (
