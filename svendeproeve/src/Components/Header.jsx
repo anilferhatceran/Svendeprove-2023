@@ -1,7 +1,4 @@
-import React from "react";
 import { FaHouseUser, FaUserAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { useState } from "react";
 import Modal from "./Modal";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -11,7 +8,7 @@ import {
 } from "../features/modal/ModalSlice";
 import { logout, reset } from "../features/auth/authSlice";
 import React, {useState, useEffect} from "react";
-import { FaHouseUser } from "react-icons/fa";
+
 import {Link, NavLink} from "react-router-dom";
 import { motion } from "framer-motion";
 import classNames from "classnames";
@@ -100,7 +97,7 @@ export default function Header() {
           }
             >About</NavLink>
         <NavLink
-          to="test" 
+          to="/test" 
           className={({isActive}) =>
              isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
         }>
