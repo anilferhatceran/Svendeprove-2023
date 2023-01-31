@@ -4,7 +4,7 @@ import { createCase } from "../Features/cases/caseSlice";
 import { format } from "date-fns";
 import { storage } from "../firebase/firebase";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
-import { v4 as uuid } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 function Agentpanel() {
   const dispatch = useDispatch();
@@ -76,23 +76,27 @@ function Agentpanel() {
   } = formData;
 
   useEffect(() => {
-    if (imageUpload && imageTypes.includes(imageUpload.type)) {
-      const functionSomething = async () => {
-        const imageRef = ref(storage, `caseImages/${imageUpload.name + title}`);
-        const snapshot = await uploadBytes(imageRef, imageUpload);
-        const url = await getDownloadURL(snapshot.ref);
-        setImageList((current) => [...current, url]);
-      };
-      functionSomething();
-    } else {
-      setImageUpload(null);
-      setError("Please select an image file (png or jpeg)");
-      alert(error);
+    if (imageUpload) {
+      if (imageTypes.includes(imageUpload.type)) {
+        const functionSomething = async () => {
+          const imageRef = ref(
+            storage,
+            `caseImages/${imageUpload.name + uuidv4()}`
+          );
+          const snapshot = await uploadBytes(imageRef, imageUpload);
+          const url = await getDownloadURL(snapshot.ref);
+          setImageList((current) => [...current, url]);
+        };
+        setError("");
+        functionSomething();
+      } else {
+        setImageUpload(null);
+        setError("Please select an image file (png or jpeg)");
+      }
     }
-    setImageUpload("");
   }, [imageUpload]);
 
-  const imageHandling = async (e) => {
+  const imageHandling = (e) => {
     setImageUpload(e.target.files[0]);
   };
 
@@ -168,11 +172,7 @@ function Agentpanel() {
           Her kan du tilføje eller opdatere boliger
         </p>
 
-        {/* {imageList.map((url) => {
-          return <img src={url} />;
-        })} */}
-
-        <div className="p-6 rounded-lg shadow-lg bg-white max-w-md">
+        <div className="p-6 flex rounded-lg shadow-lg bg-white max-1/2">
           <form onSubmit={onSubmit}>
             <div className="form-group mb-6">
               <label
@@ -552,12 +552,13 @@ function Agentpanel() {
                 onChange={onChange}
               />
             </div>
-            <div className="form-group mb-6">
+
+            <div className="form-group mb-4">
               <label
                 className="form-check-label text-gray-800"
-                htmlFor="caseThirdDesc"
+                htmlFor="caseImage"
               >
-                Tilføj billede(r) til ejendommen
+                Tilføj billede(r) til ejendommen én ad gangen.
               </label>
               <input
                 type="file"
@@ -566,19 +567,38 @@ function Agentpanel() {
                 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 id="caseImage"
                 accept="image/*"
-                multiple
                 onChange={imageHandling}
               />
             </div>
+            <div className="image-output">
+              {error && <div className="error">{error}</div>}
+              {imageUpload && <div>{imageUpload.name}</div>}
+            </div>
             <button
               type="submit"
-              className="w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 
+              className="w-full px-6 mt-2 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 
               hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150
               ease-in-out"
             >
               Add Case
             </button>
           </form>
+          <section className=" text-gray-700">
+            <h2>Valgte billeder:</h2>
+            <div className="p-4 container px-5 py-2">
+              <div className="grid gap-2 grid-cols-3">
+                {imageList.map((imageUrl) => {
+                  return (
+                    <img
+                      key={imageUrl}
+                      className="border-2 bg-cover w-full h-full rounded-lg"
+                      src={imageUrl}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     );
