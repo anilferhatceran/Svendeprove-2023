@@ -1,9 +1,4 @@
 import { FaHouseUser, FaUserAlt } from "react-icons/fa";
-<<<<<<< Updated upstream
-=======
-import { Link, NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
->>>>>>> Stashed changes
 import Modal from "./Modal";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -12,12 +7,9 @@ import {
   toggleOff,
 } from "../features/modal/ModalSlice";
 import { logout, reset } from "../features/auth/authSlice";
-<<<<<<< Updated upstream
 import React, {useState, useEffect} from "react";
 
 import {Link, NavLink} from "react-router-dom";
-=======
->>>>>>> Stashed changes
 import { motion } from "framer-motion";
 import classNames from "classnames";
 
@@ -105,7 +97,6 @@ export default function Header() {
           </NavLink>
           <NavLink
             to="/About"
-<<<<<<< Updated upstream
             className={({isActive}) =>
             isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"  
           }
@@ -132,38 +123,6 @@ export default function Header() {
         }>
         Blog
         </NavLink>
-=======
-            className={({ isActive }) =>
-              isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
-            }
-          >
-            About
-          </NavLink>
-          <NavLink
-            to="test"
-            className={({ isActive }) =>
-              isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
-            }
-          >
-            Help
-          </NavLink>
-          <NavLink
-            to="/case"
-            className={({ isActive }) =>
-              isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
-            }
-          >
-            Real Estate Agents
-          </NavLink>
-          <NavLink
-            to="/blog"
-            className={({ isActive }) =>
-              isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
-            }
-          >
-            Blog
-          </NavLink>
->>>>>>> Stashed changes
         </div>
         {/* <button>
           <img src="https://thispersondoesnotexist.com/image" className=" h-10 w-10 rounded-full bg-blue-500 "></img>
