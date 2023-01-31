@@ -12,7 +12,11 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.7",
+<<<<<<< Updated upstream
     "@reduxjs/toolkit": "^1.9.2",
+=======
+    "@reduxjs/toolkit": "^1.9.0",
+>>>>>>> Stashed changes
     "axios": "^1.2.0",
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",

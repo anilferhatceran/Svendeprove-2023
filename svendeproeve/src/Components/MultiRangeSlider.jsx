@@ -1,16 +1,16 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
-import { createTheme } from '@mui/material';
-import { ThemeProvider } from '@emotion/react';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Slider from "@mui/material/Slider";
+import { createTheme } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#0EA5E9',
+      main: "#0EA5E9",
     },
     secondary: {
-      main: '#f44336',
+      main: "#f44336",
     },
   },
 });
@@ -18,7 +18,6 @@ const theme = createTheme({
 function valuetext(value) {
   return `${value}°C`;
 }
-
 
 const minDistance = 150;
 
@@ -38,30 +37,30 @@ export default function MinimumDistanceSlider() {
   };
 
   return (
-    <div className='flex  items-center rounded-lg bg-white border border-gray-300h-36 p-5 font-DMsans'>
-        <div className=''>
-            <div className='flex flex-row justify-between'>
-                <p className='font-semibold'>{value1[0] + " kr."}</p>
-                <p className='font-semibold'>{value1[1] + " kr."}</p>
-            </div>
-            
-            <div>
-              <ThemeProvider theme={theme}>
-                <Box sx={{ width: 200 }}>
-                    <Slider
-                        getAriaLabel={() => 'Minimum distance'}
-                        value={value1}
-                        onChange={handleChange1}
-                        valueLabelDisplay="auto"
-                        getAriaValueText={valuetext}
-                        disableSwap
-                        min={0}
-                        max={1000}            
-                    />
-                </Box>
-              </ThemeProvider>
-            </div>
+    <div className="flex  items-center rounded-lg bg-white border border-gray-300h-36 p-5 font-DMsans">
+      <div className="">
+        <div className="flex flex-row justify-between">
+          <p className="font-semibold">{value1[0] + " kr."}</p>
+          <p className="font-semibold">{value1[1] + " kr."}</p>
         </div>
+
+        <div>
+          <ThemeProvider theme={theme}>
+            <Box sx={{ width: 200 }}>
+              <Slider
+                getAriaLabel={() => "Minimum distance"}
+                value={value1}
+                onChange={handleChange1}
+                valueLabelDisplay="auto"
+                getAriaValueText={valuetext}
+                disableSwap
+                min={0}
+                max={1000}
+              />
+            </Box>
+          </ThemeProvider>
+        </div>
+      </div>
     </div>
   );
 }

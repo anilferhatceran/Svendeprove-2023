@@ -1,4 +1,9 @@
 import { FaHouseUser, FaUserAlt } from "react-icons/fa";
+<<<<<<< Updated upstream
+=======
+import { Link, NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+>>>>>>> Stashed changes
 import Modal from "./Modal";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -7,9 +12,12 @@ import {
   toggleOff,
 } from "../features/modal/ModalSlice";
 import { logout, reset } from "../features/auth/authSlice";
+<<<<<<< Updated upstream
 import React, {useState, useEffect} from "react";
 
 import {Link, NavLink} from "react-router-dom";
+=======
+>>>>>>> Stashed changes
 import { motion } from "framer-motion";
 import classNames from "classnames";
 
@@ -33,65 +41,71 @@ export default function Header() {
     dispatch(toggleOnLogin());
   };
 
-
-
-  
-  const [small, setSmall] = useState(false)
+  const [small, setSmall] = useState(false);
   useEffect(() => {
-    if(typeof window !== "undefined"){
-      window.addEventListener("scroll", () =>
-      setSmall(window.scrollY > 200)
-       )
-      }
-  },[])
-
- const variants = {
-  show:{
-    opacity: 1,
-    y:0,
-    transition:{
-      east:"easeOut",
-      duration: 0.3,
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", () => setSmall(window.scrollY > 200));
     }
-  },
-  hide:{
-    y: -20,
-    opacity: 0
-  }
- }
+  }, []);
 
-  let activeClassName=(
-    "py-2 pl-10 pr-10 text-lg text-sky-500 underline underline-offset-8 decoration-blue-500"
-  )
-  let stickyHeader=(
-    "font-DMsans p-5 bg-slate-50 top-0 sticky absolute z-50"
-  )
+  const variants = {
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        east: "easeOut",
+        duration: 0.3,
+      },
+    },
+    hide: {
+      y: -20,
+      opacity: 0,
+    },
+  };
+
+  let activeClassName =
+    "py-2 pl-10 pr-10 text-lg text-sky-500 underline underline-offset-8 decoration-blue-500";
+  let stickyHeader = "font-DMsans p-5 bg-slate-50 top-0 sticky absolute z-50";
   return (
-    <motion.nav 
-    className={small ? stickyHeader : "font-DMsans p-5  absolute w-full text-white"}
-      key={small} variants={variants} animate={"show"} initial={"hide"}>
+    <motion.nav
+      className={
+        small ? stickyHeader : "font-DMsans p-5  absolute w-full text-white"
+      }
+      key={small}
+      variants={variants}
+      animate={"show"}
+      initial={"hide"}
+    >
       <div className="flex flex-wrap items-center  justify-between">
         <Link to="/" className="flex items-center basis-1/6">
-          <h1 className={classNames("pr-2 text-4xl", {
-            "pr-2  text-sky-500 text-4xl": small
-          })}>
+          <h1
+            className={classNames("pr-2 text-4xl", {
+              "pr-2  text-sky-500 text-4xl": small,
+            })}
+          >
             <FaHouseUser />
           </h1>
-          <span className={classNames(" font-semibold text-4xl", {
-            "text-black font-semibold text-4xl": small
-          })}>SvendePrøve</span>
+          <span
+            className={classNames(" font-semibold text-4xl", {
+              "text-black font-semibold text-4xl": small,
+            })}
+          >
+            SvendePrøve
+          </span>
           {/* text-black font-semibold text-4xl */}
         </Link>
         <div className="">
-        <NavLink
-          to="/" 
-          className={({isActive}) =>
-             isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
-        }>
-        Search
-        </NavLink>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
+            }
+          >
+            Search
+          </NavLink>
           <NavLink
             to="/About"
+<<<<<<< Updated upstream
             className={({isActive}) =>
             isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"  
           }
@@ -118,11 +132,43 @@ export default function Header() {
         }>
         Blog
         </NavLink>
+=======
+            className={({ isActive }) =>
+              isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
+            }
+          >
+            About
+          </NavLink>
+          <NavLink
+            to="test"
+            className={({ isActive }) =>
+              isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
+            }
+          >
+            Help
+          </NavLink>
+          <NavLink
+            to="/case"
+            className={({ isActive }) =>
+              isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
+            }
+          >
+            Real Estate Agents
+          </NavLink>
+          <NavLink
+            to="/blog"
+            className={({ isActive }) =>
+              isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
+            }
+          >
+            Blog
+          </NavLink>
+>>>>>>> Stashed changes
         </div>
         {/* <button>
           <img src="https://thispersondoesnotexist.com/image" className=" h-10 w-10 rounded-full bg-blue-500 "></img>
         </button> */}
-                <div>
+        <div>
           {user ? (
             <>
               <button
