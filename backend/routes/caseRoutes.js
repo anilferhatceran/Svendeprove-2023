@@ -1,15 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const {
-  getCases,
+  getUserCases,
+  getAllCases,
   postCase,
   updateCase,
   deleteCase,
 } = require("../controllers/caseController");
 const { protect } = require("../middleware/authMiddleware");
 
-router.route("/").get(getCases).post(protect, postCase);
+router.route("/").get(protect, getUserCases).post(protect, postCase);
 router.route("/:id").put(protect, updateCase).delete(protect, deleteCase);
+router.get("/all", getAllCases);
 
 // router.get("/", getUsers);
 // router.post("/", postUser);

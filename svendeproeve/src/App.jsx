@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from "./Components/About";
 import MapTest from "./Components/MapTest";
 import Agentpanel from "./Pages/Agentpanel";
-
+import CasePage from "./Components/CasePage";
 
 function App() {
   return (
@@ -16,6 +16,7 @@ function App() {
           <Route path="/" element={<Frontpage />} />
           <Route path="/about" element={<About />} />
           <Route path="/test" element={<MapTest />} />
+          <Route path="/case" element={<CasePage />} />
           <Route path="/agentpanel" element={<Agentpanel />} />
         </Routes>
       </div>

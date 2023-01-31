@@ -27,7 +27,7 @@ const deleteCase = async (caseId, token) => {
 };
 
 // Get user cases
-const getCases = async (token) => {
+const getUserCases = async (token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -38,9 +38,18 @@ const getCases = async (token) => {
   return response.data;
 };
 
+// Get all cases
+
+const getAllCases = async () => {
+  const response = await axios.get(API_URL);
+
+  return response.data;
+};
+
 const caseService = {
   createCase,
-  getCases,
+  getUserCases,
+  getAllCases,
   deleteCase,
 };
 

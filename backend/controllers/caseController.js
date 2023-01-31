@@ -4,10 +4,16 @@ const Case = require("../models/caseModel");
 // @desc    Get cases
 // @route   GET /api/cases
 // @access  Private
-const getCases = asyncHandler(async (req, res) => {
+const getUserCases = asyncHandler(async (req, res) => {
   const cases = await Case.find({ user: req.user.id });
 
   res.status(200).json(cases);
+  console.log("Test");
+});
+
+const getAllCases = asyncHandler(async (req, res) => {
+  const allCases = await Case.find();
+  res.status(200).json(allCases);
 });
 
 // @desc    Set user
@@ -125,7 +131,8 @@ const deleteCase = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 module.exports = {
-  getCases,
+  getUserCases,
+  getAllCases,
   postCase,
   updateCase,
   deleteCase,
