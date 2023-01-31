@@ -37,7 +37,7 @@ export default function MinimumDistanceSlider() {
   };
 
   return (
-    <div className="flex  items-center rounded-lg bg-white border border-gray-300h-36 p-5 font-DMsans">
+    <div className="flex  items-center rounded-lg bg-white border border-gray-300 p-5 font-DMsans">
       <div className="">
         <div className="flex flex-row justify-between">
           <p className="font-semibold">{value1[0] + " kr."}</p>

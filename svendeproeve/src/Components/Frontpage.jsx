@@ -16,6 +16,7 @@ export default function Frontpage(){
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage, setPostsPerPage] = useState(10)
   const [showPriceslider, setShowPriceslider] = useState(false)
+  const [showAdvancedFilter, setShowAdvancedFilter] = useState(false)
   const [mutiRangeCounterVal, setMutiRangeCounterVal] = useState([0,10000])
 
   // useEffect(() => {
@@ -28,18 +29,72 @@ export default function Frontpage(){
   //   fetchPosts();  
   // }, [])
   
-  function toggleShown(){
+  function toggleShowSlider(){
     setShowPriceslider(prevShown => !prevShown)
   }
+  function toggleShowFilter(){
+    setShowAdvancedFilter(prevShown => !prevShown)
+  }
 
-    const cardElement = dummyData.map(item =>{
-        return(
-          <Card
-            key={item.id}
-            item={item}
-          />
-        )
-      })
+  const cardElement = dummyData.map(item =>{
+      return(
+        <Card
+          key={item.id}
+          item={item}
+        />
+      )
+    })
+//aconto, petsAllowed, elevatorAvalible, balcony, rooms, areal
+  const advancedSearchFilter = (
+    <div className="m-16 p-3 h-auto w-96 bg-white border border-gray rounded-lg">
+      <h1>Ameneties</h1>
+      <div className="">
+        <ul className="grid grid-cols-2 pb-3">
+          <li className="w-40">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                className="mr-1"/>
+              <label>Aconto</label>
+            </div>
+          </li>
+          <li className="w-40">
+            <div className="flex items-center pl-3">
+              <input
+                type="checkbox"
+                className="mr-1"/>
+              <label>Pets allowed</label>
+            </div>
+          </li>
+          <li className="w-40">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                className="mr-1"/>
+              <label>Balcony</label>
+            </div>
+          </li>
+          <li className="w-44">
+            <div className="flex items-center pl-3">
+              <input
+                type="checkbox"
+                className="mr-1"/>
+              <label>Elevator available</label>
+            </div>
+          </li>
+        </ul>
+        <div className="grid gap-6 grid-cols-2">
+          <div className="w-40">
+            <input type="text" placeholder="Rooms" className="flex pl-2 h-8  w-36 border border-gray-300 rounded-md items-center focus:outline-none"/>
+          </div>
+          <div className="w-40">
+            <input type="text" placeholder="m3" className="flex pl-2 h-8 w-36 border border-gray-300 rounded-md items-center focus:outline-none"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+
     return(
       <div className="  shadow-inner font-DMsans">
         <div className="h-screen bg-hero bg-cover select-none flex  w-full">
@@ -62,21 +117,27 @@ export default function Frontpage(){
                   <DistanceCalc/>
                 </div>
                 <div className="flex flex-col w-1/6">              
-                  <button onClick={toggleShown} className="flex mr-3 pl-2 h-12 w-full border border-gray-300 rounded-md items-center focus:outline-none">Price</button>
+                  <button onClick={toggleShowSlider} className="flex mr-3 pl-2 h-12 w-full border border-gray-300 rounded-md items-center focus:outline-none">Price</button>
                   <div className="absolute mt-14">
                     {showPriceslider && <MinimumDistanceSlider val={mutiRangeCounterVal}/>} 
                   </div>
                 </div>
-                <button className="flex justify-between mr-3 pl-2 h-12 w-[10%]  rounded-md items-center focus:outline-none">
-                  <p>Filtre</p>
-                  <FaEllipsisV/>
-                 </button>
+                <div className="flex flex-col">
+                  <button onClick={toggleShowFilter} className="flex justify-between mr-3 pl-2 h-12 w-[10%]  rounded-md items-center focus:outline-none">
+                    <p>Filtre</p>
+                    <FaEllipsisV/>
+                  </button>
+                  <div className="absolute mt-14">
+                    {showAdvancedFilter && `${advancedSearchFilter}`}
+                  </div>
+                </div>
                 <button className="flex justify-center mr-3 h-12 w-1/6 border-2 text-white  bg-sky-500 border-sky-500 rounded-md items-center transition-all focus:outline-none hover:bg-white hover:text-sky-500 hover:transition-all">Søg</button>
               </div>
             </div>
             {/* <DistanceCalc/> */}
           </div>
         </div>
+        
         <div className="flex flex-col p-5">
         <SearchFilters/>
             <div className="flex flex-row h-screen w-full mt-5">
