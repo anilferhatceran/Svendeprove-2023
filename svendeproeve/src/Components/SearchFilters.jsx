@@ -24,8 +24,8 @@ export default function SearchFilters(){
                 [name]: type === "checkbox" ? checked : value
             }
         })
+        console.log(formData)
     }
-    console.log(formData)
 
     function togglePrice(){
         
