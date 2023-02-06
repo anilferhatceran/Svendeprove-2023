@@ -205,29 +205,6 @@ export default function Frontpage(){
                 </div>
                 <button className="flex justify-center mr-3 h-12 w-1/6 border-2 text-white  bg-sky-500 border-sky-500 rounded-md items-center transition-all focus:outline-none hover:bg-white hover:text-sky-500 hover:transition-all">Søg</button>
               </div>
-              <div className="w-1/6">
-                <DistanceCalc />
-              </div>
-              <div className="flex flex-col w-1/6">
-                <button
-                  onClick={toggleShown}
-                  className="flex mr-3 pl-2 h-12 w-full border border-gray-300 rounded-md items-center focus:outline-none"
-                >
-                  Price
-                </button>
-                <div className="absolute mt-14">
-                  {showPriceslider && (
-                    <MinimumDistanceSlider val={mutiRangeCounterVal} />
-                  )}
-                </div>
-              </div>
-              <button className="flex justify-between mr-3 pl-2 h-12 w-[10%]  rounded-md items-center focus:outline-none">
-                <p>Filtre</p>
-                <FaEllipsisV />
-              </button>
-              <button className="flex justify-center mr-3 h-12 w-1/6 border-2 text-white  bg-sky-500 border-sky-500 rounded-md items-center transition-all focus:outline-none hover:bg-white hover:text-sky-500 hover:transition-all">
-                Søg
-              </button>
             </div>
           </div>
         </div>
