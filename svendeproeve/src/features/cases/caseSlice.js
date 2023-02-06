@@ -69,7 +69,7 @@ export const getUserCases = createAsyncThunk(
 // Get all cases
 
 export const getAllCases = createAsyncThunk(
-  "cases/getAll",
+  "cases/all",
   async (_, thunkAPI) => {
     try {
       return await caseService.getAllCases();

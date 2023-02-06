@@ -11,6 +11,7 @@ const getUserCases = asyncHandler(async (req, res) => {
 });
 
 const getAllCases = asyncHandler(async (req, res) => {
+  console.log("I'm in backend get all cases");
   const allCases = await Case.find();
   res.status(200).json(allCases);
 });
