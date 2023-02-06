@@ -8,7 +8,6 @@ const getUserCases = asyncHandler(async (req, res) => {
   const cases = await Case.find({ user: req.user.id });
 
   res.status(200).json(cases);
-  console.log("Test");
 });
 
 const getAllCases = asyncHandler(async (req, res) => {
