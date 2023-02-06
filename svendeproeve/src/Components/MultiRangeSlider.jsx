@@ -21,8 +21,8 @@ function valuetext(value) {
 
 const minDistance = 150;
 
-export default function MinimumDistanceSlider() {
-  const [value1, setValue1] = React.useState([0, 1000]);
+export default function MinimumDistanceSlider(props) {
+  const [value1, setValue1] = React.useState([props.minVal, props.maxVal]);
 
   const handleChange1 = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
@@ -37,7 +37,7 @@ export default function MinimumDistanceSlider() {
   };
 
   return (
-    <div className="flex  items-center rounded-lg bg-white border border-gray-300h-36 p-5 font-DMsans">
+    <div className="flex  items-center rounded-lg bg-white border border-gray-300 p-5 font-DMsans">
       <div className="">
         <div className="flex flex-row justify-between">
           <p className="font-semibold">{value1[0] + " kr."}</p>
@@ -50,12 +50,12 @@ export default function MinimumDistanceSlider() {
               <Slider
                 getAriaLabel={() => "Minimum distance"}
                 value={value1}
-                onChange={handleChange1}
+                onChange={props.handleChange}
                 valueLabelDisplay="auto"
                 getAriaValueText={valuetext}
                 disableSwap
-                min={0}
-                max={1000}
+                min={props.minval}
+                max={props.maxVal}
               />
             </Box>
           </ThemeProvider>
