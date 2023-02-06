@@ -50,7 +50,7 @@ export default function MinimumDistanceSlider(props) {
               <Slider
                 getAriaLabel={() => "Minimum distance"}
                 value={value1}
-                onChange={props.handleChange}
+                onChange={handleChange1}
                 valueLabelDisplay="auto"
                 getAriaValueText={valuetext}
                 disableSwap

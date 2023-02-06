@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from "./Components/About";
 import MapTest from "./Components/MapTest";
 import Agentpanel from "./Pages/Agentpanel";
+import CreateCaseDesign from "./Components/CreateCaseDesign";
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Frontpage />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<CreateCaseDesign/>} />
           <Route path="/test" element={<MapTest />} />
           <Route path="/agentpanel" element={<Agentpanel />} />
         </Routes>

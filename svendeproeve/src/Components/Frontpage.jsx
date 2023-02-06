@@ -72,6 +72,8 @@ export default function Frontpage(){
       })
       console.log(filterData);
   }
+
+  
 //aconto, petsAllowed, elevatorAvalible, balcony, rooms, areal
   const advancedSearchFilter = (
     <div className=" p-3 h-auto w-96 bg-white border border-gray rounded-lg">
