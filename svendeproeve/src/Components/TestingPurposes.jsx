@@ -8,11 +8,22 @@ function TestingPurposes() {
 
   useEffect(() => {
     dispatch(getAllCases());
-
     console.log(cases);
   }, []);
 
-  return <div></div>;
+  return (
+    <div className="flex justify-center item-center h-screen w-full">
+      {cases.map((item) => {
+        return (
+          <div className="ml-2 m-32" key={item._id}>
+            <h1>{item.title}</h1>
+            <h1>{item.latitude}</h1>
+            <img src={item.image} alt="" />
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 export default TestingPurposes;
