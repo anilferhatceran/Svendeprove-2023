@@ -6,6 +6,7 @@ import About from "./Components/About";
 import MapTest from "./Components/MapTest";
 import Agentpanel from "./Pages/Agentpanel";
 import CasePage from "./Components/CasePage";
+import TestingPurposes from "./Components/TestingPurposes";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Frontpage />} />
           <Route path="/about" element={<About />} />
-          <Route path="/test" element={<MapTest />} />
+          <Route path="/test" element={<TestingPurposes />} />
           <Route path="/case" element={<CasePage />} />
           <Route path="/agentpanel" element={<Agentpanel />} />
         </Routes>
