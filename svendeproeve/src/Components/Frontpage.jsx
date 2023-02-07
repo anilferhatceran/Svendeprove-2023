@@ -79,6 +79,9 @@ export default function Frontpage(){
     <div className=" p-3 h-auto w-96 bg-white border border-gray rounded-lg">
       <h1>Ameneties</h1>
       <div className="">
+        <form>
+
+        
         <ul className="grid grid-cols-2 pb-3">
           <li className="w-40">
             <div className="flex items-center">
@@ -151,6 +154,7 @@ export default function Frontpage(){
               />
           </div>
         </div>
+          </form>
       </div>
     </div>
   )
