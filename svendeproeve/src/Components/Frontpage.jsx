@@ -160,7 +160,7 @@ export default function Frontpage(){
   )
 
     return(
-      <div className="  shadow-inner font-DMsans">
+      <div className="  shadow-inner font-DMsans bg-slate-50">
         <div className="h-screen bg-hero bg-cover select-none flex  w-full">
 
 

@@ -1,6 +1,11 @@
 import React,{useState} from 'react'
+import CaseMap from './caseMap';
+import mapboxgl from 'mapbox-gl';
+import { Map } from 'react-map-gl';
 
 function CreateCaseDesign() {
+
+  mapboxgl.accessToken = 'pk.eyJ1Ijoib2xpdmVyaGFuc2VuIiwiYSI6ImNsYXc3dWdmZDBkZ2wzbm1oZzV6ZTVxOXUifQ.tWutup-cpAISS3niRDRPoA';
 
   const [formData, setFormData] = useState({
     title: "ass",
@@ -141,13 +146,34 @@ function CreateCaseDesign() {
             </div>
             <div className='flex flex-row pt-5'>
               <div className='w-1/3 mr-2'>
-                <label className='font-semibold text-lg'>Price</label>
+                <label className='font-semibold text-lg'>Deposit</label>
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
                 />
               </div>
               <div className='w-1/3 mr-2'>
+                <label className='font-semibold text-lg'>Rent</label>
+                <input
+                  className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
+                />
+              </div>
+              <div className='w-1/3'>
+                <label className='font-semibold text-lg'>Prepaid Rent</label>
+                <input
+                  className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
+                />
+              </div>
+
+            </div>
+            <div className='flex flex-row pt-5'>
+              <div className='w-1/3 mr-2'>
                 <label className='font-semibold text-lg'>Area</label>
+                <input
+                  className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
+                />
+              </div>
+              <div className='w-1/3 mr-2'>
+                <label className='font-semibold text-lg'>Prepaid Rent</label>
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
                 />
@@ -164,6 +190,10 @@ function CreateCaseDesign() {
                   <option>other</option>
                 </select>
               </div>
+            </div>
+            <div className='mt-1'>
+              <label className='font-semibold text-xl '>Location</label>
+              <CaseMap/>
             </div>
         </div>
       </div>

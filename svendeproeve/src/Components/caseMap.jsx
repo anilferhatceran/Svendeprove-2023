@@ -1,6 +1,8 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect, useRef, useCallback} from "react";
  import DawaAutocomplete from "./DawaAutocomplete";
  import axios from 'axios';
+ import { Map } from "react-map-gl";
+ import mapboxgl from "mapbox-gl";
  
 /*
 **Todo**
@@ -8,16 +10,24 @@ Distance calculation
 maybe autocomplete på postnr
 vis distance til alle cases udfra postnr user indtaster
 */
-export default function DistanceCalc(){
+export default function CaseMap(){
     const [byData, setByData] = React.useState({})
     const [postNr, setPostNr] = React.useState({postNr:"1550"})
-    const [longitude, setLongitude] = useState("")
-    const [latitude, setLatitude] = useState("")
+    const [longitudeX, setLongitude] = useState("")
+    const [latitudeY, setLatitude] = useState("")
     const [users, setUsers] = useState([])
     const [text, setText] = useState("")
     const [suggestions, setSuggestions] = useState([])
+    const intialViewState ={
+        latitude: 55.752594,
+        longitude: 10.847750,
+        zoom: 5
+    }
 
-    
+    mapboxgl.accessToken = 'pk.eyJ1Ijoib2xpdmVyaGFuc2VuIiwiYSI6ImNsYXc3dWdmZDBkZ2wzbm1oZzV6ZTVxOXUifQ.tWutup-cpAISS3niRDRPoA';
+
+
+     const mapRef = useRef()
 
     useEffect(() => {
       const loadData = async()=>{
@@ -31,12 +41,14 @@ export default function DistanceCalc(){
     console.log(text)
 }, [text])
     
+    const onLonLatChange = useCallback((longitudeX,latitudeY) =>{
+        mapRef.current?.flyTo({center:[longitudeX,latitudeY], duration:2000})
+    }, [])
 
     useEffect(() => {
-     console.log("Longitude (x value):"+longitude);
-     console.log("Latitude (y value):"+latitude);
-    }, [longitude, latitude])
-    
+     console.log("Longitude (x value):"+longitudeX);
+     console.log("Latitude (y value):"+latitudeY);
+    }, [longitudeX, latitudeY])
     
     // window.onload = function(){
 
@@ -150,9 +162,16 @@ export default function DistanceCalc(){
                 onSuggestHandler(suggestion.tekst)
                 setLongitude(suggestion.adresse.x)
                 setLatitude(suggestion.adresse.y)
+                onLonLatChange()
             }}>{suggestion.tekst}</div>
         )}
-    
+        <div className=" w-full h-96">
+            <Map
+                initialViewState={intialViewState}
+                mapStyle="mapbox://styles/mapbox/streets-v12"
+                mapboxAccessToken="pk.eyJ1Ijoib2xpdmVyaGFuc2VuIiwiYSI6ImNsYXc3dWdmZDBkZ2wzbm1oZzV6ZTVxOXUifQ.tWutup-cpAISS3niRDRPoA"
+            />
+        </div>
     </div>
     )
 }
