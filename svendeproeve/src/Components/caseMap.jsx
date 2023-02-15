@@ -3,6 +3,8 @@ import React,{useState,useEffect, useRef, useCallback} from "react";
  import axios from 'axios';
  import { Map } from "react-map-gl";
  import mapboxgl from "mapbox-gl";
+ import 'mapbox-gl/dist/mapbox-gl.css';
+
  
 /*
 **Todo**
@@ -165,8 +167,9 @@ export default function CaseMap(){
                 onLonLatChange()
             }}>{suggestion.tekst}</div>
         )}
-        <div className=" w-full h-96">
+        <div className=" w-full h-96 mt-2 rounded-lg">
             <Map
+                id="map"
                 initialViewState={intialViewState}
                 mapStyle="mapbox://styles/mapbox/streets-v12"
                 mapboxAccessToken="pk.eyJ1Ijoib2xpdmVyaGFuc2VuIiwiYSI6ImNsYXc3dWdmZDBkZ2wzbm1oZzV6ZTVxOXUifQ.tWutup-cpAISS3niRDRPoA"

@@ -1,7 +1,10 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import CaseMap from './caseMap';
 import mapboxgl from 'mapbox-gl';
+import { storage } from "../firebase/firebase";
+import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 import { Map } from 'react-map-gl';
+import { v4 as uuidv4 } from "uuid";
 
 function CreateCaseDesign() {
 
@@ -22,8 +25,8 @@ function CreateCaseDesign() {
     rent: "1212",
     prepaidRent: "123",
     isAconto: false,
-    heatPrice: "123",
-    waterPrice: "123123",
+    heatPrice: "",
+    waterPrice: "",
     longitude: "1231",
     latitude: "12312",
     petsAllowed: false,
@@ -33,15 +36,53 @@ function CreateCaseDesign() {
     image: [],
   });
 
+  const [imageUpload, setImageUpload] = useState("");
+  // This is an array that retrieves all images in the cloud storage
+  const [imageList, setImageList] = useState([]);
+  const [imageUrl, setImageUrl] = useState(null);
+
+  const imageTypes = ["image/png", "image/jpeg"];
+  const [error, setError] = useState("");
+
+  const imageListRef = ref(storage, "caseImages");
+
+
+
+  useEffect(() => {
+    if (imageUpload) {
+      if (imageTypes.includes(imageUpload.type)) {
+        const functionSomething = async () => {
+          const imageRef = ref(
+            storage,
+            `caseImages/${imageUpload.name + uuidv4()}`
+          );
+          const snapshot = await uploadBytes(imageRef, imageUpload);
+          const url = await getDownloadURL(snapshot.ref);
+          setImageList((current) => [...current, url]);
+        };
+        setError("");
+        functionSomething();
+      } else {
+        setImageUpload(null);
+        setError("Please select an image file (png or jpeg)");
+      }
+    }
+  }, [imageUpload]);
+
+  const imageHandling = (e) => {
+    setImageUpload(e.target.files[0]);
+  };
+
   function handleChange(event){
     const{name,value,type,checked} = event.target
-    setFilterData(prevFormData => {
+    setFormData(prevFormData => {
+
         return{
             ...prevFormData,
             [name]: type === "checkbox" ? checked : value
         }
     })
-    console.log(filterData);
+    console.log(formData);
 }
 
   return (
@@ -68,7 +109,7 @@ function CreateCaseDesign() {
                 className='flex items-center text-lg pl-2 w-full h-28 border border-gray-300 rounded-lg focus:outline-none focus:border-sky-500'
                 placeholder=''
                 onChange={handleChange}
-                name="title"
+                name="firstDescription"
                 value={formData.firstDescription}
                 />
             </div>
@@ -78,7 +119,7 @@ function CreateCaseDesign() {
                 className='flex items-center text-lg pl-2 w-full h-28 border border-gray-300 rounded-lg focus:outline-none focus:border-sky-500'
                 placeholder=''
                 onChange={handleChange}
-                name="title"
+                name="secondDescription"
                 value={formData.secondDescription}
                 />
             </div>
@@ -88,7 +129,7 @@ function CreateCaseDesign() {
                 className='flex items-center text-lg pl-2 w-full h-28 border border-gray-300 rounded-lg focus:outline-none focus:border-sky-500'
                 placeholder=''
                 onChange={handleChange}
-                name="title"
+                name="thirdDescription"
                 value={formData.thirdDescription}
                 />
             </div>
@@ -120,6 +161,7 @@ function CreateCaseDesign() {
                     type="checkbox"
                     id="elevatorAvailable"
                     checked={formData.elevatorAvailable}
+                    onChange={handleChange}
                     name="elevatorAvailable"
                   />
                 </div>
@@ -130,6 +172,7 @@ function CreateCaseDesign() {
                     type="checkbox"
                     id="balcony"
                     checked={formData.balcony}
+                    onChange={handleChange}
                     name="balcony"
                   />
                 </div>
@@ -138,12 +181,35 @@ function CreateCaseDesign() {
                   <input
                     className='h-5 w-5'
                     type="checkbox"
-                    id="isAconto"
                     checked={formData.isAconto}
+                    onChange={handleChange}
                     name="isAconto"
                   />
                 </div>
             </div>
+            {formData.isAconto && <div className='flex flex-row pt-5'>
+              <div className='w-1/2 mr-2'>
+                <label className='font-semibold text-lg'>Heat price</label>
+                <input
+                  className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
+                  type="text"
+                  value={formData.heatPrice}
+                  onChange={handleChange}
+                  name="heatPrice"
+                />
+              </div>
+              <div className='w-1/2 mr-2'>
+                <label className='font-semibold text-lg'>Water price</label>
+                <input
+                  className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
+                  type="text"
+                  value={formData.waterPrice}
+                  onChange={handleChange}
+                  name="waterPrice"
+                />
+              </div>
+
+            </div>}
             <div className='flex flex-row pt-5'>
               <div className='w-1/3 mr-2'>
                 <label className='font-semibold text-lg'>Deposit</label>
@@ -165,6 +231,7 @@ function CreateCaseDesign() {
               </div>
 
             </div>
+            
             <div className='flex flex-row pt-5'>
               <div className='w-1/3 mr-2'>
                 <label className='font-semibold text-lg'>Area</label>
@@ -173,8 +240,9 @@ function CreateCaseDesign() {
                 />
               </div>
               <div className='w-1/3 mr-2'>
-                <label className='font-semibold text-lg'>Prepaid Rent</label>
+                <label className='font-semibold text-lg'>Available from</label>
                 <input
+                  type="date"
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
                 />
               </div>
@@ -195,6 +263,44 @@ function CreateCaseDesign() {
               <label className='font-semibold text-xl '>Location</label>
               <CaseMap/>
             </div>
+            <div className="form-group mb-4">
+              <label
+                className="form-check-label text-gray-800"
+                htmlFor="caseImage"
+              >
+                Tilføj billede(r) til ejendommen én ad gangen.
+              </label>
+              <input
+                type="file"
+                name="image"
+                className="file-upload form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
+                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                id="caseImage"
+                accept="image/*"
+                onChange={imageHandling}
+              />
+            </div>
+            <div className="image-output">
+              {error && <div className="error">{error}</div>}
+              {imageUpload && <div>{imageUpload.name}</div>}
+            </div>
+            <section className=" text-gray-700">
+            <h2>Valgte billeder:</h2>
+            <div className="p-4 container px-5 py-2 border border-gray-300 rounded-lg">
+              <div className="grid gap-2 grid-cols-3">
+                {imageList.map((imageUrl) => {
+                  return (
+                    <img
+                      key={imageUrl}
+                      className="border-2 bg-cover w-full h-full rounded-lg"
+                      src={imageUrl}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+          <button className="flex justify-center mr-3 h-12 w-1/6 border-2 text-white  bg-sky-500 border-sky-500 rounded-md items-center transition-all focus:outline-none hover:bg-white hover:text-sky-500 hover:transition-all">Søg</button>
         </div>
       </div>
     </form>
