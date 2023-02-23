@@ -7,6 +7,8 @@ import MapTest from "./Components/MapTest";
 import Agentpanel from "./Pages/Agentpanel";
 import CasePage from "./Components/CasePage";
 import TestingPurposes from "./Components/TestingPurposes";
+import CreateCaseDesign from "./Components/CreateCaseDesign";
+
 
 function App() {
   return (
@@ -15,9 +17,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Frontpage />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/test" element={<TestingPurposes />} />
-          <Route path="/case" element={<CasePage />} />
+          <Route path="/about" element={<CreateCaseDesign/>} />
+          <Route path="/test" element={<MapTest />} />
           <Route path="/agentpanel" element={<Agentpanel />} />
         </Routes>
       </div>

@@ -73,11 +73,16 @@ export default function Frontpage(){
       })
       console.log(filterData);
   }
+
+  
 //aconto, petsAllowed, elevatorAvalible, balcony, rooms, areal
   const advancedSearchFilter = (
     <div className=" p-3 h-auto w-96 bg-white border border-gray rounded-lg">
       <h1>Ameneties</h1>
       <div className="">
+        <form>
+
+        
         <ul className="grid grid-cols-2 pb-3">
           <li className="w-40">
             <div className="flex items-center">
@@ -150,12 +155,13 @@ export default function Frontpage(){
               />
           </div>
         </div>
+          </form>
       </div>
     </div>
   )
 
     return(
-      <div className="  shadow-inner font-DMsans">
+      <div className="  shadow-inner font-DMsans bg-slate-50">
         <div className="h-screen bg-hero bg-cover select-none flex  w-full">
 
 
@@ -174,7 +180,7 @@ export default function Frontpage(){
                 <div className="flex mr-3 pl-2 h-12 w-1/5 border border-gray-300 rounded-md items-center relative">
                   {/* <label>Property Type</label> */}
                   <select 
-                    className="w-full relative focus:outline-none"
+                    className="w-full relative focus:outline-none bg-white"
                     id="propertyType"
                     value={filterData.propertyType}
                     onChange={handleChange}
