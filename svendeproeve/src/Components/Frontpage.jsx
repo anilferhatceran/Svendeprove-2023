@@ -179,7 +179,7 @@ export default function Frontpage(){
                 <div className="flex mr-3 pl-2 h-12 w-1/5 border border-gray-300 rounded-md items-center relative">
                   {/* <label>Property Type</label> */}
                   <select 
-                    className="w-full relative focus:outline-none"
+                    className="w-full relative focus:outline-none bg-white"
                     id="propertyType"
                     value={filterData.propertyType}
                     onChange={handleChange}
