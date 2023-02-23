@@ -42,7 +42,6 @@ const getUserCases = async (token) => {
 
 const getAllCases = async () => {
   const response = await axios.get(API_URL + "all/");
-  console.log("I'm getting cases");
   return response.data;
 };
 
