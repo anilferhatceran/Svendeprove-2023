@@ -167,17 +167,17 @@ export default function Frontpage(){
 
           {/* <img className="h-full w-full bg-cover select-none" src="src\assets\frontpageImage.jpg"/> */}
           <div className=" flex justify-center items-center w-screen">
-            <div className="flex bg-white-rgba h-36 w-3/5 rounded-xl justify-center items-center">
-              <div className="flex bg-white h-32 w-[98%] m-2 rounded-xl  items-center justify-between">
+            <div className="flex bg-white-rgba h-auto lg:h-36 w-5/6 lg:w-3/5 rounded-xl justify-center items-center">
+              <div className="flex bg-white pt-4 lg:pt-0 h-auto lg:h-32 w-[98%] m-2 rounded-xl  items-center justify-between flex-col lg:flex-row">
                 <input 
-                  className="flex ml-6 pl-2 mr-3 h-12 w-1/4 border border-gray-300 rounded-md items-center focus:outline-none"
+                  className="flex lg:ml-6 pl-2 lg:mr-3 h-12 w-11/12 lg:w-1/4 border border-gray-300 rounded-md items-center focus:outline-none"
                   placeholder="Enter keyword..."
                   type="text"
                   name="searchParameter"
                   onChange={handleChange}
                   value={filterData.searchParameter}
                   />
-                <div className="flex mr-3 pl-2 h-12 w-1/5 border border-gray-300 rounded-md items-center relative">
+                <div className="flex mt-4 lg:mt-0 lg:mr-3 pl-2 h-12 w-11/12 lg:w-1/5 border border-gray-300 rounded-md items-center relative">
                   {/* <label>Property Type</label> */}
                   <select 
                     className="w-full relative focus:outline-none bg-white"
@@ -191,25 +191,25 @@ export default function Frontpage(){
                     <option value="Lejlighed">2</option>
                   </select>
                 </div>
-                <div className="w-1/6">
+                <div className="w-11/12 mt-4 lg:mt-0 lg:w-1/6">
                   <DistanceCalc/>
                 </div>
-                <div className="flex flex-col w-1/6">              
+                <div className="flex flex-col mt-4 lg:mt-0 w-11/12 lg:w-1/6">              
                   <button onClick={toggleShowSlider} className="flex mr-3 pl-2 h-12 w-full border border-gray-300 rounded-md items-center focus:outline-none">Price</button>
                   <div className="absolute mt-14">
                     {showPriceslider && <MinimumDistanceSlider minVal={filterData.minPrice} maxVal={filterData.maxPrice} handleChange={handleChange}/>} 
                   </div>
                 </div>
-                <div className="flex flex-col">
-                  <button onClick={toggleShowFilter} className="flex justify-between mr-3 pl-2 h-12 w-[10%]  rounded-md items-center focus:outline-none">
-                    <p>Filtre</p>
-                    <FaEllipsisV/>
+                <div className="flex flex-col  lg:w-auto w-11/12">
+                  <button onClick={toggleShowFilter} className="flex w-full justify-between mt-4 lg:mt-0 mr-3 lg:pl-2 h-12 lg:w-[10%] border lg:border-none border-gray-300  rounded-md items-center focus:outline-none">
+                    <p className="flex items-center w-full pl-2 lg:pl-0">Filtre</p>
+                    {/* <FaEllipsisV/> */}
                   </button>
                   <div className="absolute mt-14">
                     {showAdvancedFilter && advancedSearchFilter}
                   </div>
                 </div>
-                <button className="flex justify-center mr-3 h-12 w-1/6 border-2 text-white  bg-sky-500 border-sky-500 rounded-md items-center transition-all focus:outline-none hover:bg-white hover:text-sky-500 hover:transition-all">Søg</button>
+                <button className="flex justify-center lg:mr-3 h-12 w-11/12 lg:w-1/6 border-2 text-white mt-4 lg:mt-0 mb-4 lg:mb-0 bg-sky-500 border-sky-500 rounded-md items-center transition-all focus:outline-none hover:bg-white hover:text-sky-500 hover:transition-all">Søg</button>
               </div>
             </div>
           </div>

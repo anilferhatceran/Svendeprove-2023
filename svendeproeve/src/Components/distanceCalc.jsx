@@ -126,7 +126,7 @@ export default function DistanceCalc(){
     <div className="flex flex-col justify-center items-center">
         {/*  */}
         <input
-        className="flex mr-3 pl-2 h-12 w-full border border-gray-300 rounded-md items-center relative focus:outline-none"
+        className="flex lg:mr-3 pl-2 h-12 w-full border border-gray-300 rounded-md items-center relative focus:outline-none"
         type="text" 
         placeholder="Location"
         onChange={e=>onChangeHandler(e.target.value)}

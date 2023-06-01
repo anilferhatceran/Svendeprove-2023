@@ -14,6 +14,10 @@ export default function CasePage() {
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam congue magna eu orci gravida, vitae mollis massa fringilla. Morbi eget nulla imperdiet, facilisis lorem nec, porta est. Mauris eleifend ultrices lacinia. In pellentesque ligula velit, sed vulputate arcu sagittis ut. Integer vel est eget magna maximus sodales eget et leo. In quis consectetur tellus. Etiam vestibulum consequat lorem, vitae mollis orci ultricies et. Maecenas lacinia sit amet mauris vel aliquet. Aliquam blandit, sem et ullamcorper viverra, sem ligula finibus sem, sed posuere enim tellus vel tortor. Mauris euismod porttitor ipsum. Nam non justo sit amet ipsum sodales tempus.";
 
   return (
+    <div>
+
+    
+      <div className='font-DMsans bg-sky-500 h-20'/>
     <div className="pl-80 pr-80 shadow-inner font-DMsans">
       <div className="bg-white  flex flex-col shadow-lg overflow-hidden">
         <div className=" flex items-center">
@@ -127,6 +131,7 @@ export default function CasePage() {
         </div>
         <div className="h-96"></div>
       </div>
+    </div>
     </div>
   );
 }
