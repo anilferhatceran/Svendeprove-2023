@@ -10,10 +10,15 @@ export default function MyCasesPage(){
             <div className='bg-sky-500 h-20'/>
             <div className="flex flex-col pl-40 pr-40 pt-20">
                 <div className="flex flex-row justify-between items-center ">
-                    <h1 className="font-semibold text-3xl text-g">My Cases</h1>
-                    <button className="rounded-full bg-sky-500 p-1 text-xl hover:text-white"><FaPlus/></button>
+                    <div>
+                        <h1 className="font-semibold text-3xl text-g">My Cases</h1>
+                    </div>
+                    <div className="flex items-center">
+                        <label className="pr-2">Add case</label>
+                        <button className="rounded-full bg-sky-500 p-1 text-lg hover:text-white"><FaPlus/></button>
+                    </div>
                 </div>
-                <div className="border border-slate-300 h- rounded-sm">
+                <div className="border border-slate-300  rounded-sm">
                     <div className="flex flex-row bg-sky-500 text-white h-12 w-full justify-between items-center pr-2 pl-2">
                         <div className="pl-4">
                             <label>Listing Title</label>
@@ -25,6 +30,8 @@ export default function MyCasesPage(){
                         </div>
                     </div>
                 <MyCaseCard/>
+                
+                
                 </div>
             </div>
         </div>
