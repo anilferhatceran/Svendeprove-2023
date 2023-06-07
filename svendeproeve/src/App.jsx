@@ -18,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Frontpage />} />
           <Route path="/about" element={<CreateCaseDesign />} />
-          <Route path="/test" element={<CasePage />} />
+          <Route path="/case/:id" element={<CasePage />} />
           <Route path="/agentpanel" element={<Agentpanel />} />
         </Routes>
       </div>

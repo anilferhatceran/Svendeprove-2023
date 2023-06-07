@@ -66,6 +66,24 @@ export const getUserCases = createAsyncThunk(
   }
 );
 
+// Get case
+export const getCase = createAsyncThunk(
+  "cases/get",
+  async(id,thunkAPI) => {
+    try {
+      return await caseService.getCase(id);
+  } catch(error){
+    const message =
+      (error.response &&
+        error.response.data &&
+        error.response.data.message) ||
+        error.message ||
+        error.toString();
+        return thunkAPI.rejectWithValue(message);
+  }
+}
+);
+
 // Get all cases
 
 export const getAllCases = createAsyncThunk(
@@ -115,6 +133,19 @@ export const caseSlice = createSlice({
         state.cases = action.payload;
       })
       .addCase(getUserCases.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(getCase.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCase.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.cases = action.payload;
+      })
+      .addCase(getCase.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

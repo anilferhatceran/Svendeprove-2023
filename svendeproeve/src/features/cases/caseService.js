@@ -29,6 +29,10 @@ const deleteCase = async (caseId, token) => {
 
   return response.data;
 };
+const getCase = async (id) => {
+  const response = await axios.get(API_URL + 'case/' + id);
+  return response.data;
+}
 
 // Get user cases
 const getUserCases = async (token) => {
@@ -45,13 +49,14 @@ const getUserCases = async (token) => {
 // Get all cases
 
 const getAllCases = async () => {
-  const response = await axios.get(API_URL + "all/");
+  const response = await axios.get(API_URL + "all");
   return response.data;
 };
 
 const caseService = {
   createCase,
   getUserCases,
+  getCase,
   getAllCases,
   deleteCase,
 };

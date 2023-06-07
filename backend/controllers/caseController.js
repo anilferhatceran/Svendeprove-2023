@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Case = require("../models/caseModel");
 
-// @desc    Get cases
+// @desc    Get user cases
 // @route   GET /api/cases
 // @access  Private
 const getUserCases = asyncHandler(async (req, res) => {
@@ -10,7 +10,21 @@ const getUserCases = asyncHandler(async (req, res) => {
   res.status(200).json(cases);
 });
 
+
 // @desc    Get case
+// @route   GET /api/cases/:id
+// @access  Public
+const getCase = asyncHandler(async (req, res) => {
+  const _case = await Case.findById(req.params.id);
+
+  if(!_case){
+    return res.status(404).json({ msg: "Case not found" });
+  }
+
+  res.status(200).json(_case);
+});
+
+// @desc    Get all cases
 // @route   GET /api/cases/all
 // @access  Public
 const getAllCases = asyncHandler(async (req, res) => {
@@ -134,6 +148,7 @@ const deleteCase = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 module.exports = {
+  getCase,
   getUserCases,
   getAllCases,
   postCase,
