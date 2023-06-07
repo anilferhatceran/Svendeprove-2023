@@ -5,9 +5,11 @@ import { format } from "date-fns";
 import { storage } from "../firebase/firebase";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 function Agentpanel() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
 
   const [imageUpload, setImageUpload] = useState("");
@@ -171,7 +173,6 @@ function Agentpanel() {
         <p className="text-lg font-light mt-3 underline underline-offset-2">
           Her kan du tilføje eller opdatere boliger
         </p>
-
         <div className="p-6 flex rounded-lg shadow-lg bg-white max-1/2">
           <form onSubmit={onSubmit}>
             <div className="form-group mb-6">

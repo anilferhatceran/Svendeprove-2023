@@ -8,7 +8,7 @@ import Agentpanel from "./Pages/Agentpanel";
 import CasePage from "./Components/CasePage";
 import TestingPurposes from "./Components/TestingPurposes";
 import CreateCaseDesign from "./Components/CreateCaseDesign";
-
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Frontpage />} />
-          <Route path="/about" element={<CreateCaseDesign/>} />
+          <Route path="/about" element={<CreateCaseDesign />} />
           <Route path="/test" element={<CasePage />} />
           <Route path="/agentpanel" element={<Agentpanel />} />
         </Routes>

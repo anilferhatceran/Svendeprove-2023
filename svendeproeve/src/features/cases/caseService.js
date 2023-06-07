@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const API_URL = "http://localhost:5000/api/cases/";
 
@@ -11,6 +12,9 @@ const createCase = async (caseData, token) => {
   };
   const response = await axios.post(API_URL, caseData, config);
 
+  if(response.data){
+    toast.success("Case created successfully");
+  }
   return response.data;
 };
 
