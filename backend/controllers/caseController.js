@@ -10,8 +10,10 @@ const getUserCases = asyncHandler(async (req, res) => {
   res.status(200).json(cases);
 });
 
+// @desc    Get case
+// @route   GET /api/cases/all
+// @access  Public
 const getAllCases = asyncHandler(async (req, res) => {
-  console.log("I'm in backend get all cases");
   const allCases = await Case.find();
   res.status(200).json(allCases);
 });
@@ -39,6 +41,7 @@ const postCase = asyncHandler(async (req, res) => {
     !req.body.latitude
   ) {
     res.status(400);
+    console.log("Something went wrong");
     throw new Error("Please don't leave fields empty");
   }
   // if (title == req.body.title) {
