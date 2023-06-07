@@ -8,6 +8,7 @@ import Agentpanel from "./Pages/Agentpanel";
 import CasePage from "./Components/CasePage";
 import TestingPurposes from "./Components/TestingPurposes";
 import CreateCaseDesign from "./Components/CreateCaseDesign";
+import MyCasesPage from "./Components/MyCasesPage";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/about" element={<CreateCaseDesign/>} />
           <Route path="/test" element={<CasePage />} />
           <Route path="/agentpanel" element={<Agentpanel />} />
+          <Route path="/myCases" element={<MyCasesPage />} />
         </Routes>
       </div>
     </Router>
