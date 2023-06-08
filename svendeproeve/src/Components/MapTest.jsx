@@ -1,7 +1,7 @@
 import {useState,useRef,useEffect,useMemo} from "react";
 import mapboxgl from 'mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import dummyData from "../dummyData";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaBed, FaBath, FaRuler } from "react-icons/fa";
 import Map, {Marker, Popup} from 'react-map-gl';
 import cities from "../cities";
 
@@ -72,8 +72,25 @@ export default function MapTest(){
         latitude={Number(showPopup.latitude)}
         onClose={() => setShowPopup(null)}
       >
-      <div>
-        test
+      <div className="">
+        <button>
+          <img className="rounded-t-md" src="https://images.pexels.com/photos/129112/pexels-photo-129112.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"/>
+          <p className="font-bold text-md">$10</p>
+          <div className="flex flex-row mb-3 justify-evenly mt-2 font-semibold">
+          <div className="flex flex-row justify-center items-center bg-slate-200 rounded-lg h-8 w-16  mr-2">
+            <FaBed className="text-orange-500 mr-2" />
+            1
+          </div>
+          <div className="flex flex-row justify-center items-center bg-slate-200 rounded-lg h-8 w-16 mr-2">
+            <FaBath className="text-sky-500 mr-2" />
+            2
+          </div>
+          <div className="flex flex-row justify-center items-center bg-slate-200 rounded-lg h-8 w-20">
+            <FaRuler className="text-emerald-500 mr-2" />
+            10 m²
+          </div>
+        </div>
+        </button>
       </div>
     </Popup>}
   </Map>
