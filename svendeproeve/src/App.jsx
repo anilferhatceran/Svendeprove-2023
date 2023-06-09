@@ -10,6 +10,7 @@ import TestingPurposes from "./Components/TestingPurposes";
 import CreateCaseDesign from "./Components/CreateCaseDesign";
 import { ToastContainer } from "react-toastify";
 import MyCasesPage from "./Components/MyCasesPage";
+import HelpPage from "./Components/helpPage";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/case/:id" element={<CasePage />} />
           <Route path="/agentpanel" element={<Agentpanel />} />
           <Route path="/myCases" element={<MyCasesPage />} />
+          <Route path="/help" element={<HelpPage />} />
         </Routes>
       </div>
     </Router>

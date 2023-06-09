@@ -102,7 +102,7 @@ export default function Header() {
           }
             >About</NavLink>
         <NavLink
-          to="/test" 
+          to="/help" 
           className={({isActive}) =>
              isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
         }>
