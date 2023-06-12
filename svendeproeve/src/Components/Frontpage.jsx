@@ -150,10 +150,15 @@ export default function Frontpage() {
   );
 
   return (
-    <div className="  shadow-inner font-DMsans bg-slate-50">
+    <div className="  shadow-inner font-Nunito bg-slate-50">
       <div className="h-screen bg-hero bg-cover select-none flex  w-full">
         {/* <img className="h-full w-full bg-cover select-none" src="src\assets\frontpageImage.jpg"/> */}
-        <div className=" flex justify-center items-center w-screen">
+        <div className=" flex flex-col justify-center items-center w-screen">
+          <div className="lg:h-28"/>
+          <div className="flex flex-col items-center mb-8">
+            <h1 className="font-bold lg:text-5xl text-4xl text-white pb-2">Find Your Dream Home</h1>
+            <h2 className="  lg:text-2xl text-2xl text-white">Boliger i hele danmark</h2>
+          </div>
           <div className="flex bg-white-rgba h-auto lg:h-36 w-5/6 lg:w-3/5 rounded-xl justify-center items-center">
             <div className="flex bg-white pt-4 lg:pt-0 h-auto lg:h-32 w-[98%] m-2 rounded-xl  items-center justify-between flex-col lg:flex-row">
               <input

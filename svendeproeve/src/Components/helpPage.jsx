@@ -24,7 +24,7 @@ export default function HelpPage(){
       }
 
     return(
-        <div className="flex flex-col h-screen w-full font-DMsans">
+        <div className="flex flex-col h-screen w-full font-Nunito">
             <div className="bg-hero h-1/2  bg-cover select-none flex w-full items-center pl-5 lg:pl-44 text-white text-4xl">
             Contact us
             </div>

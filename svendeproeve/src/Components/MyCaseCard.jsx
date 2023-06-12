@@ -6,7 +6,7 @@ import { FaTrash, FaPencilAlt} from "react-icons/fa";
 
 export default function MyCaseCard(){
     return(
-        <div className="font-DMsans h-40  border-b border-slate-300">
+        <div className="font-Nunito h-40  border-b border-slate-300">
             <div className="flex flex-row justify-between items-center h-full">
                 <div className="itm">
                     <div className="flex flex-row pl-4">

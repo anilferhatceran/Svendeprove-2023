@@ -11,6 +11,7 @@ import CreateCaseDesign from "./Components/CreateCaseDesign";
 import { ToastContainer } from "react-toastify";
 import MyCasesPage from "./Components/MyCasesPage";
 import HelpPage from "./Components/helpPage";
+import SearchPage from "./Components/searchPage";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/agentpanel" element={<Agentpanel />} />
           <Route path="/myCases" element={<MyCasesPage />} />
           <Route path="/help" element={<HelpPage />} />
+          <Route path="/search" element={<SearchPage />} />
         </Routes>
       </div>
     </Router>

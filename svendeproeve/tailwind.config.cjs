@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily:{
-        'DMsans' : ['"DM Sans"']
+        'DMsans' : ['"DM Sans"'],
+        'Nunito' : ['"Nunito"']
       },
       backgroundImage:{
         'hero' : "url('src/assets/frontpageImage.jpg')",
