@@ -8,7 +8,7 @@ import DistanceCalc from "./distanceCalc";
 import { FaChevronDown, FaEllipsisV } from "react-icons/fa";
 import MinimumDistanceSlider from "./MultiRangeSlider";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCases } from "../features/cases/caseSlice";
+import { getAllCases,getUserCases } from "../features/cases/caseSlice";
 
 export default function Frontpage() {
 
@@ -37,12 +37,12 @@ export default function Frontpage() {
     propertyType: "",
   });
 
-  const fetchData = () => {
+  const fetchAllCases = () => {
     dispatch(getAllCases());
   };
 
   useEffect(() => {
-    fetchData();
+    fetchAllCases();
   }, [cases]);
 
   function toggleShowSlider() {
@@ -64,7 +64,7 @@ export default function Frontpage() {
         [name]: type === "checkbox" ? checked : value,
       };
     });
-    console.log(filterData);
+    // console.log(filterData);
   }
 
   //aconto, petsAllowed, elevatorAvalible, balcony, rooms, areal
@@ -231,7 +231,7 @@ export default function Frontpage() {
         <div className="flex flex-row h-screen w-full mt-5">
           <div className=" h-full w-1/2 flex flex-wrap ">{cardElement}</div>
           <div className=" h-full w-1/2 pl-5 ">
-            <div className=" bg-black h-full w-full rounded-3xl">
+            <div className=" bg-black h-full w-full rounded-3xl lg:flex hidden">
               <MapTest />
             </div>
           </div>

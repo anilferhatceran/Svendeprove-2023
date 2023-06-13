@@ -21,6 +21,8 @@ export default function Header() {
 
   const [userMenu, setUserMenu] = useState(false);
 
+  const [isVisible, setIsVisible] = useState(true)
+
   const onClickRegister = () => {
     dispatch(toggleOnRegister());
   };
@@ -40,6 +42,7 @@ export default function Header() {
     }
   }, []);
 
+
   const variants = {
     show: {
       opacity: 1,
@@ -55,13 +58,25 @@ export default function Header() {
     },
   };
 
+   const show = {
+    opacity: 1,
+    display: "block"
+   };
+
+   const hide = {
+    opacity: 0,
+    transitionEnd: {
+      display:"none"
+    }
+   };
+
   let activeClassName =
     "py-2 pl-10 pr-10 text-lg text-sky-500 underline underline-offset-8 decoration-blue-500";
-  let stickyHeader = "font-Nunito p-5 bg-slate-50 top-0 sticky absolute z-50";
+  let stickyHeader = "font-Nunito p-5 bg-slate-50 top-0 sticky absolute z-50 hidden lg:flex lg:flex-col";
   return (
     <motion.nav
       className={
-        small ? stickyHeader : "font-Nunito p-5  absolute w-full text-white"
+        small ? stickyHeader : "font-Nunito p-5  absolute w-full text-white hidden lg:flex lg:flex-col"
       }
       key={small}
       variants={variants}

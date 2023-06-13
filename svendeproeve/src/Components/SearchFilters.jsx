@@ -32,8 +32,8 @@ export default function SearchFilters(){
     }
 
     return(
-        <form className="flex flex-row    pt-3 justify-between w-full">
-            <div className="flex bg-slate-200 rounded-lg items-center p-1 mr-5 w-1/5">
+        <form className="flex flex-col lg:flex-row pt-3 justify-between w-full lg:border-none border border-slate-300 rounded-md p-1 lg:p-0">
+            <div className="flex bg-slate-200 rounded-lg items-center p-1 mr-5 w-full lg:w-1/5">
                 <FaSearch className="ml-1"/>
                 <input
                 className="bg-slate-200 rounded-md w-64"
@@ -44,7 +44,7 @@ export default function SearchFilters(){
                 value={formData.searchParameter}
                 />
             </div>
-            <div className=" flex items-center rounded-lg bg-slate-200 mr-5 w-1/5">
+            <div className=" flex items-center rounded-lg bg-slate-200 mt-2 lg:mt-0 mr-5 w-full lg:w-1/5">
                 <p className="font-semibold ml-1">For Sale</p>
                 <select 
                     className="bg-slate-200 rounded-lg p-1"
@@ -58,7 +58,7 @@ export default function SearchFilters(){
                 </select>
             </div>
              
-             <div className=" flex items-center rounded-lg bg-slate-200 mr-5 w-1/5">
+             <div className=" flex items-center rounded-lg bg-slate-200 mt-2 lg:mt-0 mr-5 w-full lg:w-1/5">
                 <p className="font-semibold ml-1">Type:</p>
                 <select
                     className="bg-slate-200 rounded-lg p-1"
@@ -72,11 +72,11 @@ export default function SearchFilters(){
                 </select>
              </div>
 
-            <div className=" flex items-center rounded-lg bg-slate-200 mr-5 w-1/5">
+            <div className=" flex items-center rounded-lg bg-slate-200 mt-2 lg:mt-0 mr-5 w-full lg:w-1/5">
                 <p className="font-semibold ml-1">Price:</p>
 
             </div>
-            <div className=" flex items-center rounded-lg bg-slate-200 w-1/5">
+            <div className=" flex items-center rounded-lg bg-slate-200 mt-2 lg:mt-0 w-full lg:w-1/5">
                 <p className="font-semibold ml-1">Floor Area</p>
                 <select
                     className="bg-slate-200 rounded-lg p-1"

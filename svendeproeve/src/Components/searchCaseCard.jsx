@@ -5,7 +5,7 @@ import { CiLocationOn } from 'react-icons/ci';
 
 export default function SearchCaseCard(){
     return(
-        <div className="font-Nunito h-[360px] w-[22rem] bg-white rounded-lg p-2">
+        <div className="font-Nunito h-[360px] w-[22rem] bg-white hover:shadow-2xl transition-all hover:transition-all rounded-lg p-2 shadow-xl m-2">
             {/* <div className="flex flex-col relative">
                 <div className="absolute">
                     <img className="rounded-lg max-h-56  z-10" src="https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"/>
@@ -29,7 +29,7 @@ export default function SearchCaseCard(){
             </div>
             <div className="ml-3 mt-5">
                 <h3 className="text-sky-400">Apartment</h3>
-                <h2 className="font-semibold text-gray-700 pt-1">Luxary Family Home</h2>
+                <a href="" className="font-semibold text-gray-700 pt-1">Luxary Family Home</a>
                 <div className="flex flex-row text-gray-700 items-center pt-1 text-sm">
                     <p><CiLocationOn/></p>
                     <p>Telegrafvej 9, 2750 Ballerup</p>
