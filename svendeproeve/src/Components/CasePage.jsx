@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 import MapTest from "./MapTest";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { getUserFromId } from "../features/auth/authSlice";
 
 export default function CasePage() {
   const [currentCase, setCurrentCase] = useState([]);
@@ -28,16 +28,22 @@ export default function CasePage() {
 
     return caseId;
   };
+  
+  const fetchCase = () => {
+    dispatch(getCase(getCaseIdFromUrl()));
+  };
+  
+  const fetchCaseUser = () => {
+    dispatch(getUserFromId(cases.user));
+  }
 
   useEffect(() => {
-    const fetchData = () => {
-      dispatch(getCase(getCaseIdFromUrl()));
-    };
-    fetchData();
-  }, []);
+    fetchCase();
+    fetchCaseUser();
+  }, [cases, user]);
 
   let fillerText =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam congue magna eu orci gravida, vitae mollis massa fringilla. Morbi eget nulla imperdiet, facilisis lorem nec, porta est. Mauris eleifend ultrices lacinia. In pellentesque ligula velit, sed vulputate arcu sagittis ut. Integer vel est eget magna maximus sodales eget et leo. In quis consectetur tellus. Etiam vestibulum consequat lorem, vitae mollis orci ultricies et. Maecenas lacinia sit amet mauris vel aliquet. Aliquam blandit, sem et ullamcorper viverra, sem ligula finibus sem, sed posuere enim tellus vel tortor. Mauris euismod porttitor ipsum. Nam non justo sit amet ipsum sodales tempus.";
+    "Lorem ipsum dolors sit amet, consectetur adipiscing elit. Aliquam congue magna eu orci gravida, vitae mollis massa fringilla. Morbi eget nulla imperdiet, facilisis lorem nec, porta est. Mauris eleifend ultrices lacinia. In pellentesque ligula velit, sed vulputate arcu sagittis ut. Integer vel est eget magna maximus sodales eget et leo. In quis consectetur tellus. Etiam vestibulum consequat lorem, vitae mollis orci ultricies et. Maecenas lacinia sit amet mauris vel aliquet. Aliquam blandit, sem et ullamcorper viverra, sem ligula finibus sem, sed posuere enim tellus vel tortor. Mauris euismod porttitor ipsum. Nam non justo sit amet ipsum sodales tempus.";
 
   return (
     <div>
@@ -62,7 +68,7 @@ export default function CasePage() {
 
             <div className="flex flex-row shadow-2xl mr-14 bg-white">
               <div className="flex flex-col m-10">
-                <h1 className="pb-1 font-semibold">{user.name}</h1>
+                <h1 className="pb-1 font-semibold">{user && user.name}</h1>
                 <h1 className="pb-10 text-sky-500 font-semibold">
                   Udlejningsmægler
                 </h1>
@@ -72,7 +78,7 @@ export default function CasePage() {
                 </div>
                 <div className="flex flex-row items-center">
                   <FaRegEnvelope className="text-sky-500 text-2xl mr-1" />
-                  <p>{user.email}</p>
+                  <p>{user && user.email}</p>
                 </div>
               </div>
               <img

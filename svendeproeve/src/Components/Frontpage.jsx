@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCases } from "../features/cases/caseSlice";
 
 export default function Frontpage() {
-  const [posts, setPosts] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,6 +21,7 @@ export default function Frontpage() {
 
   const dispatch = useDispatch();
   const { cases } = useSelector((state) => state.case);
+
 
   const [filterData, setFilterData] = useState({
     searchParameter: "",
@@ -37,12 +37,13 @@ export default function Frontpage() {
     propertyType: "",
   });
 
+  const fetchData = () => {
+    dispatch(getAllCases());
+  };
+
   useEffect(() => {
-    const fetchData = () => {
-      dispatch(getAllCases());
-    };
     fetchData();
-  }, []);
+  }, [cases]);
 
   function toggleShowSlider() {
     setShowPriceslider((prevShown) => !prevShown);

@@ -18,7 +18,7 @@ const getCase = asyncHandler(async (req, res) => {
   const _case = await Case.findById(req.params.id);
 
   if(!_case){
-    return res.status(404).json({ msg: "Case not found" });
+    res.status(404).json({ msg: "Case not found" });
   }
 
   res.status(200).json(_case);

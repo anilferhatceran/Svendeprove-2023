@@ -5,6 +5,7 @@ const {
   registerUser,
   loginUser,
   getMe,
+  getUserFromId
 } = require("../controllers/userController");
 
 // This route is basically api/goals/about
@@ -27,6 +28,7 @@ const {
 router.post("/", registerUser);
 router.post("/login", loginUser);
 router.get("/me", protect, getMe);
+router.get("/getuser/:id", getUserFromId);
 
 // router.get("/", getUsers);
 // router.post("/", postUser);

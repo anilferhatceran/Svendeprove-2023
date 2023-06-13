@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createCase } from "../Features/cases/caseSlice";
+import { createCase } from "../features/cases/caseSlice";
 import { format } from "date-fns";
 import { storage } from "../firebase/firebase";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";

@@ -1,10 +1,14 @@
-import React,{useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { createCase } from "../features/cases/caseSlice";
 import CaseMap from './caseMap';
 import mapboxgl from 'mapbox-gl';
+import { format } from "date-fns";
 import { storage } from "../firebase/firebase";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 import { Map } from 'react-map-gl';
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 function CreateCaseDesign() {
 
@@ -36,16 +40,44 @@ function CreateCaseDesign() {
     image: [],
   });
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+
   const [imageUpload, setImageUpload] = useState("");
   // This is an array that retrieves all images in the cloud storage
   const [imageList, setImageList] = useState([]);
-  const [imageUrl, setImageUrl] = useState(null);
 
   const imageTypes = ["image/png", "image/jpeg"];
   const [error, setError] = useState("");
 
   const imageListRef = ref(storage, "caseImages");
 
+
+  const {
+    title,
+    address,
+    city,
+    firstDescription,
+    secondDescription,
+    thirdDescription,
+    rooms,
+    size,
+    availableFrom,
+    deposit,
+    rent,
+    prepaidRent,
+    isAconto,
+    heatPrice,
+    waterPrice,
+    longitude,
+    latitude,
+    petsAllowed,
+    elevatorAvailable,
+    balcony,
+    isReserved,
+    image,
+  } = formData;
 
 
   useEffect(() => {
@@ -82,8 +114,38 @@ function CreateCaseDesign() {
             [name]: type === "checkbox" ? checked : value
         }
     })
-    console.log(formData);
+    
 }
+const onSubmit = (e) => {
+  e.preventDefault();
+
+  const caseData = {
+    title,
+    address,
+    city,
+    firstDescription,
+    secondDescription,
+    thirdDescription,
+    rooms,
+    size,
+    availableFrom: format(new Date(availableFrom), "dd/MM/yyyy"),
+    deposit,
+    rent,
+    prepaidRent,
+    isAconto,
+    heatPrice,
+    waterPrice,
+    longitude,
+    latitude,
+    petsAllowed,
+    elevatorAvailable,
+    balcony,
+    isReserved,
+    image: imageList,
+  };
+  document.querySelector(".file-upload").value = "";
+  dispatch(createCase(caseData));
+};
 
   return (
     <form className='flex flex-col'>  
@@ -100,7 +162,7 @@ function CreateCaseDesign() {
                 placeholder=''
                 onChange={handleChange}
                 name="title"
-                value={formData.title}
+                value={title}
                 />
             </div>
             <div>
@@ -110,7 +172,7 @@ function CreateCaseDesign() {
                 placeholder=''
                 onChange={handleChange}
                 name="firstDescription"
-                value={formData.firstDescription}
+                value={firstDescription}
                 />
             </div>
             <div>
@@ -120,7 +182,7 @@ function CreateCaseDesign() {
                 placeholder=''
                 onChange={handleChange}
                 name="secondDescription"
-                value={formData.secondDescription}
+                value={secondDescription}
                 />
             </div>
             <div>
@@ -130,27 +192,19 @@ function CreateCaseDesign() {
                 placeholder=''
                 onChange={handleChange}
                 name="thirdDescription"
-                value={formData.thirdDescription}
+                value={thirdDescription}
                 />
             </div>
-            <label className='font-semibold text-lg pt-5'>Type</label>
+            
             <div className='flex flex-row justify-between '>
-              <div className='w-2/6  mr-2'>
-                <select
-                  className='flex items-center w-full h-12  pl-1 border border-gray-300 rounded-lg focus:outline-none'
-                  >
-                  <option ></option>
-                  <option>Lejlighed</option>
-                  <option>Hus</option>
-                </select>
-              </div>
+              
               <div className='flex border w-1/6 mr-2 border-gray-300 items-center rounded-lg justify-between pr-10 pl-10'>
                 <label>Pets allowed?</label>             
                 <input
                   className='h-5 w-5'
                   type="checkbox"
                   name="petsAllowed"
-                  checked={formData.petsAllowed}
+                  checked={petsAllowed}
                   onChange={handleChange}
                   />
                 </div>
@@ -160,7 +214,7 @@ function CreateCaseDesign() {
                     className='h-5 w-5'
                     type="checkbox"
                     id="elevatorAvailable"
-                    checked={formData.elevatorAvailable}
+                    checked={elevatorAvailable}
                     onChange={handleChange}
                     name="elevatorAvailable"
                   />
@@ -171,7 +225,7 @@ function CreateCaseDesign() {
                     className='h-5 w-5'
                     type="checkbox"
                     id="balcony"
-                    checked={formData.balcony}
+                    checked={balcony}
                     onChange={handleChange}
                     name="balcony"
                   />
@@ -181,19 +235,19 @@ function CreateCaseDesign() {
                   <input
                     className='h-5 w-5'
                     type="checkbox"
-                    checked={formData.isAconto}
+                    checked={isAconto}
                     onChange={handleChange}
                     name="isAconto"
                   />
                 </div>
             </div>
-            {formData.isAconto && <div className='flex flex-row pt-5'>
+            {isAconto && <div className='flex flex-row pt-5'>
               <div className='w-1/2 mr-2'>
                 <label className='font-semibold text-lg'>Heat price</label>
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
                   type="text"
-                  value={formData.heatPrice}
+                  value={heatPrice}
                   onChange={handleChange}
                   name="heatPrice"
                 />
@@ -203,7 +257,7 @@ function CreateCaseDesign() {
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
                   type="text"
-                  value={formData.waterPrice}
+                  value={waterPrice}
                   onChange={handleChange}
                   name="waterPrice"
                 />
@@ -260,8 +314,24 @@ function CreateCaseDesign() {
               </div>
             </div>
             <div className='mt-1'>
-              <label className='font-semibold text-xl '>Location</label>
-              <CaseMap/>
+            <div className='w-1/3 mr-2'>
+                <label className='font-semibold text-lg'>Longitude</label>
+                <input
+                  className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
+                  value={longitude}
+                  onChange={handleChange}
+                  name="longitude"
+                />
+              </div>
+              <div className='w-1/3 mr-2'>
+                <label className='font-semibold text-lg'>Latitude</label>
+                <input
+                  className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
+                  value={latitude}
+                  onChange={handleChange}
+                  name="latitude"
+                />
+              </div>
             </div>
             <div className="form-group mb-4">
               <label
