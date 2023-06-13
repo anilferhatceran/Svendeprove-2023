@@ -6,7 +6,7 @@ import MyCaseCard from "./MyCaseCard";
 
 export default function MyCasesPage(){
     return(
-        <div className="font-DMsans">
+        <div className="font-Nunito">
             <div className='bg-sky-500 h-20'/>
             <div className="flex flex-col pl-40 pr-40 pt-20">
                 <div className="flex flex-row justify-between items-center ">

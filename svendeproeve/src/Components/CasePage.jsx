@@ -47,8 +47,8 @@ export default function CasePage() {
 
   return (
     <div>
-      <div className="font-DMsans bg-sky-500 h-20" />
-      <div className="pl-80 pr-80 shadow-inner font-DMsans">
+      <div className="font-Nunito bg-sky-500 h-20" />
+      <div className="pl-80 pr-80 shadow-inner font-Nunito">
         <div className="bg-white  flex flex-col shadow-lg overflow-hidden">
           <div className=" flex items-center">
             <ImageCarousel slides={dummyData} className="" />

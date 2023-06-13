@@ -3,7 +3,7 @@ import { FaHouseUser } from "react-icons/fa";
 
 export default function Footer(){
     return(
-        <div className="bg-sky-200 w-full p-5 shadow-inner font-DMsans pr-14 pl-14 h-44">
+        <div className="bg-sky-200 w-full p-5 shadow-inner font-Nunito pr-14 pl-14 h-44">
             <div className="flex flex-row justify-evenly">
                 <div className="flex flex-row items-center">         
                     <FaHouseUser className="hr-6 text-sky-500 text-3xl"/>

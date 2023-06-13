@@ -149,7 +149,7 @@ const onSubmit = (e) => {
 
   return (
     <form className='flex flex-col'>  
-      <div className='font-DMsans bg-sky-500 h-20'/>
+      <div className='font-Nunito bg-sky-500 h-20'/>
       <div className='w-11/12 self-center pt-20'>
         <label className='font-bold text-2xl text-slate-800'>Add New Property</label>
         <div className='flex flex-col h-auto w-full bg-white rounded-md self-center pt-4 pl-16 pr-16 pb-4'>
