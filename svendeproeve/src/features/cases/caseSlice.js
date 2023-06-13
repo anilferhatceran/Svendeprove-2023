@@ -47,6 +47,25 @@ export const deleteCase = createAsyncThunk(
   }
 );
 
+// Edit case
+export const editCase = createAsyncThunk(
+  "cases/edit",
+  async (id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await caseService.editCase(id, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 // Get user cases
 export const getUserCases = createAsyncThunk(
   "cases/getAllUser",

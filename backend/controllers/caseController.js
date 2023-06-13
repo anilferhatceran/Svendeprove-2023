@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Case = require("../models/caseModel");
+const User = require("../models/userModel");
 
 // @desc    Get user cases
 // @route   GET /api/cases
@@ -32,10 +33,11 @@ const getAllCases = asyncHandler(async (req, res) => {
   res.status(200).json(allCases);
 });
 
-// @desc    Set user
-// @route   POST /api/users
-// @access  Private
+// @desc    Post a case
+// @route   POST /api/cases
+// @access  Private(Admin)
 const postCase = asyncHandler(async (req, res) => {
+
   if (
     !req.body.title ||
     !req.body.address ||
@@ -63,38 +65,46 @@ const postCase = asyncHandler(async (req, res) => {
   //   throw new Error("Case title alread exists. Please use a unique title");
   // }
   // _ is added onto case variable name because case isn't allowed alone.
-  const _case = await Case.create({
-    title: req.body.title,
-    address: req.body.address,
-    city: req.body.city,
-    firstDescription: req.body.firstDescription,
-    secondDescription: req.body.secondDescription,
-    thirdDescription: req.body.thirdDescription,
-    rooms: req.body.rooms,
-    size: req.body.size,
-    availableFrom: req.body.availableFrom,
-    deposit: req.body.deposit,
-    rent: req.body.rent,
-    prepaidRent: req.body.prepaidRent,
-    isAconto: req.body.isAconto,
-    heatPrice: req.body.heatPrice,
-    waterPrice: req.body.waterPrice,
-    petsAllowed: req.body.petsAllowed,
-    elevatorAvailable: req.body.elevatorAvailable,
-    balcony: req.body.balcony,
-    isReserved: req.body.isReserved,
-    longitude: req.body.longitude,
-    latitude: req.body.latitude,
-    user: req.user.id,
-    image: req.body.image,
-  });
 
-  res.status(200).json(_case);
+  if(req.user.role == 'Admin'){
+    const _case = await Case.create({
+      title: req.body.title,
+      address: req.body.address,
+      city: req.body.city,
+      firstDescription: req.body.firstDescription,
+      secondDescription: req.body.secondDescription,
+      thirdDescription: req.body.thirdDescription,
+      rooms: req.body.rooms,
+      size: req.body.size,
+      availableFrom: req.body.availableFrom,
+      deposit: req.body.deposit,
+      rent: req.body.rent,
+      prepaidRent: req.body.prepaidRent,
+      isAconto: req.body.isAconto,
+      heatPrice: req.body.heatPrice,
+      waterPrice: req.body.waterPrice,
+      petsAllowed: req.body.petsAllowed,
+      elevatorAvailable: req.body.elevatorAvailable,
+      balcony: req.body.balcony,
+      isReserved: req.body.isReserved,
+      longitude: req.body.longitude,
+      latitude: req.body.latitude,
+      user: req.user.id,
+      image: req.body.image,
+    });
+    res.status(200).json(_case);
+  }
+  else {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
+  
 });
 
 // @desc    Update user
 // @route   PUT /api/users/:id
-// @access  Private
+// @access  Private(Admin)
 const updateCase = asyncHandler(async (req, res) => {
   const _case = await Case.findById(req.params.id);
   if (!_case) {
@@ -108,10 +118,18 @@ const updateCase = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  // Make sure logged in user matches the user that made the goal
-  if (_case.user.toString() !== req.user.id) {
+  // Make sure logged in user matches the user that made the goal and that the user is admin
+  if(_case.user.role !== 'Admin')
+  {
     res.status(401);
     throw new Error("User not authorized");
+  }
+  else if (_case.user.role == 'Admin')
+  {
+    if (_case.user.toString() !== req.user.id) {
+      res.status(401);
+      throw new Error("User not authorized");
+    }
   }
 
   const updatedCase = await Case.findByIdAndUpdate(req.params.id, req.body, {
@@ -123,7 +141,7 @@ const updateCase = asyncHandler(async (req, res) => {
 
 // @desc    Delete user
 // @route   DELETE /api/users
-// @access  Private
+// @access  Private(Admin)
 const deleteCase = asyncHandler(async (req, res) => {
   const _case = await Case.findById(req.params.id);
   if (!_case) {
@@ -137,11 +155,20 @@ const deleteCase = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  // Make sure logged in user matches the user that made the goal
-  if (_case.user.toString() !== req.user.id) {
+  // Make sure logged in user matches the user that made the goal and that the user is admin
+  if(_case.user.role !== 'Admin')
+  {
     res.status(401);
     throw new Error("User not authorized");
   }
+  else if (_case.user.role == 'Admin')
+  {
+    if (_case.user.toString() !== req.user.id) {
+      res.status(401);
+      throw new Error("User not authorized");
+    }
+  }
+
 
   await _case.remove();
 

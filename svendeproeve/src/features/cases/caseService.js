@@ -29,6 +29,18 @@ const deleteCase = async (caseId, token) => {
 
   return response.data;
 };
+
+// Edit case
+const editCase = async (caseId, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.put(API_URL + caseId, config);
+
+  return response.data;
+};
 // Get specific case
 const getCase = async (id) => {
   const response = await axios.get(API_URL + 'case/' + id);
@@ -60,6 +72,7 @@ const caseService = {
   getCase,
   getAllCases,
   deleteCase,
+  editCase
 };
 
 export default caseService;
