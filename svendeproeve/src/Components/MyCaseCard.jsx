@@ -4,25 +4,27 @@ import { FaTrash, FaPencilAlt} from "react-icons/fa";
 
 
 
-export default function MyCaseCard(){
+export default function MyCaseCard(props){
     return(
         <div className="font-Nunito h-40  border-b border-slate-300">
             <div className="flex flex-row justify-between items-center h-full">
                 <div className="itm">
                     <div className="flex flex-row pl-4">
                         <div>
-                            <img className="h-32 max-w-lg object-contain rounded-3xl" src="https://images.pexels.com/photos/4469136/pexels-photo-4469136.jpeg"/>
+                            <img 
+                            className="h-32 max-w-lg object-contain rounded-3xl"
+                            src={`${props.case.image}`}/>
                         </div>
                         <div className="flex flex-col justify-evenly">
-                            <p>Luxury Family HOme</p>
-                            <p>Murskeen 37 2 tv</p>
-                            <p>$10000/mo</p>
+                            <p>{props.case.title}</p>
+                            <p>{props.case.address}</p>
+                            <p>${props.case.rent}</p>
                         </div>
                     </div>
                 </div>
                 <div className="flex flex-row">
                     <div className="pr-40">
-                        <p> 30 august, 2023</p>
+                        <p>{props.case.availableFrom}</p>
                     </div>
                     <div className="pr-32">
                         <div className="bg-sky-500 text-white rounded-md p-1">

@@ -1,10 +1,29 @@
-import React from "react";
+import {React,useEffect} from "react";
 import { FaPlus } from "react-icons/fa";
 import MyCaseCard from "./MyCaseCard";
+import { useDispatch, useSelector } from "react-redux";
+import {getUserCases } from "../features/cases/caseSlice";
 
 
 
 export default function MyCasesPage(){
+
+    const dispatch = useDispatch();
+    const { cases } = useSelector((state) => state.case);
+  
+    useEffect(() => {
+      const fetchData = () => {
+        dispatch(getUserCases());
+        console.log(cases);
+      };
+      fetchData();
+    }, []);
+    
+
+    const cardElement = cases.map((caseItem) => {
+        return <MyCaseCard key={caseItem.id} case={caseItem} />;
+      });
+
     return(
         <div className="font-Nunito">
             <div className='bg-sky-500 h-20'/>
@@ -29,7 +48,7 @@ export default function MyCasesPage(){
                             <label className="pr-32">Action</label>
                         </div>
                     </div>
-                <MyCaseCard/>
+                {cardElement}
                 
                 
                 </div>
