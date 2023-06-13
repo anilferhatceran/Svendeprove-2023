@@ -8,7 +8,7 @@ import DistanceCalc from "./distanceCalc";
 import { FaChevronDown, FaEllipsisV } from "react-icons/fa";
 import MinimumDistanceSlider from "./MultiRangeSlider";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCases,getUserCases } from "../features/cases/caseSlice";
+import { getAllCases } from "../features/cases/caseSlice";
 
 export default function Frontpage() {
 
@@ -20,8 +20,8 @@ export default function Frontpage() {
   const [mutiRangeCounterVal, setMutiRangeCounterVal] = useState([0, 10000]);
 
   const dispatch = useDispatch();
-  const { cases } = useSelector((state) => state.case);
-
+  
+const { cases } = useSelector((state) => state.case);
 
   const [filterData, setFilterData] = useState({
     searchParameter: "",
