@@ -160,7 +160,7 @@ const onSubmit = (e) => {
     image: imageList,
   };
   document.querySelector(".file-upload").value = "";
-  dispatch(createCase(caseData));
+  dispatch(editCase(caseData));
 };
 
 if(user){
