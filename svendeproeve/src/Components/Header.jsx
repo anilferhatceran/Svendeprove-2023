@@ -96,7 +96,7 @@ export default function Header() {
             Search
           </NavLink>
           <NavLink
-            to="/About"
+            to="/addcase"
             className={({isActive}) =>
             isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"  
           }

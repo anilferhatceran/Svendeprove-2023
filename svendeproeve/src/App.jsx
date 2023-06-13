@@ -7,7 +7,7 @@ import MapTest from "./Components/MapTest";
 import Agentpanel from "./Pages/Agentpanel";
 import CasePage from "./Components/CasePage";
 import TestingPurposes from "./Components/TestingPurposes";
-import CreateCaseDesign from "./Components/CreateCaseDesign";
+import CreateCase from "./Components/CreateCase";
 import { ToastContainer } from "react-toastify";
 import MyCasesPage from "./Components/MyCasesPage";
 import HelpPage from "./Components/helpPage";
@@ -21,7 +21,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Frontpage />} />
-          <Route path="/about" element={<CreateCaseDesign />} />
+          <Route path="/addcase" element={<CreateCase />} />
           <Route path="/case/:id" element={<CasePage />} />
           <Route path="/agentpanel" element={<Agentpanel />} />
           <Route path="/myCases" element={<MyCasesPage />} />

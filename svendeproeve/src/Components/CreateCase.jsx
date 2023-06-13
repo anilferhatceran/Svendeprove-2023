@@ -29,8 +29,8 @@ function CreateCaseDesign() {
     rent: "1212",
     prepaidRent: "123",
     isAconto: false,
-    heatPrice: "",
-    waterPrice: "",
+    heatPrice: "12312",
+    waterPrice: "123123",
     longitude: "1231",
     latitude: "12312",
     petsAllowed: false,
@@ -147,8 +147,9 @@ const onSubmit = (e) => {
   dispatch(createCase(caseData));
 };
 
+if(user){
   return (
-    <form className='flex flex-col'>  
+    <form onSubmit={onSubmit} className='flex flex-col'>  
       <div className='font-Nunito bg-sky-500 h-20'/>
       <div className='w-11/12 self-center pt-20'>
         <label className='font-bold text-2xl text-slate-800'>Add New Property</label>
@@ -241,12 +242,12 @@ const onSubmit = (e) => {
                   />
                 </div>
             </div>
-            {isAconto && <div className='flex flex-row pt-5'>
+            <div className='flex flex-row pt-5'>
               <div className='w-1/2 mr-2'>
                 <label className='font-semibold text-lg'>Heat price</label>
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
-                  type="text"
+                  type="number"
                   value={heatPrice}
                   onChange={handleChange}
                   name="heatPrice"
@@ -256,31 +257,43 @@ const onSubmit = (e) => {
                 <label className='font-semibold text-lg'>Water price</label>
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
-                  type="text"
+                  type="number"
                   value={waterPrice}
                   onChange={handleChange}
                   name="waterPrice"
                 />
               </div>
 
-            </div>}
+            </div>
             <div className='flex flex-row pt-5'>
               <div className='w-1/3 mr-2'>
                 <label className='font-semibold text-lg'>Deposit</label>
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
+                  type='number'
+                  value={deposit}
+                  onChange={handleChange}
+                  name="deposit"
                 />
               </div>
               <div className='w-1/3 mr-2'>
                 <label className='font-semibold text-lg'>Rent</label>
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
+                  type='number'
+                  value={rent}
+                  onChange={handleChange}
+                  name="rent"
                 />
               </div>
               <div className='w-1/3'>
                 <label className='font-semibold text-lg'>Prepaid Rent</label>
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
+                  type='number'
+                  value={prepaidRent}
+                  onChange={handleChange}
+                  name="prepaidRent"
                 />
               </div>
 
@@ -288,9 +301,13 @@ const onSubmit = (e) => {
             
             <div className='flex flex-row pt-5'>
               <div className='w-1/3 mr-2'>
-                <label className='font-semibold text-lg'>Area</label>
+                <label className='font-semibold text-lg'>Size</label>
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
+                  type='number'
+                  value={size}
+                  onChange={handleChange}
+                  name="size"
                 />
               </div>
               <div className='w-1/3 mr-2'>
@@ -298,19 +315,20 @@ const onSubmit = (e) => {
                 <input
                   type="date"
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
+                  value={availableFrom}
+                  onChange={handleChange}
+                  name="availableFrom"
                 />
               </div>
               <div className='w-1/3'>
                 <label className='font-semibold text-lg'>Rooms</label>
-                <select className='w-full border border-gray-300 rounded-lg h-14 focus:outline-none'>
-                  <option></option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                  <option>other</option>
-                </select>
+                <input
+                  className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
+                  type='number'
+                  value={rooms}
+                  onChange={handleChange}
+                  name="rooms"
+                />
               </div>
             </div>
             <div className='mt-1'>
@@ -330,6 +348,13 @@ const onSubmit = (e) => {
                   value={latitude}
                   onChange={handleChange}
                   name="latitude"
+                />
+                <label className='font-semibold text-lg'>City</label>
+                <input
+                  className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
+                  value={city}
+                  onChange={handleChange}
+                  name="city"
                 />
               </div>
             </div>
@@ -370,11 +395,18 @@ const onSubmit = (e) => {
               </div>
             </div>
           </section>
-          <button className="flex justify-center mr-3 h-12 w-1/6 border-2 text-white  bg-sky-500 border-sky-500 rounded-md items-center transition-all focus:outline-none hover:bg-white hover:text-sky-500 hover:transition-all">Søg</button>
+          <button type='submit' className="flex justify-center mr-3 h-12 w-1/6 border-2 text-white  bg-sky-500 border-sky-500 rounded-md items-center transition-all focus:outline-none hover:bg-white hover:text-sky-500 hover:transition-all">Tilføj bolig</button>
         </div>
       </div>
     </form>
   )
+} else {
+  return (
+    <h2 className="text-center text-5xl text-red-500 decoration underline">
+      You are not authorized to view the content on this page.
+    </h2>
+  );
+}
 }
 
-export default CreateCaseDesign
+export default CreateCaseDesign;
