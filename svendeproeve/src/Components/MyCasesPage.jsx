@@ -3,6 +3,7 @@ import { FaPlus } from "react-icons/fa";
 import MyCaseCard from "./MyCaseCard";
 import { useDispatch, useSelector } from "react-redux";
 import {getUserCases } from "../features/cases/caseSlice";
+import { Link } from "react-router-dom";
 
 
 
@@ -33,8 +34,10 @@ export default function MyCasesPage(){
                         <h1 className="font-semibold text-3xl text-g">My Cases</h1>
                     </div>
                     <div className="flex items-center">
+                    <Link to="/addcase">
                         <label className="pr-2">Add case</label>
                         <button className="rounded-full bg-sky-500 p-1 text-lg hover:text-white"><FaPlus/></button>
+                        </Link>
                     </div>
                 </div>
                 <div className="border border-slate-300  rounded-sm">

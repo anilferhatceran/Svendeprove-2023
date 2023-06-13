@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { createCase } from "../features/cases/caseSlice";
+import { createCase, getCase } from "../features/cases/caseSlice";
 import CaseMap from './caseMap';
 import mapboxgl from 'mapbox-gl';
 import { format } from "date-fns";
@@ -43,6 +43,7 @@ function EditCase() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
+  const {cases } = useSelector((state) => state.case)
 
   const [imageUpload, setImageUpload] = useState("");
   // This is an array that retrieves all images in the cloud storage
@@ -79,6 +80,19 @@ function EditCase() {
     image,
   } = formData;
 
+  const getCaseIdFromUrl = () => {
+    const path = window.location.pathname;
+    const splitPath = path.split("/");
+
+    const caseId = splitPath[2];
+
+    return caseId;
+  };
+
+  const fetchCaseToEdit =() => {
+    dispatch(getCase(getCaseIdFromUrl()));
+    console.log(cases);
+  }
 
   useEffect(() => {
     if (imageUpload) {
@@ -99,6 +113,8 @@ function EditCase() {
         setError("Please select an image file (png or jpeg)");
       }
     }
+    fetchCaseToEdit();
+
   }, [imageUpload]);
 
   const imageHandling = (e) => {
@@ -152,7 +168,7 @@ if(user){
     <form onSubmit={onSubmit} className='flex flex-col'>  
       <div className='font-Nunito bg-sky-500 h-20'/>
       <div className='w-11/12 self-center pt-20'>
-        <label className='font-bold text-2xl text-slate-800'>Edit Property</label>
+        <label className='font-bold text-2xl text-slate-800'>Edit Propesrty</label>
         <div className='flex flex-col h-auto w-full bg-white rounded-md self-center pt-4 pl-16 pr-16 pb-4'>
           <label className='font-bold text-xl text-slate-800'>Edit Listing</label>
             <div>
@@ -163,7 +179,7 @@ if(user){
                 placeholder=''
                 onChange={handleChange}
                 name="title"
-                value={title}
+                value={cases.title}
                 />
             </div>
             <div>
@@ -173,7 +189,7 @@ if(user){
                 placeholder=''
                 onChange={handleChange}
                 name="firstDescription"
-                value={firstDescription}
+                value={cases.firstDescription}
                 />
             </div>
             <div>
@@ -183,7 +199,7 @@ if(user){
                 placeholder=''
                 onChange={handleChange}
                 name="secondDescription"
-                value={secondDescription}
+                value={cases.secondDescription}
                 />
             </div>
             <div>
@@ -193,7 +209,7 @@ if(user){
                 placeholder=''
                 onChange={handleChange}
                 name="thirdDescription"
-                value={thirdDescription}
+                value={cases.thirdDescription}
                 />
             </div>
             
@@ -205,7 +221,7 @@ if(user){
                   className='h-5 w-5'
                   type="checkbox"
                   name="petsAllowed"
-                  checked={petsAllowed}
+                  checked={cases.petsAllowed}
                   onChange={handleChange}
                   />
                 </div>
@@ -215,7 +231,7 @@ if(user){
                     className='h-5 w-5'
                     type="checkbox"
                     id="elevatorAvailable"
-                    checked={elevatorAvailable}
+                    checked={cases.elevatorAvailable}
                     onChange={handleChange}
                     name="elevatorAvailable"
                   />
@@ -226,7 +242,7 @@ if(user){
                     className='h-5 w-5'
                     type="checkbox"
                     id="balcony"
-                    checked={balcony}
+                    checked={cases.balcony}
                     onChange={handleChange}
                     name="balcony"
                   />
@@ -236,7 +252,7 @@ if(user){
                   <input
                     className='h-5 w-5'
                     type="checkbox"
-                    checked={isAconto}
+                    checked={cases.isAconto}
                     onChange={handleChange}
                     name="isAconto"
                   />
@@ -248,7 +264,7 @@ if(user){
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
                   type="number"
-                  value={heatPrice}
+                  value={cases.heatPrice}
                   onChange={handleChange}
                   name="heatPrice"
                 />
@@ -258,7 +274,7 @@ if(user){
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
                   type="number"
-                  value={waterPrice}
+                  value={cases.waterPrice}
                   onChange={handleChange}
                   name="waterPrice"
                 />
@@ -271,7 +287,7 @@ if(user){
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
                   type='number'
-                  value={deposit}
+                  value={cases.deposit}
                   onChange={handleChange}
                   name="deposit"
                 />
@@ -281,7 +297,7 @@ if(user){
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
                   type='number'
-                  value={rent}
+                  value={cases.rent}
                   onChange={handleChange}
                   name="rent"
                 />
@@ -291,7 +307,7 @@ if(user){
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
                   type='number'
-                  value={prepaidRent}
+                  value={cases.prepaidRent}
                   onChange={handleChange}
                   name="prepaidRent"
                 />
@@ -305,7 +321,7 @@ if(user){
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
                   type='number'
-                  value={size}
+                  value={cases.size}
                   onChange={handleChange}
                   name="size"
                 />
@@ -315,7 +331,7 @@ if(user){
                 <input
                   type="date"
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
-                  value={availableFrom}
+                  value={cases.availableFrom}
                   onChange={handleChange}
                   name="availableFrom"
                 />
@@ -325,7 +341,7 @@ if(user){
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
                   type='number'
-                  value={rooms}
+                  value={cases.rooms}
                   onChange={handleChange}
                   name="rooms"
                 />
@@ -336,7 +352,7 @@ if(user){
                 <label className='font-semibold text-lg'>Longitude</label>
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
-                  value={longitude}
+                  value={cases.longitude}
                   onChange={handleChange}
                   name="longitude"
                 />
@@ -345,14 +361,14 @@ if(user){
                 <label className='font-semibold text-lg'>Latitude</label>
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
-                  value={latitude}
+                  value={cases.latitude}
                   onChange={handleChange}
                   name="latitude"
                 />
                 <label className='font-semibold text-lg'>City</label>
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
-                  value={city}
+                  value={cases.city}
                   onChange={handleChange}
                   name="city"
                 />

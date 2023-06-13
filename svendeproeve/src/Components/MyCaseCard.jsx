@@ -1,5 +1,6 @@
 import React from "react";
 import { FaTrash, FaPencilAlt} from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 
 
@@ -33,8 +34,12 @@ export default function MyCaseCard(props){
                     </div>
                     <div className="flex pr-32">
                         <div className="flex items-center">
-                            <button className="text-lg bg-slate-200 rounded-md p-1 mr-2 text-sky-500"><FaTrash/></button>
-                            <button className="text-lg bg-slate-200 rounded-md p-1 text-sky-500"><FaPencilAlt/></button>
+                            <Link>
+                                <button className="text-lg bg-slate-200 rounded-md p-1 mr-2 text-sky-500"><FaTrash/></button>
+                            </Link>
+                            <Link to={`/editcase/${props.case._id}`}>
+                                <button className="text-lg bg-slate-200 rounded-md p-1 text-sky-500"><FaPencilAlt/></button>
+                            </Link>
                         </div>
                     </div>
                 </div>

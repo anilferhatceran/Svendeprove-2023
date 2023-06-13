@@ -23,7 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Frontpage />} />
           <Route path="/addcase" element={<CreateCase />} />
-          <Route path="/editcase" element={<EditCase />} />
+          <Route path="/editcase/:id" element={<EditCase />} />
           <Route path="/case/:id" element={<CasePage />} />
           <Route path="/agentpanel" element={<Agentpanel />} />
           <Route path="/myCases" element={<MyCasesPage />} />

@@ -29,6 +29,7 @@ const deleteCase = async (caseId, token) => {
 
   return response.data;
 };
+// Get specific case
 const getCase = async (id) => {
   const response = await axios.get(API_URL + 'case/' + id);
   return response.data;
