@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import MyCasesPage from "./Components/MyCasesPage";
 import HelpPage from "./Components/helpPage";
 import SearchPage from "./Components/searchPage";
+import EditCase from "./Components/EditCase";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Frontpage />} />
           <Route path="/addcase" element={<CreateCase />} />
+          <Route path="/editcase" element={<EditCase />} />
           <Route path="/case/:id" element={<CasePage />} />
           <Route path="/agentpanel" element={<Agentpanel />} />
           <Route path="/myCases" element={<MyCasesPage />} />

@@ -10,7 +10,7 @@ import { Map } from 'react-map-gl';
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 
-function CreateCase() {
+function EditCase() {
 
   mapboxgl.accessToken = 'pk.eyJ1Ijoib2xpdmVyaGFuc2VuIiwiYSI6ImNsYXc3dWdmZDBkZ2wzbm1oZzV6ZTVxOXUifQ.tWutup-cpAISS3niRDRPoA';
 
@@ -152,9 +152,9 @@ if(user){
     <form onSubmit={onSubmit} className='flex flex-col'>  
       <div className='font-Nunito bg-sky-500 h-20'/>
       <div className='w-11/12 self-center pt-20'>
-        <label className='font-bold text-2xl text-slate-800'>Add New Property</label>
+        <label className='font-bold text-2xl text-slate-800'>Edit Property</label>
         <div className='flex flex-col h-auto w-full bg-white rounded-md self-center pt-4 pl-16 pr-16 pb-4'>
-          <label className='font-bold text-xl text-slate-800'>Create Listing</label>
+          <label className='font-bold text-xl text-slate-800'>Edit Listing</label>
             <div>
               <p className='pt-5 font-semibold text-lg'>Property Title</p>
               <input
@@ -409,4 +409,4 @@ if(user){
 }
 }
 
-export default CreateCase;
+export default EditCase;
