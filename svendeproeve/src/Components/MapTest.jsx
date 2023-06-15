@@ -3,10 +3,23 @@ import mapboxgl from 'mapbox-gl'; // eslint-disable-line import/no-webpack-loade
 import dummyData from "../dummyData";
 import { FaMapMarkerAlt, FaBed, FaBath, FaRuler } from "react-icons/fa";
 import Map, {Marker, Popup} from 'react-map-gl';
+
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCases } from "../features/cases/caseSlice";
 import cities from "../cities";
 
 export default function MapTest(){
-   mapboxgl.accessToken = 'pk.eyJ1Ijoib2xpdmVyaGFuc2VuIiwiYSI6ImNsYXc3dWdmZDBkZ2wzbm1oZzV6ZTVxOXUifQ.tWutup-cpAISS3niRDRPoA';
+  mapboxgl.accessToken = 'pk.eyJ1Ijoib2xpdmVyaGFuc2VuIiwiYSI6ImNsYXc3dWdmZDBkZ2wzbm1oZzV6ZTVxOXUifQ.tWutup-cpAISS3niRDRPoA';
+  const dispatch = useDispatch();
+  const { cases } = useSelector((state) => state.case);
+
+  useEffect(() => {
+    const fetchData = () => {
+      dispatch(getAllCases());
+      // console.log(cases);
+    };
+    fetchData();
+  }, []);
 
    const [showPopup, setShowPopup] = useState(null)
 
@@ -16,19 +29,21 @@ export default function MapTest(){
   //   setShowPopup(prevShowPopup => !prevShowPopup)
   //   console.log(showPopup)
   // }
-
+// console.log(cases);
   const pins = useMemo(
     () =>
-      dummyData.map((city, index) => (
+    dummyData.map((city, index) => (
+      // cases.map((cases, index) => (
         <Marker
           key={`marker-${index}`}
           longitude={city.longitude}
           latitude={city.latitude}
+          // longitude={cases.longitude}
+          // latitude={cases.latitude}
           anchor="bottom"
           onClick={e => {
-            // If we let the click event propagates to the map, it will immediately close the popup
-            // with `closeOnClick: true`
             e.originalEvent.stopPropagation();
+            // setShowPopup(cases);
             setShowPopup(city);
           }}
         >
@@ -48,10 +63,7 @@ export default function MapTest(){
         bearing: 0,
         pitch: 10
       }}
-      // style={{width: 600, height: 400}}
-      // className="w-[600px] h-[400px]"
-      mapStyle="mapbox://styles/mapbox/light-v11"
-      
+      mapStyle="mapbox://styles/mapbox/light-v11"  
     >
 
     {/* <Marker 

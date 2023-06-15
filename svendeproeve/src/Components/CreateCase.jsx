@@ -50,6 +50,7 @@ function CreateCase() {
 
   const imageTypes = ["image/png", "image/jpeg"];
   const [error, setError] = useState("");
+  const [isError, setIsError] = useState(false)
 
   const imageListRef = ref(storage, "caseImages");
 
@@ -78,7 +79,6 @@ function CreateCase() {
     isReserved,
     image,
   } = formData;
-
 
   useEffect(() => {
     if (imageUpload) {
@@ -118,33 +118,71 @@ function CreateCase() {
 }
 const onSubmit = (e) => {
   e.preventDefault();
+  if(title.length==0 || address.length==0 || city.length==0 || firstDescription.length==0 ||secondDescription.length==0 ||thirdDescription.length==0 ||rooms.length==0 ||heatPrice.length==0 ||
+    waterPrice.length==0 ||prepaidRent.length==0 ||size.length==0 ||availableFrom.length==0 ||rooms.length==0 ||longitude.length==0 ||latitude.length==0){
+    setIsError(true)
+    console.log("error");
+  }else{
+    setIsError(false)
+    const caseData = {
+      title,
+      address,
+      city,
+      firstDescription,
+      secondDescription,
+      thirdDescription,
+      rooms,
+      size,
+      availableFrom: format(new Date(availableFrom), "dd/MM/yyyy"),
+      deposit,
+      rent,
+      prepaidRent,
+      isAconto,
+      heatPrice,
+      waterPrice,
+      longitude,
+      latitude,
+      petsAllowed,
+      elevatorAvailable,
+      balcony,
+      isReserved,
+      image: imageList,
+    };
+    document.querySelector(".file-upload").value = "";
+    dispatch(createCase(caseData));
+  }
 
-  const caseData = {
-    title,
-    address,
-    city,
-    firstDescription,
-    secondDescription,
-    thirdDescription,
-    rooms,
-    size,
-    availableFrom: format(new Date(availableFrom), "dd/MM/yyyy"),
-    deposit,
-    rent,
-    prepaidRent,
-    isAconto,
-    heatPrice,
-    waterPrice,
-    longitude,
-    latitude,
-    petsAllowed,
-    elevatorAvailable,
-    balcony,
-    isReserved,
-    image: imageList,
-  };
-  document.querySelector(".file-upload").value = "";
-  dispatch(createCase(caseData));
+  // if(isError==true){
+  //   console.log("error");
+  // }
+  // else{
+  //   const caseData = {
+  //     title,
+  //     address,
+  //     city,
+  //     firstDescription,
+  //     secondDescription,
+  //     thirdDescription,
+  //     rooms,
+  //     size,
+  //     availableFrom: format(new Date(availableFrom), "dd/MM/yyyy"),
+  //     deposit,
+  //     rent,
+  //     prepaidRent,
+  //     isAconto,
+  //     heatPrice,
+  //     waterPrice,
+  //     longitude,
+  //     latitude,
+  //     petsAllowed,
+  //     elevatorAvailable,
+  //     balcony,
+  //     isReserved,
+  //     image: imageList,
+  //   };
+  //   document.querySelector(".file-upload").value = "";
+  //   dispatch(createCase(caseData));
+  // }
 };
 
 if(user){
@@ -165,6 +203,11 @@ if(user){
                 name="title"
                 value={title}
                 />
+                {isError&&title.length<=0?
+                <p className="text-red-500">Indtast title</p>:""}
+
+                {/* {!title && <p className="text-red-500">Indtast title</p>} */}
+                
             </div>
             <div>
               <p className='pt-5 font-semibold text-lg'>Lejemålsinformation</p>
@@ -175,6 +218,8 @@ if(user){
                 name="firstDescription"
                 value={firstDescription}
                 />
+                {isError&&firstDescription.length<=0?
+                <p className="text-red-500">Indtast Lejemålsinformation</p>:""}
             </div>
             <div>
               <p className='pt-5 font-semibold text-lg'>Områdebeskrivelse</p>
@@ -185,6 +230,8 @@ if(user){
                 name="secondDescription"
                 value={secondDescription}
                 />
+                {isError&&secondDescription.length<=0?
+                <p className="text-red-500">Indtast Områdebeskrivelse</p>:""}
             </div>
             <div>
               <p className='pt-5 font-semibold text-lg'>Ejendomsbeskrivelse</p>
@@ -195,6 +242,8 @@ if(user){
                 name="thirdDescription"
                 value={thirdDescription}
                 />
+                {isError&&thirdDescription.length<=0?
+                <p className="text-red-500">Indtast Ejendomsbeskrivelse</p>:""}
             </div>
             
             <div className='flex flex-row justify-between '>
@@ -252,6 +301,8 @@ if(user){
                   onChange={handleChange}
                   name="heatPrice"
                 />
+                {isError&&heatPrice.length<=0?
+                <p className="text-red-500">Indtast varme pris</p>:""}
               </div>
               <div className='w-1/2 mr-2'>
                 <label className='font-semibold text-lg'>Water price</label>
@@ -262,6 +313,8 @@ if(user){
                   onChange={handleChange}
                   name="waterPrice"
                 />
+                {isError&&waterPrice.length<=0?
+                <p className="text-red-500">Indtast vand pris</p>:""}
               </div>
 
             </div>
@@ -275,6 +328,8 @@ if(user){
                   onChange={handleChange}
                   name="deposit"
                 />
+                {isError&&deposit.length<=0?
+                <p className="text-red-500">Indtast deposit</p>:""}
               </div>
               <div className='w-1/3 mr-2'>
                 <label className='font-semibold text-lg'>Rent</label>
@@ -285,6 +340,9 @@ if(user){
                   onChange={handleChange}
                   name="rent"
                 />
+                {isError&&rent.length<=0?
+                <p className="text-red-500">Indtast husleje</p>:""}
+
               </div>
               <div className='w-1/3'>
                 <label className='font-semibold text-lg'>Prepaid Rent</label>
@@ -295,6 +353,8 @@ if(user){
                   onChange={handleChange}
                   name="prepaidRent"
                 />
+                {isError&&prepaidRent.length<=0?
+                <p className="text-red-500">Indtast prepaid rent</p>:""}
               </div>
 
             </div>
@@ -309,6 +369,8 @@ if(user){
                   onChange={handleChange}
                   name="size"
                 />
+                {isError&&size.length<=0?
+                <p className="text-red-500">Indtast Størelse</p>:""}
               </div>
               <div className='w-1/3 mr-2'>
                 <label className='font-semibold text-lg'>Available from</label>
@@ -319,6 +381,8 @@ if(user){
                   onChange={handleChange}
                   name="availableFrom"
                 />
+                {isError&&availableFrom.length<=0?
+                <p className="text-red-500">Indtast Indflytnings dato</p>:""}
               </div>
               <div className='w-1/3'>
                 <label className='font-semibold text-lg'>Rooms</label>
@@ -329,6 +393,8 @@ if(user){
                   onChange={handleChange}
                   name="rooms"
                 />
+                {isError&&rooms.length<=0?
+                <p className="text-red-500">Indtast antal af værelser</p>:""}
               </div>
             </div>
             <div className='mt-1'>
@@ -340,6 +406,8 @@ if(user){
                   onChange={handleChange}
                   name="longitude"
                 />
+                {isError&&longitude.length<=0?
+                <p className="text-red-500">Indtast longitude</p>:""}
               </div>
               <div className='w-1/3 mr-2'>
                 <label className='font-semibold text-lg'>Latitude</label>
@@ -349,6 +417,8 @@ if(user){
                   onChange={handleChange}
                   name="latitude"
                 />
+                {isError&&latitude.length<=0?
+                <p className="text-red-500">Indtast latitude</p>:""}
                 <label className='font-semibold text-lg'>City</label>
                 <input
                   className='w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none'
@@ -356,6 +426,8 @@ if(user){
                   onChange={handleChange}
                   name="city"
                 />
+                {isError&&city.length<=0?
+                <p className="text-red-500">Indtast by</p>:""}
               </div>
             </div>
             <div className="form-group mb-4">
