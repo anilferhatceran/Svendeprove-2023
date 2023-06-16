@@ -119,12 +119,12 @@ const updateCase = asyncHandler(async (req, res) => {
   }
 
   // Make sure logged in user matches the user that made the goal and that the user is admin
-  if(_case.user.role !== 'Admin')
+  if(req.user.role !== 'Admin')
   {
     res.status(401);
     throw new Error("User not authorized");
   }
-  else if (_case.user.role == 'Admin')
+  else if (req.user.role == 'Admin')
   {
     if (_case.user.toString() !== req.user.id) {
       res.status(401);
