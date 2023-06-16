@@ -130,17 +130,18 @@ const updateCase = asyncHandler(async (req, res) => {
       res.status(401);
       throw new Error("User not authorized");
     }
+    const updatedCase = await Case.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+  
+    res.status(200).json(updatedCase);
   }
 
-  const updatedCase = await Case.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
-
-  res.status(200).json(updatedCase);
+  
 });
 
-// @desc    Delete user
-// @route   DELETE /api/users
+// @desc    Delete case
+// @route   DELETE /api/cases/:id
 // @access  Private(Admin)
 const deleteCase = asyncHandler(async (req, res) => {
   const _case = await Case.findById(req.params.id);
@@ -167,12 +168,16 @@ const deleteCase = asyncHandler(async (req, res) => {
       res.status(401);
       throw new Error("User not authorized");
     }
+    else{
+      await _case.remove();
+      res.status(200).json({ id: req.params.id });
+    }
   }
 
 
-  await _case.remove();
+  
 
-  res.status(200).json({ id: req.params.id });
+  
 });
 module.exports = {
   getCase,
