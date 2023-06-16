@@ -83,7 +83,7 @@ function CreateCase() {
   useEffect(() => {
     if (imageUpload) {
       if (imageTypes.includes(imageUpload.type)) {
-        const functionSomething = async () => {
+        const functionImageUpload = async () => {
           const imageRef = ref(
             storage,
             `caseImages/${imageUpload.name + uuidv4()}`
@@ -93,7 +93,7 @@ function CreateCase() {
           setImageList((current) => [...current, url]);
         };
         setError("");
-        functionSomething();
+        functionImageUpload();
       } else {
         setImageUpload(null);
         setError("Please select an image file (png or jpeg)");
@@ -121,7 +121,7 @@ const onSubmit = (e) => {
   if(title.length==0 || address.length==0 || city.length==0 || firstDescription.length==0 ||secondDescription.length==0 ||thirdDescription.length==0 ||rooms.length==0 ||heatPrice.length==0 ||
     waterPrice.length==0 ||prepaidRent.length==0 ||size.length==0 ||availableFrom.length==0 ||rooms.length==0 ||longitude.length==0 ||latitude.length==0){
     setIsError(true)
-    console.log("error");
+    // console.log("error");
   }else{
     setIsError(false)
     const caseData = {
@@ -150,42 +150,11 @@ const onSubmit = (e) => {
     };
     document.querySelector(".file-upload").value = "";
     dispatch(createCase(caseData));
+    navigate('/Dashboard')
   }
-
-  // if(isError==true){
-  //   console.log("error");
-  // }
-  // else{
-  //   const caseData = {
-  //     title,
-  //     address,
-  //     city,
-  //     firstDescription,
-  //     secondDescription,
-  //     thirdDescription,
-  //     rooms,
-  //     size,
-  //     availableFrom: format(new Date(availableFrom), "dd/MM/yyyy"),
-  //     deposit,
-  //     rent,
-  //     prepaidRent,
-  //     isAconto,
-  //     heatPrice,
-  //     waterPrice,
-  //     longitude,
-  //     latitude,
-  //     petsAllowed,
-  //     elevatorAvailable,
-  //     balcony,
-  //     isReserved,
-  //     image: imageList,
-  //   };
-  //   document.querySelector(".file-upload").value = "";
-  //   dispatch(createCase(caseData));
-  // }
 };
 
-if(user){
+if(user.role =="Admin"){
   return (
     <form onSubmit={onSubmit} className='flex flex-col'>  
       <div className='font-Nunito bg-sky-500 h-20'/>
@@ -205,8 +174,6 @@ if(user){
                 />
                 {isError&&title.length<=0?
                 <p className="text-red-500">Indtast title</p>:""}
-
-                {/* {!title && <p className="text-red-500">Indtast title</p>} */}
                 
             </div>
             <div>

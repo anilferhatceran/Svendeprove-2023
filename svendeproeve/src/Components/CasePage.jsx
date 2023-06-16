@@ -9,7 +9,7 @@ import {
   FaPhoneAlt,
   FaRegEnvelope,
 } from "react-icons/fa";
-import MapTest from "./MapTest";
+import MapTest from "./FrontpageMap";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserFromId } from "../features/auth/authSlice";
 
@@ -72,10 +72,7 @@ export default function CasePage() {
                 <h1 className="pb-10 text-sky-500 font-semibold">
                   Udlejningsmægler
                 </h1>
-                <div className="flex flex-row pb-2 items-center">
-                  <FaPhoneAlt className="text-sky-500 text-2xl mr-1" />
-                  <p>+45 69696969</p>
-                </div>
+     
                 <div className="flex flex-row items-center">
                   <FaRegEnvelope className="text-sky-500 text-2xl mr-1" />
                   <p>{user && user.email}</p>
@@ -160,9 +157,7 @@ export default function CasePage() {
               </div>
             </div>
           </div>
-          <div className="h-[500px] w-[full] pr-10 pl-10">
-            <MapTest />
-          </div>
+  
           <div className="h-96"></div>
         </div>
       </div>

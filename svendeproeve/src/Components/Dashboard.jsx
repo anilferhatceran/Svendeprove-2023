@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-export default function MyCasesPage(){
+export default function Dashboard(){
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -28,7 +28,7 @@ export default function MyCasesPage(){
         return <MyCaseCard key={caseItem.id} case={caseItem} />;
       });
 
-      if(user){
+      if(user.role=="Admin"){
     return(
         
             <div className="font-Nunito">

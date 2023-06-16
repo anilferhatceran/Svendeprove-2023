@@ -21,10 +21,6 @@ export default function Card(props) {
           <FaBed className="text-orange-500 mr-2" />
           {props.case.rooms}
         </div>
-        <div className="flex flex-row justify-center items-center bg-slate-200 rounded-lg h-8 w-16 mr-2">
-          <FaBath className="text-sky-500 mr-2" />
-          {props.case.bathrooms}
-        </div>
         <div className="flex flex-row justify-center items-center bg-slate-200 rounded-lg h-8 w-20">
           <FaRuler className="text-emerald-500 mr-2" />
           {props.case.size} m²
