@@ -141,7 +141,7 @@ export default function Header() {
                   <li>
                     <Link
                       className="block py-1.5 p-3 hover:bg-gray-200 w-full rounded-md mb-1"
-                      to="/myCases"
+                      to="/Dashboard"
                     >
                       Dashboard
                     </Link>

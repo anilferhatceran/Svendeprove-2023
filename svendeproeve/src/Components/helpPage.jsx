@@ -28,6 +28,21 @@ export default function HelpPage(){
             <div className="bg-hero h-1/2  bg-cover select-none flex w-full items-center pl-5 lg:pl-44 text-white text-4xl">
             Contact us
             </div>
+            <div className="flex justify-center m-10">
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae condimentum dolor, et feugiat ligula.
+                     Phasellus dapibus ultrices diam quis congue. Phasellus scelerisque et lectus ut volutpat.
+                      Phasellus vestibulum tortor sed ipsum tempus posuere. Pellentesque luctus porttitor nulla,
+                       a egestas mauris efficitur eleifend. Nam eget magna augue. Aenean ut turpis rhoncus, sagittis lectus eu,
+                        vehicula ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas lobortis metus et euismod aliquam.
+                         Curabitur a pellentesque elit. Quisque magna ligula, cursus quis tempus vitae, eleifend a augue.
+                          Ut tincidunt libero id purus sollicitudin ultrices.
+                          Quisque vestibulum nisi id purus venenatis suscipit. Maecenas ultrices, orci et pharetra porttitor,
+                           massa elit aliquam turpis, auctor tincidunt arcu tortor id augue. Vestibulum venenatis lacus nec dui pharetra,
+                            et euismod nisl ornare. Vivamus elementum tempus semper. Phasellus at tellus ac eros pulvinar maximus.
+                             Nunc laoreet rhoncus orci in egestas. Nam congue, magna eget condimentum dignissim, justo nulla tristique velit,
+                              eu dapibus ipsum felis at mauris. Aenean commodo felis a dui luctus, in tincidunt diam auctor. Nam mollis felis in porta convallis.
+                               Integer vitae mauris maximus, fringilla purus vel, consequat urna. </p>
+            </div>
             <div className="flex flex-col lg:flex-row justify-between">                
                 <div className="m-5 lg:ml-72 lg:mt-6 border border-slate-300 rounded-lg lg:h-auto lg:w-3/4 pl-4 pr-4">
                     <h1 className="text-2xl">Send us an email</h1>

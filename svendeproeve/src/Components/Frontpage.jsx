@@ -2,13 +2,13 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import dummyData from "../dummyData";
 import Card from "./Card";
-import MapTest from "./MapTest";
 import SearchFilters from "./SearchFilters";
 import DistanceCalc from "./distanceCalc";
 import { FaChevronDown, FaEllipsisV } from "react-icons/fa";
 import MinimumDistanceSlider from "./MultiRangeSlider";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCases } from "../features/cases/caseSlice";
+import FrontpageMap from "./FrontpageMap";
 
 export default function Frontpage() {
 
@@ -232,7 +232,7 @@ const { cases } = useSelector((state) => state.case);
           <div className=" h-full w-1/2 flex flex-wrap ">{cardElement}</div>
           <div className=" h-full w-1/2 pl-5 ">
             <div className=" bg-black h-full w-full rounded-3xl lg:flex hidden">
-              <MapTest />
+              <FrontpageMap />
             </div>
           </div>
         </div>

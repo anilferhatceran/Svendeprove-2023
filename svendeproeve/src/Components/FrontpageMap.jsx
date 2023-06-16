@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCases } from "../features/cases/caseSlice";
 import cities from "../cities";
 
-export default function MapTest(){
+export default function FrontpageMap(){
   mapboxgl.accessToken = 'pk.eyJ1Ijoib2xpdmVyaGFuc2VuIiwiYSI6ImNsYXc3dWdmZDBkZ2wzbm1oZzV6ZTVxOXUifQ.tWutup-cpAISS3niRDRPoA';
   const dispatch = useDispatch();
   const { cases } = useSelector((state) => state.case);
