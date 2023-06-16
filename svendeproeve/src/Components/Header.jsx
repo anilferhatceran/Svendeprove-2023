@@ -123,21 +123,6 @@ export default function Header() {
         }>
         Help
         </NavLink>
-        <NavLink
-          to="/myCases"
-          className={({ isActive }) =>
-            isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
-          }
-        >
-     Real Estate Agents
-  </NavLink>
-  <NavLink
-          to="/search" 
-          className={({isActive}) =>
-             isActive ? activeClassName : "py-2 pl-10 pr-10 text-lg"
-        }>
-        Blog
-        </NavLink>
         </div>
         {/* <button>
           <img src="https://thispersondoesnotexist.com/image" className=" h-10 w-10 rounded-full bg-blue-500 "></img>
@@ -156,7 +141,7 @@ export default function Header() {
                   <li>
                     <Link
                       className="block py-1.5 p-3 hover:bg-gray-200 w-full rounded-md mb-1"
-                      to="/agentpanel"
+                      to="/myCases"
                     >
                       Dashboard
                     </Link>

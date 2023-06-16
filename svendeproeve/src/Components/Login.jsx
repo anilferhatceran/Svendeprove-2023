@@ -60,7 +60,7 @@ function Login() {
   return (
     <>
       <section className="mb-5 text-lg">
-        <p>Login and start setting goals</p>
+        <p className="text-black">Login and start setting goals</p>
       </section>
       <section className="form">
         <form onSubmit={onSubmit}>
@@ -95,13 +95,13 @@ function Login() {
           <div className="flex justify-evenly">
             <button
               type="submit"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              className="text-white bg-sky-400 border-2 border-sky-400 transition-all hover:transition-all hover:bg-white hover:border-2  hover:text-black hover:border-sky-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
             >
               Submit
             </button>
             <button
               type="submit"
-              className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              className="text-white bg-red-700 hover:bg-white border-2 border-red-700 hover:border-2 hover:text-black hover:transition-all transition-all hover:border-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
               onClick={() => dispatch(toggleOff())}
             >
               Cancel
