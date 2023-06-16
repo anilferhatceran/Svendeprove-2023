@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { protect } = require("../middleware/authMiddleware");
+const { guard } = require("../middleware/authMiddleware");
 const {
   registerUser,
   loginUser,
@@ -27,7 +27,7 @@ const {
 // them onto one line of code by using router.route.
 router.post("/", registerUser);
 router.post("/login", loginUser);
-router.get("/me", protect, getMe);
+router.get("/me", guard, getMe);
 router.get("/getuser/:id", getUserFromId);
 
 // router.get("/", getUsers);
