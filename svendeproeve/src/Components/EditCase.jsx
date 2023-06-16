@@ -14,36 +14,36 @@ function EditCase() {
   mapboxgl.accessToken =
     "pk.eyJ1Ijoib2xpdmVyaGFuc2VuIiwiYSI6ImNsYXc3dWdmZDBkZ2wzbm1oZzV6ZTVxOXUifQ.tWutup-cpAISS3niRDRPoA";
 
+  const { cases } = useSelector((state) => state.case);
+
   const [formData, setFormData] = useState({
-    title: "ass",
-    address: "asd",
-    city: "asdd",
-    firstDescription: "asd",
-    secondDescription: "asd",
-    thirdDescription: "asd",
-    propertyType: "",
-    rooms: "2",
-    size: "1",
-    availableFrom: "",
-    deposit: "123",
-    rent: "1212",
-    prepaidRent: "123",
-    isAconto: false,
-    heatPrice: "12312",
-    waterPrice: "123123",
-    longitude: "1231",
-    latitude: "12312",
-    petsAllowed: false,
-    elevatorAvailable: false,
-    balcony: false,
-    isReserved: false,
-    image: [],
+    title: cases.title || "",
+    address: cases.address || "",
+    city: cases.city || "",
+    firstDescription: cases.firstDescription || "",
+    secondDescription: cases.secondDescription || "",
+    thirdDescription: cases.thirdDescription || "",
+    rooms: cases.rooms || 0,
+    size: cases.size || 0,
+    availableFrom: cases.availableFrom || "",
+    deposit: cases.deposit || 0,
+    rent: cases.rent || 0,
+    prepaidRent: cases.prepaidRent || 0,
+    isAconto: cases.isAconto || false,
+    heatPrice: cases.heatPrice || 0,
+    waterPrice: cases.waterPrice || 0,
+    longitude: cases.longitude || 0,
+    latitude: cases.latitude || 0,
+    petsAllowed: cases.petsAllowed || false,
+    elevatorAvailable: cases.elevatorAvailable || false,
+    balcony: cases.balcony || false,
+    isReserved: cases.isReserved || false,
+    image: cases.image || null,
   });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const { cases } = useSelector((state) => state.case);
 
   const [imageUpload, setImageUpload] = useState("");
   // This is an array that retrieves all images in the cloud storage
@@ -156,7 +156,7 @@ function EditCase() {
       image: imageList,
     };
     document.querySelector(".file-upload").value = "";
-    dispatch(editCase(caseData));
+    dispatch(editCase({ caseId: cases._id, caseData }));
   };
 
   if (user) {
@@ -179,7 +179,7 @@ function EditCase() {
                 placeholder=""
                 onChange={handleChange}
                 name="title"
-                value={cases.title}
+                value={title}
               />
             </div>
             <div>
@@ -189,7 +189,7 @@ function EditCase() {
                 placeholder=""
                 onChange={handleChange}
                 name="firstDescription"
-                value={cases.firstDescription}
+                value={firstDescription}
               />
             </div>
             <div>
@@ -199,7 +199,7 @@ function EditCase() {
                 placeholder=""
                 onChange={handleChange}
                 name="secondDescription"
-                value={cases.secondDescription}
+                value={secondDescription}
               />
             </div>
             <div>
@@ -209,7 +209,7 @@ function EditCase() {
                 placeholder=""
                 onChange={handleChange}
                 name="thirdDescription"
-                value={cases.thirdDescription}
+                value={thirdDescription}
               />
             </div>
 
@@ -220,7 +220,7 @@ function EditCase() {
                   className="h-5 w-5"
                   type="checkbox"
                   name="petsAllowed"
-                  checked={cases.petsAllowed}
+                  checked={petsAllowed}
                   onChange={handleChange}
                 />
               </div>
@@ -230,7 +230,7 @@ function EditCase() {
                   className="h-5 w-5"
                   type="checkbox"
                   id="elevatorAvailable"
-                  checked={cases.elevatorAvailable}
+                  checked={elevatorAvailable}
                   onChange={handleChange}
                   name="elevatorAvailable"
                 />
@@ -241,7 +241,7 @@ function EditCase() {
                   className="h-5 w-5"
                   type="checkbox"
                   id="balcony"
-                  checked={cases.balcony}
+                  checked={balcony}
                   onChange={handleChange}
                   name="balcony"
                 />
@@ -251,7 +251,7 @@ function EditCase() {
                 <input
                   className="h-5 w-5"
                   type="checkbox"
-                  checked={cases.isAconto}
+                  checked={isAconto}
                   onChange={handleChange}
                   name="isAconto"
                 />
@@ -263,7 +263,7 @@ function EditCase() {
                 <input
                   className="w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none"
                   type="number"
-                  value={cases.heatPrice}
+                  value={heatPrice}
                   onChange={handleChange}
                   name="heatPrice"
                 />
@@ -273,7 +273,7 @@ function EditCase() {
                 <input
                   className="w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none"
                   type="number"
-                  value={cases.waterPrice}
+                  value={waterPrice}
                   onChange={handleChange}
                   name="waterPrice"
                 />
@@ -285,7 +285,7 @@ function EditCase() {
                 <input
                   className="w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none"
                   type="number"
-                  value={cases.deposit}
+                  value={deposit}
                   onChange={handleChange}
                   name="deposit"
                 />
@@ -295,7 +295,7 @@ function EditCase() {
                 <input
                   className="w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none"
                   type="number"
-                  value={cases.rent}
+                  value={rent}
                   onChange={handleChange}
                   name="rent"
                 />
@@ -305,7 +305,7 @@ function EditCase() {
                 <input
                   className="w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none"
                   type="number"
-                  value={cases.prepaidRent}
+                  value={prepaidRent}
                   onChange={handleChange}
                   name="prepaidRent"
                 />
@@ -318,7 +318,7 @@ function EditCase() {
                 <input
                   className="w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none"
                   type="number"
-                  value={cases.size}
+                  value={size}
                   onChange={handleChange}
                   name="size"
                 />
@@ -328,7 +328,7 @@ function EditCase() {
                 <input
                   type="date"
                   className="w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none"
-                  value={cases.availableFrom}
+                  value={availableFrom}
                   onChange={handleChange}
                   name="availableFrom"
                 />
@@ -338,7 +338,7 @@ function EditCase() {
                 <input
                   className="w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none"
                   type="number"
-                  value={cases.rooms}
+                  value={rooms}
                   onChange={handleChange}
                   name="rooms"
                 />
@@ -349,7 +349,7 @@ function EditCase() {
                 <label className="font-semibold text-lg">Longitude</label>
                 <input
                   className="w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none"
-                  value={cases.longitude}
+                  value={longitude}
                   onChange={handleChange}
                   name="longitude"
                 />
@@ -358,14 +358,14 @@ function EditCase() {
                 <label className="font-semibold text-lg">Latitude</label>
                 <input
                   className="w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none"
-                  value={cases.latitude}
+                  value={latitude}
                   onChange={handleChange}
                   name="latitude"
                 />
                 <label className="font-semibold text-lg">City</label>
                 <input
                   className="w-full pl-2 border border-gray-300 rounded-lg h-14 focus:outline-none"
-                  value={cases.city}
+                  value={city}
                   onChange={handleChange}
                   name="city"
                 />

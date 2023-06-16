@@ -50,10 +50,10 @@ export const deleteCase = createAsyncThunk(
 // Edit case
 export const editCase = createAsyncThunk(
   "cases/edit",
-  async (id, thunkAPI) => {
+  async ({caseId,caseData}, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await caseService.editCase(id, token);
+      return await caseService.editCase(caseId,caseData, token);
     } catch (error) {
       const message =
         (error.response &&

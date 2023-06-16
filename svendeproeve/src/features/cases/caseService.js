@@ -31,13 +31,13 @@ const deleteCase = async (caseId, token) => {
 };
 
 // Edit case
-const editCase = async (caseId, token) => {
+const editCase = async (caseId,caseData, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.put(API_URL + caseId, config);
+  const response = await axios.put(API_URL + caseId,caseData, config);
 
   return response.data;
 };
